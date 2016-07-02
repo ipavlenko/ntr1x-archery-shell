@@ -113,14 +113,15 @@
     });
 
     function stub(title, subtitle) {
-        return {
-            type: 'NTR1XDefaultBundle/Stub',
-            _action: 'ignore',
-            params: {
-                title: { value: title },
-                subtitle: { value: subtitle }
-            }
-        }
+        return Vue.service('palette').stub();
+        // return {
+        //     type: 'NTR1XDefaultBundle/Stub',
+        //     _action: 'ignore',
+        //     params: {
+        //         title: { value: title },
+        //         subtitle: { value: subtitle }
+        //     }
+        // }
     }
 
     var DecoratorMixin = {
@@ -299,6 +300,7 @@
 
                         if (selected) {
 
+                            console.log(selector, self.$el);
                             self.sortable =
                             Sortable.create($(selector, self.$el).get(0), {
 

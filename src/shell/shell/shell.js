@@ -16,12 +16,14 @@
 
                 getWidget: (id) => {
 
-                    for (var i = 0; i < this.settings.widgets.length; i++) {
-                        var w = this.settings.widgets[i];
-                        if (w.id == id) {
-                            return w;
-                        }
-                    }
+                    console.log(id);
+
+                    // for (var i = 0; i < this.settings.widgets.length; i++) {
+                    //     var w = this.settings.widgets[i];
+                    //     if (w.id == id) {
+                    //         return w;
+                    //     }
+                    // }
 
                     return null;
                 },
@@ -77,20 +79,22 @@
                 return current;
             }
 
-            this.$watch('settings.categories', (categories) => {
+            // this.$watch('settings.categories', (categories) => {
+            //
+            //     var category = null;
+            //     if (categories.length > 0) {
+            //         category = categories[0];
+            //         // var sub = categories[0];
+            //         // if (categories.length > 0) {
+            //         //     category = sub.categories[0];
+            //         // }
+            //     }
+            //     this.globals.selection.category = category;
+            // }, {
+            //     immediate: true,
+            // });
 
-                var category = null;
-                if (categories.length > 0) {
-                    category = categories[0];
-                    // var sub = categories[0];
-                    // if (categories.length > 0) {
-                    //     category = sub.categories[0];
-                    // }
-                }
-                this.globals.selection.category = category;
-            }, {
-                immediate: true,
-            });
+            this.globals.selection.category = Vue.service('palette').categories()[0];
 
             this.$watch('model.domains', (domains) => {
                 this.globals.selection.domain = relevant(this.globals.selection.domain, domains);
@@ -119,17 +123,17 @@
         },
         methods: {
 
-            getWidget: function(id) {
-
-                for (var i = 0; i < this.settings.widgets.length; i++) {
-                    var w = this.settings.widgets[i];
-                    if (w.id == id) {
-                        return w;
-                    }
-                }
-
-                return null;
-            },
+            // getWidget: function(id) {
+            //
+            //     for (var i = 0; i < this.settings.widgets.length; i++) {
+            //         var w = this.settings.widgets[i];
+            //         if (w.id == id) {
+            //             return w;
+            //         }
+            //     }
+            //
+            //     return null;
+            // },
         },
         events: {
             pull: function(data) {

@@ -30,12 +30,25 @@
         props: {
             globals: Object,
             category: Object,
-            categories: Array,
+        },
+        data: function() {
+            return {
+                categories: this.categories
+            };
         },
         components: {
             'palette-item': PaletteItem
         },
+        created: function() {
+            this.categories = Widgets.Palette.categories();
+        },
         methods: {
+            // groups: function(category) {
+            //     return Widgets.Palette.category(category).groups();
+            // },
+            // items: function(category, group) {
+            //     return Widgets.Palette.category(category).groups();
+            // },
             trigger: function(event, item, context) {
                 console.log(event, item, context);
                 this.$dispatch(event, { item: item, context: context });

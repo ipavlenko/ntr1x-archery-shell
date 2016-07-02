@@ -33,8 +33,10 @@
 
             var shell = Vue.service('shell');
 
-            this.widget = shell.getWidget(this.model.type);
-            this.decorator = this.decorators.alternatives[this.widget.tag] || this.decorators.fallback;
+            console.log(this.model);
+            // this.widget = shell.getWidget(this.model.type);
+            this.widget = this.model;
+            this.decorator = this.decorators.alternatives[this.model.tag] || this.decorators.fallback;
 
             // console.log(this.$route);
             // this.decorator = 'shell-decorator-stub';

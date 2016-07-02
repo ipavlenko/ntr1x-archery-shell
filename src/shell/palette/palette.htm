@@ -11,10 +11,10 @@
             </div>
         </div>
         <div class="ge ge-palette-categories" v-scrollable>
-            <div v-for="c in category.categories" class="ge ge-palette-category">
-                <div class="ge ge-category-title">{{ c.title }}</div>
+            <div v-for="g in category.groups()" class="ge ge-palette-category">
+                <div class="ge ge-category-title">{{ g.title }}</div>
                 <div class="ge ge-category-palette">
-                    <palette-item v-for="widget in c.widgets" :widget.sync="widget"></palette-item>
+                    <palette-item v-for="widget in g.items()" :widget.sync="widget"></palette-item>
                 </div>
             </div>
         </div>
