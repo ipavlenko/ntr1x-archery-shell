@@ -1,0 +1,28 @@
+{
+  "name": "ntr1x-archery-shell",
+  "authors": [
+    "ipavlenko <ipavlenko@inbox.ru>"
+  ],
+  "description": "Core",
+  "main": [
+    "./dist/shell.css",
+    "./dist/shell.js",
+    "./dist/shell.htm"
+  ],
+  "moduleType": [],
+  "keywords": [
+    "ntr1x",
+    "archery",
+    "shell"
+  ],
+  "license": "MIT",
+  "homepage": "archery.ntr1x.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
