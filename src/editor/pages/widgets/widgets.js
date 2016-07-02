@@ -1,7 +1,4 @@
-Shell = window.Shell || {};
-Shell.Widgets = window.Shell.Widgets || {};
-
-(function(Vue, $, Core, Shell, undefined) {
+(function(Vue, $, Core, Shell) {
 
     var WidgetsListViewer =
     Vue.component('pages-widgets-list', {
@@ -121,4 +118,4 @@ Shell.Widgets = window.Shell.Widgets || {};
         }
     });
 
-})(Vue, jQuery, Core, Shell, undefined);
+})(Vue, jQuery, Core, Shell);

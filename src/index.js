@@ -1,7 +1,9 @@
 var Shell =
 (function($, Vue, Core) {
 
-    Shell = {};
+    Shell = {
+        Widgets: {},
+    };
 
     return Shell;
 

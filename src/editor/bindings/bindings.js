@@ -1,4 +1,4 @@
-(function(Vue, $, Core) {
+(function(Vue, $, Core, Shell) {
 
     var ModalEditor =
     Vue.component('bindings-dialog', {
@@ -23,4 +23,4 @@
         mixins: [Core.ActionMixin(ModalEditor)],
     });
 
-})(Vue, jQuery, Core, undefined);
+})(Vue, jQuery, Core, Shell);

@@ -1,4 +1,4 @@
-(function(Vue, $, Core) {
+(function(Vue, $, Core, Shell) {
 
     var ListViewer =
     Vue.component('pages-list', {
@@ -56,4 +56,4 @@
         template: '#pages-metas',
     });
 
-})(Vue, jQuery, Core, undefined);
+})(Vue, jQuery, Core, Shell);

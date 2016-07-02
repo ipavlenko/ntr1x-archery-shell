@@ -1,4 +1,4 @@
-(function(Vue, $, Core) {
+(function(Vue, $, Core, Shell) {
 
     var ListViewer =
     Vue.component('domains-list', {
@@ -37,4 +37,4 @@
         template: '#domains-settings',
     });
 
-})(Vue, jQuery, Core, undefined);
+})(Vue, jQuery, Core, Shell);

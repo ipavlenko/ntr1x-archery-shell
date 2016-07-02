@@ -1,4 +1,4 @@
-(function(Vue, $, Core) {
+(function(Vue, $, Core, Shell) {
 
     var SourcesListViewer =
     Vue.component('pages-sources-list', {
@@ -41,4 +41,4 @@
         template: '#pages-sources-params',
     });
 
-})(Vue, jQuery, Core, undefined);
+})(Vue, jQuery, Core, Shell);

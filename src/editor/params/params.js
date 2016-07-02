@@ -1,4 +1,4 @@
-(function(Vue, $, Core) {
+(function(Vue, $, Core, Shell) {
 
     var ParamString =
     Vue.component('params-string', {
@@ -201,4 +201,4 @@
         }
     });
 
-})(Vue, jQuery, Core, undefined);
+})(Vue, jQuery, Core, Shell);

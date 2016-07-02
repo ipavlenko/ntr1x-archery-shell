@@ -1,4 +1,4 @@
-(function(Vue, $, Core) {
+(function(Vue, $, Core, Shell) {
 
     var StoragesListViewer =
     Vue.component('storages-list', {
@@ -41,4 +41,4 @@
         template: '#storages-variables',
     });
 
-})(Vue, jQuery, Core, undefined);
+})(Vue, jQuery, Core, Shell);

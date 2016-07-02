@@ -1,4 +1,4 @@
-(function(Vue, $, Core) {
+(function(Vue, $, Core, Shell) {
 
     var ListViewer =
     Vue.component('widgets-list', {
@@ -18,4 +18,4 @@
         template: '#widgets',
     });
 
-})(Vue, jQuery, Core, undefined);
+})(Vue, jQuery, Core, Shell);
