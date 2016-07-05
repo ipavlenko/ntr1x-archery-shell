@@ -324,23 +324,9 @@
 
                                             var ni = find(self.items, evt.newIndex);
 
-                                            var widget = shell.getWidget(w);
-
                                             // TODO Initialize params in service layer
 
-                                            self.items.splice(ni, 0, {
-                                                type: widget.id,
-                                                resource: {
-                                                    params: [],
-                                                    _action: 'create'
-                                                },
-                                                params: widget.params
-                                                    ? JSON.parse(JSON.stringify(widget.params))
-                                                    : {}
-                                                ,
-                                                widgets: [],
-                                                _action: 'create',
-                                            });
+                                            self.items.splice(ni, 0, Vue.service('palette').widget(w));
                                         }
 
                                     } else {

@@ -12,22 +12,22 @@
         },
         created: function() {
 
-            Vue.service('shell', {
-
-                getWidget: (id) => {
-
-                    console.log(id);
-
-                    // for (var i = 0; i < this.settings.widgets.length; i++) {
-                    //     var w = this.settings.widgets[i];
-                    //     if (w.id == id) {
-                    //         return w;
-                    //     }
-                    // }
-
-                    return null;
-                },
-            });
+            // Vue.service('shell', {
+            //
+            //     getWidget: (id) => {
+            //
+            //         console.log(id);
+            //
+            //         // for (var i = 0; i < this.settings.widgets.length; i++) {
+            //         //     var w = this.settings.widgets[i];
+            //         //     if (w.id == id) {
+            //         //         return w;
+            //         //     }
+            //         // }
+            //
+            //         return null;
+            //     },
+            // });
 
             this.globals = {
                 selection: {
