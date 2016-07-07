@@ -148,7 +148,9 @@
 
             var items = [];
 
-            console.log('created', ParamMultipleModalEditor);
+            // console.log('created', ParamMultipleModalEditor);
+
+            console.log(this.context.prop);
 
             for (var i = 0; i < this.context.prop.props.length; i++) {
 
@@ -164,6 +166,8 @@
                     prop: prop,
                     param: param,
                 };
+
+                console.log(item);
 
                 items.push(item);
             }
