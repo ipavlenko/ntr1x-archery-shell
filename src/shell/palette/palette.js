@@ -10,15 +10,43 @@
             globals: Object,
         },
         ready: function() {
-            Sortable.create(this.$el, {
-                group: {
-                    name: 'widgets',
-                    pull: 'clone',
-                    put: false
+
+            var adjustment;
+
+            $(this.$el).sortable({
+                nested: false,
+                group: 'widgets',
+                containerSelector: '.ge.ge-palette-item',
+                itemSelector: '[data-widget]',
+                drop: false,
+                onDragStart: function ($item, container, _super) {
+
+                    var offset = $item.offset();
+                    var pointer = container.rootGroup.pointer;
+
+                    adjustment = {
+                        left: pointer.left - offset.left,
+                        top: pointer.top - offset.top,
+                    };
+
+                    _super($item, container);
                 },
-                animation: 150,
-                sort: false,
+                onDrag: function ($item, position) {
+                    $item.css({
+                        left: position.left - adjustment.left,
+                        top: position.top - adjustment.top,
+                    });
+                },
             });
+            // Sortable.create(this.$el, {
+            //     group: {
+            //         name: 'widgets',
+            //         pull: 'clone',
+            //         put: false
+            //     },
+            //     animation: 150,
+            //     sort: false,
+            // });
         }
     });
 
@@ -40,14 +68,7 @@
             this.categories = Widgets.Palette.categories();
         },
         methods: {
-            // groups: function(category) {
-            //     return Widgets.Palette.category(category).groups();
-            // },
-            // items: function(category, group) {
-            //     return Widgets.Palette.category(category).groups();
-            // },
             trigger: function(event, item, context) {
-                console.log(event, item, context);
                 this.$dispatch(event, { item: item, context: context });
             },
         },

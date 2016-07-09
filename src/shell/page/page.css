@@ -4,4 +4,5 @@
   background-color: #FFFFFF;
   box-sizing: border-box;
   border: 1px solid #E5E5E5;
+  overflow: visible;
 }

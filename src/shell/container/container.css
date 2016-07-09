@@ -5,5 +5,5 @@
   left: 0px;
   right: 0px;
   margin: 50px 0px;
-  overflow: auto;
+  overflow: visible;
 }

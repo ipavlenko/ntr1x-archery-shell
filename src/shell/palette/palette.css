@@ -36,6 +36,12 @@
   float: left;
   background: black;
 }
+.ge.ge-palette .ge.ge-palette-categories .ge.ge-palette-category .ge.ge-category-palette .ge.ge-palette-item .ge.ge-palette-widget.dragged {
+  position: absolute;
+  display: table;
+  opacity: 0.5;
+  z-index: 2000;
+}
 .ge.ge-palette .ge.ge-palette-categories .ge.ge-palette-category .ge.ge-category-palette .ge.ge-palette-item img {
   width: 120px;
   height: 60px;

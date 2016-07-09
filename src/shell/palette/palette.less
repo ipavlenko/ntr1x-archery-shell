@@ -45,6 +45,14 @@
                     float: left;
                     background: black;
 
+                    .ge.ge-palette-widget {
+                        &.dragged {
+                            position: absolute;
+                            display: table;
+                            opacity: 0.5;
+                            z-index: 2000;
+                        }
+                    }
                     img {
                         width: 120px;
                         height: 60px;
