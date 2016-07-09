@@ -1,5 +1,15 @@
 (function(Vue, $, Core, Shell) {
 
+    var ParamVariable =
+    Vue.component('params-variable', {
+        template: '#params-variable',
+        props: {
+            id: String,
+            item: Object,
+            globals: Object,
+        }
+    });
+
     var ParamString =
     Vue.component('params-string', {
         template: '#params-string',

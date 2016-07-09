@@ -34,7 +34,7 @@
                 var param = params && params[prop.name];
                 items.push({
                     prop: prop,
-                    param: param || {},
+                    param: param,
                 });
             }
 
@@ -102,8 +102,10 @@
 
                 } else {
 
+                    // console.log(item.prop.name, item);
                     var vv = runtime.evaluate(self, b, v);
-                    value[n] = vv;
+                    //value[n] = r ? { value : vv } : vv;
+                    value[n] = vv || '';
                 }
             }
 
@@ -300,7 +302,6 @@
 
                         if (selected) {
 
-                            console.log(selector, self.$el);
                             self.sortable =
                             Sortable.create($(selector, self.$el).get(0), {
 

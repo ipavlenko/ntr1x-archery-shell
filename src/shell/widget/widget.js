@@ -32,8 +32,7 @@
             // console.log('widget');
 
             var shell = Vue.service('shell');
-
-            console.log(this.model);
+            
             // this.widget = shell.getWidget(this.model.type);
             this.widget = this.model;
             this.decorator = this.decorators.alternatives[this.model.tag] || this.decorators.fallback;

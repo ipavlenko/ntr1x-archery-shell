@@ -1,6 +1,10 @@
 <template id="params-list">
     <div>
         <div v-for="item in items" v-if="item.prop.tab == tab">
+            <params-variable v-if="item.prop.type == 'var'" :id="'pages-widgets-dialog-props-' + $index"
+                :item.sync="item"
+                :globals.sync="globals"
+            ></params-variable>
             <params-string v-if="item.prop.type == 'string'" :id="'pages-widgets-dialog-props-' + $index"
                 :item.sync="item"
                 :globals.sync="globals"
