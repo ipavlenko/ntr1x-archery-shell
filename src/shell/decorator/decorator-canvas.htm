@@ -2,6 +2,7 @@
     <div class="ge ge-widget" :class="{ 'ge-widget-selected': selected }">
         <div class="ge ge-content">
             <default-stack-canvas
+                v-ref:widget
                 :globals.sync="globals"
                 :page.sync="page"
                 :data.sync="data"

@@ -255,7 +255,6 @@
                 var item = data.item;
 
                 if (item._action == 'create') {
-                    console.log(this);
                     this.items.$remove(item);
                 } else {
                     item._action = 'remove';
@@ -264,24 +263,27 @@
                 this.items = this.items.slice();
             },
         },
+
+        methods: {
+
+            find: function(children, domIndex) {
+
+                var index = 0;
+                for (var i = 0; i < children.length && index < domIndex; i++) {
+
+                    var child = children[i];
+
+                    if (child._action != 'remove') {
+                        index++;
+                    }
+                }
+
+                return index;
+            }
+        },
     };
 
     var SortableMixin = function (selector) {
-
-        function find(children, domIndex) {
-
-            var index = 0;
-            for (var i = 0; i < children.length && index < domIndex; i++) {
-
-                var child = children[i];
-
-                if (child._action != 'remove') {
-                    index++;
-                }
-            }
-
-            return index;
-        }
 
         return {
 
@@ -292,132 +294,36 @@
                 };
             },
 
-            created: function() {
+            attached: function() {
 
                 if (this.$route.private) {
 
                     var shell = Vue.service('shell');
 
-                    var self = this;
-                    this.$watch('selected', function(selected) {
+                    // var adjustment;
 
-                        // if (selected) {
-                        //     self.sortable = $(selector, self.$el).sortable({
-                        //         containerSelector: ""
-                        //     });
-                        //     console.log('sortable', self.sortable);
-                        // } else {
-                        //     if (self.sortable) {
-                        //         self.sortable.sortable("destroy");
-                        //     }
-                        // }
+                    // this.sortable = $(`.wg-sortable-container`, $(this.$el)).sortable({
+                    //     group: 'widgets',
+                    //     // containerSelector: `.wg-sortable-container`,
+                    //     // itemSelector: '.wg-sortable-item',
+                    //     // nested: true,
+                    //     // vertical: false,
+                    // });
+                    //
+                    // console.log(this.sortable);
 
-                        // if (selected) {
-                        //
-                        //     self.sortable =
-                        //     Sortable.create($(selector, self.$el).get(0), {
-                        //
-                        //         group: {
-                        //             name: 'widgets',
-                        //             pull: 'clone',
-                        //         },
-                        //         animation: 150,
-                        //
-                        //         onAdd: function (evt) {
-                        //
-                        //             var palette = $(evt.item).closest('.ge.ge-palette');
-                        //
-                        //             var w = $(evt.item).data('widget');
-                        //
-                        //             if (w) {
-                        //
-                        //                 if (!palette.length) {
-                        //
-                        //                     $(evt.item).remove();
-                        //
-                        //                     var ni = find(self.items, evt.newIndex);
-                        //
-                        //                     // TODO Initialize params in service layer
-                        //
-                        //                     self.items.splice(ni, 0, Vue.service('palette').widget(w));
-                        //                 }
-                        //
-                        //             } else {
-                        //
-                        //                 var dragged = {
-                        //                     vue: evt.from.__dragged__,
-                        //                     item: $('.ge.ge-widget', evt.item),
-                        //                     clone: $('.ge.ge-widget', evt.clone),
-                        //                 };
-                        //
-                        //                 var container = $(evt.to).closest('.ge.ge-widget').get(0).__vue__;
-                        //
-                        //                 var ni = find(self.items, evt.newIndex);
-                        //
-                        //                 var newItem = JSON.parse(JSON.stringify(dragged.vue.model));
-                        //                 newItem._action = 'create';
-                        //                 delete newItem.resource.id;
-                        //                 delete newItem.id;
-                        //
-                        //                 dragged.item.remove();
-                        //
-                        //                 container.items.splice(ni, 0, newItem);
-                        //                 container.items = container.items.slice();
-                        //             }
-                        //         },
-                        //
-                        //         onStart: function (evt) {
-                        //             evt.from.__dragged__ = $('.ge.ge-widget', evt.item).get(0).__vue__;
-                        //         },
-                        //
-                        //         onRemove: function(evt) {
-                        //
-                        //             var dragged = {
-                        //                 vue: evt.from.__dragged__,
-                        //                 item: $('.ge.ge-widget', evt.item),
-                        //                 clone: $('.ge.ge-widget', evt.clone),
-                        //             };
-                        //
-                        //             var stack =  dragged.vue.$parent.$parent.$parent;
-                        //
-                        //             dragged.clone.remove();
-                        //
-                        //             if (dragged.vue.model._action == 'create') {
-                        //                 stack.items.$remove(dragged.vue.model);
-                        //             } else {
-                        //                 dragged.vue.model._action = 'remove';
-                        //             }
-                        //
-                        //             stack.items = stack.items.slice();
-                        //         },
-                        //
-                        //         onUpdate: function (evt) {
-                        //
-                        //             var oi = self.items.indexOf(evt.from.__dragged__.model);
-                        //             var ni = find(self.items, evt.newIndex);
-                        //
-                        //             if (oi != ni) {
-                        //                 self.items.splice(ni, 0, self.items.splice(oi, 1)[0]);
-                        //                 self.items = self.items.slice();
-                        //             }
-                        //         },
-                        //
-                        //         onEnd: function (evt) {
-                        //
-                        //             delete evt.from.__dragged__;
-                        //         }
-                        //     });
-                        //
-                        // } else {
-                        //
-                        //     if (self.sortable) {
-                        //         self.sortable.destroy();
-                        //         self.sortable = null;
-                        //     }
-                        // }
-                    }, {
-                        immediate: true
-                    });
+                    // console.log(this.sortable);
+
+                    // this.$watch('selected', function(selected) {
+                    //
+                    //     if (this.sortable) {
+                    //         if (selected) {
+                    //             this.sortable.sortable("disable");
+                    //         } else {
+                    //             this.sortable.sortable("enable");
+                    //         }
+                    //     }
+                    // });
                 }
             },
 
@@ -519,6 +425,22 @@
             storage: Object,
             editable: Boolean,
             items: Array,
+        },
+        attached: function() {
+
+            var adjustment;
+
+            console.log($('.wg.wg-default-stack-canvas > .wg.wg-sortable-content > .wg.wg-sortable-inner > .wg.wg-sortable-container', $(this.$el)));
+
+            this.sortable = $('.wg.wg-default-stack-canvas > .wg.wg-sortable-content > .wg.wg-sortable-inner > .wg.wg-sortable-container', $(this.$el)).sortable({
+                group: 'widgets',
+                // containerSelector: `.wg-sortable-container`,
+                // itemSelector: '.wg-sortable-item',
+                // nested: true,
+                // vertical: false,
+            });
+
+            console.log(this.sortable);
         },
         created: function() {
             this.selected = true;
