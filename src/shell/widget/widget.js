@@ -17,9 +17,6 @@
         init: function() {
             this.decorators = {
                 alternatives: {
-                    // 'default-stack-page': function() { Object.assign(this, { selector: '.wg.wg-table', stub: stub('Vertical Stack', 'Drop Here') }) },
-                    // 'default-stack-horisontal': function() { Object.assign(this, { selector: '.wg.wg-row', stub: stub('Horisontal Stack', 'Drop Here') }) },
-                    // 'default-stack-vertical': function() { Object.assign(this, { selector: '.wg.wg-table', stub: stub('Vertical Stack', 'Drop Here') }) },
                     'default-stack-horisontal': 'shell-decorator-horisontal',
                     'default-stack-vertical': 'shell-decorator-vertical',
                     'default-stub': 'shell-decorator-stub',
@@ -32,7 +29,7 @@
             // console.log('widget');
 
             var shell = Vue.service('shell');
-            
+
             // this.widget = shell.getWidget(this.model.type);
             this.widget = this.model;
             this.decorator = this.decorators.alternatives[this.model.tag] || this.decorators.fallback;

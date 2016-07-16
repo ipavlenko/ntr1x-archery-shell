@@ -114,18 +114,6 @@
         }
     });
 
-    function stub(title, subtitle) {
-        return Vue.service('palette').stub();
-        // return {
-        //     type: 'NTR1XDefaultBundle/Stub',
-        //     _action: 'ignore',
-        //     params: {
-        //         title: { value: title },
-        //         subtitle: { value: subtitle }
-        //     }
-        // }
-    }
-
     var DecoratorMixin = {
 
         props: {
@@ -238,7 +226,7 @@
                 }
 
                 if (children.length < 1) {
-                    children.push(JSON.parse(JSON.stringify(this.stub())));
+                    children.push(JSON.parse(JSON.stringify(this.placeholder())));
                 }
 
                 this.children = children;
@@ -299,20 +287,6 @@
                 if (this.$route.private) {
 
                     var shell = Vue.service('shell');
-
-                    // var adjustment;
-
-                    // this.sortable = $(`.wg-sortable-container`, $(this.$el)).sortable({
-                    //     group: 'widgets',
-                    //     // containerSelector: `.wg-sortable-container`,
-                    //     // itemSelector: '.wg-sortable-item',
-                    //     // nested: true,
-                    //     // vertical: false,
-                    // });
-                    //
-                    // console.log(this.sortable);
-
-                    // console.log(this.sortable);
 
                     // this.$watch('selected', function(selected) {
                     //
@@ -389,7 +363,12 @@
             items: Array,
         },
         methods: {
-            stub: function() { return stub('Horisontal Stack', 'Drop Here'); }
+            placeholder: function() {
+                return Vue.service('palette').placeholder(`
+                    <small>Horisontal Stack</small>
+                    <div>Drop Here</div>
+                `);
+            }
         },
     });
 
@@ -409,7 +388,12 @@
             items: Array,
         },
         methods: {
-            stub: function() { return stub('Vertical Stack', 'Drop Here'); }
+            placeholder: function() {
+                return Vue.service('palette').placeholder(`
+                    <small>Vertical Stack</small>
+                    <div>Drop Here</div>
+                `);
+            }
         },
     });
 
@@ -428,25 +412,84 @@
         },
         attached: function() {
 
-            var adjustment;
+            var dragged;
 
-            console.log($('.wg.wg-default-stack-canvas > .wg.wg-sortable-content > .wg.wg-sortable-inner > .wg.wg-sortable-container', $(this.$el)));
-
-            this.sortable = $('.wg.wg-default-stack-canvas > .wg.wg-sortable-content > .wg.wg-sortable-inner > .wg.wg-sortable-container', $(this.$el)).sortable({
+            this.sortable = $(this.$el).sortable({
                 group: 'widgets',
-                // containerSelector: `.wg-sortable-container`,
-                // itemSelector: '.wg-sortable-item',
-                // nested: true,
-                // vertical: false,
-            });
+                vertical: true,
+                drop: true,
+                containerSelector: '.wg-sortable-container',
+                itemSelector: '.wg-sortable-item',
+                // containerPath: '.wg.wg-item-content > .wg.wg-inner > .ge.ge-decorator > .ge.ge-widget > .ge.ge-content > .wg.wg-sortable > .wg.wg-sortable-content > .wg.wg-sortable-inner',
+                // itemPath: '',
+                verticalClass: "wg-sortable-vertical",
+                horisontalClass: "wg-sortable-horisontal",
+                placeholder: `
+                    <div class="wg wg-sortable-placeholder">
+                        <div class="wg wg-placeholder-container">
+                            <div class="wg wg-placeholder-inner"></div>
+                        </div>
+                    </div>
+                `,
+                onDragStart: function(context, event, _super) {
 
-            console.log(this.sortable);
+                    _super(context, event);
+
+                    var stack = $(context.$container).closest('.ge.ge-widget').get(0).__vue__;
+
+                    dragged = {
+                        stack: stack,
+                        index: stack.find(stack.items, context.$originalItem.index()),
+                        vue: context.$originalItem.find('.ge.ge-widget:first').get(0).__vue__,
+                    };
+                },
+                onDrop: function(context, event, _super) {
+
+                    _super(context, event);
+
+                    // console.log(context.location.$container);
+                    var stack = context.location.$container.closest('.ge.ge-widget').get(0).__vue__;
+
+                    var w = context.$item.data('widget');
+
+                    // console.log(w);
+
+                    if (w) {
+
+                        var ni = stack.find(stack.items, context.$item.index());
+                        stack.items.splice(ni, 0, Vue.service('palette').widget(w));
+
+                    } else {
+
+                        if (dragged) {
+
+                            var ni = stack.find(stack.items, context.$item.index());
+                            var newItem = JSON.parse(JSON.stringify(dragged.vue.model));
+                            newItem._action = 'create';
+                            if ('resource' in newItem) {
+                                delete newItem.resource.id;
+                            }
+                            delete newItem.id;
+
+                            dragged.stack.items.splice(dragged.index, 1);
+                            stack.items.splice(ni, 0, newItem);
+                        }
+                    }
+
+                    context.$item.remove();
+                }
+            });
         },
         created: function() {
             this.selected = true;
         },
         methods: {
-            stub: function() { return stub('Vertical Stack', 'Drop Here'); }
+            placeholder: function() {
+                return Vue.service('palette').placeholder(`
+                    <small>Vertical Stack</small>
+                    <div>Drop Here</div>
+                `);
+            }
         },
     });
 
