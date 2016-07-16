@@ -34,18 +34,26 @@
                     ></shell-container>
                 </div>
                 <div class="ge ge-structure" v-scrollable>
-                    <shell-pages
-                        :pages.sync="model.pages"
-                        :globals.sync="globals"
-                    ></shell-pages>
-                    <shell-sources
-                        :sources.sync="globals.selection.page.sources"
-                        :globals.sync="globals"
-                    ></shell-sources>
-                    <shell-storages
-                        :storages.sync="globals.selection.page.storages"
-                        :globals.sync="globals"
-                    ></shell-storages>
+                    <div class="ge ge-subnav">
+                        <shell-pages
+                            :pages.sync="model.pages"
+                            :globals.sync="globals"
+                        ></shell-pages>
+                        <shell-sources
+                            :sources.sync="globals.selection.page.sources"
+                            :globals.sync="globals"
+                        ></shell-sources>
+                        <shell-storages
+                            :storages.sync="globals.selection.page.storages"
+                            :globals.sync="globals"
+                        ></shell-storages>
+                    </div>
+                    <div class="ge ge-hover">
+                        <div class="ge ge-hover-button">
+                            <span class="glyphicon glyphicon-th"></span>
+                            Stucture
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

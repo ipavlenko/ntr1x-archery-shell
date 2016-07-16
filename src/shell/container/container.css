@@ -1,9 +1,9 @@
 .ge.ge-container {
   position: absolute;
-  top: 0px;
+  top: 70px;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  margin: 50px 0px;
+  margin: 30px 0px;
   overflow: visible;
 }

@@ -22,13 +22,13 @@
         top: 0px;
         left: 0px;
         right: 0px;
-        height: 80px;
+        height: 40px;
     }
 
     .ge.ge-body {
 
         position: absolute;
-        top: 80px;
+        top: 40px;
         left: 0px;
         right: 0px;
         bottom: 0px;
@@ -99,20 +99,53 @@
         }
     }
 
-    // .ge.ge-subnav {
-    //     position: absolute;
-    //     top: 0px;
-    //     left: 220px;
-    //     width: 280px;
-    //     bottom: 0px;
-    // }
-
     .ge.ge-structure {
-        // display: table-cell;
-        // vertical-align: top;
-        // position: absolute;
-        // width: 220px;
-        flex: 0 1 220px;
+        flex: 0 1 40px;
+        vertical-align: top;
+        width: 40px;
+
+        .ge.ge-hover {
+            position: absolute;
+            width: 40px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            z-index: 20;
+            background: #34495E;
+
+            .ge.ge-hover-button {
+                position: absolute;
+                top: 30px;
+                left: -20px;
+                transform: rotate(-90deg);
+                background: #1F2E3C;
+                color: #FFFFFF;
+                border-radius: 4px;
+                padding: 4px 6px;
+                white-space: nowrap;
+                width: 80px;
+                text-align: center;
+            }
+        }
+
+        .ge.ge-subnav {
+            position: absolute;
+            top: 0px;
+            right: -280px;
+            bottom: 0px;
+            width: 280px;
+            z-index: 10;
+        }
+
+        &:hover {
+            transition: 0.5s;
+            flex: 0 1 -320px;
+            // width: 320px;
+            .ge.ge-subnav {
+                transition: 0.5s;
+                right: 40px;
+            }
+        }
     }
 
     .ge.ge-editor {

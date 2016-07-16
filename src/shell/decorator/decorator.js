@@ -102,14 +102,11 @@
 
                 } else {
 
-                    // console.log(item.prop.name, item);
                     var vv = runtime.evaluate(self, b, v);
-                    //value[n] = r ? { value : vv } : vv;
                     value[n] = vv || '';
                 }
             }
 
-            // console.log(value);
             return value;
         }
     });
@@ -415,13 +412,14 @@
             var dragged;
 
             this.sortable = $(this.$el).sortable({
-                group: 'widgets',
+
                 vertical: true,
                 drop: true,
-                containerSelector: '.wg-sortable-container',
-                itemSelector: '.wg-sortable-item',
-                // containerPath: '.wg.wg-item-content > .wg.wg-inner > .ge.ge-decorator > .ge.ge-widget > .ge.ge-content > .wg.wg-sortable > .wg.wg-sortable-content > .wg.wg-sortable-inner',
-                // itemPath: '',
+
+                containerSelector: '.wg.wg-sortable-container.wg-sortable-editable',
+                itemSelector: '.wg.wg-sortable-item.wg-sortable-editable',
+                excludeSelector: '.ge.ge-overlay',
+
                 verticalClass: "wg-sortable-vertical",
                 horisontalClass: "wg-sortable-horisontal",
                 placeholder: `
@@ -447,12 +445,9 @@
 
                     _super(context, event);
 
-                    // console.log(context.location.$container);
                     var stack = context.location.$container.closest('.ge.ge-widget').get(0).__vue__;
 
                     var w = context.$item.data('widget');
-
-                    // console.log(w);
 
                     if (w) {
 
