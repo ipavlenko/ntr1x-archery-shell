@@ -6,7 +6,7 @@
                     {{ globals.selection.category.title }} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li v-for="category in categories"><a @click.prevent="trigger('selectCategory', category)">{{ category.title }}</a></li>
+                    <li v-for="category in categories" v-if="!category.ignore"><a @click.prevent="trigger('selectCategory', category)">{{ category.title }}</a></li>
                 </ul>
             </div>
         </div>

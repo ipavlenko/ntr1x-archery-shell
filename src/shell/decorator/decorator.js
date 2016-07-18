@@ -452,7 +452,7 @@
                     if (w) {
 
                         var ni = stack.find(stack.items, context.$item.index());
-                        stack.items.splice(ni, 0, Vue.service('palette').widget(w));
+                        stack.items.splice(ni, 0, Vue.service('palette').item(w));
 
                     } else {
 
@@ -460,13 +460,18 @@
 
                             var ni = stack.find(stack.items, context.$item.index());
                             var newItem = JSON.parse(JSON.stringify(dragged.vue.model));
-                            newItem._action = 'create';
-                            if ('resource' in newItem) {
-                                delete newItem.resource.id;
-                            }
-                            delete newItem.id;
 
-                            dragged.stack.items.splice(dragged.index, 1);
+                            if (newItem._action != 'create') {
+
+                                dragged.vue.model._action = 'remove';
+                                if ('resource' in newItem) {
+                                    delete newItem.resource.id;
+                                }
+                                delete newItem.id;
+                                newItem._action = 'create';
+                            }
+
+                            // dragged.stack.items.splice(dragged.index, 1);
                             stack.items.splice(ni, 0, newItem);
                         }
                     }

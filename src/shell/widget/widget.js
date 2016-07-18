@@ -26,23 +26,15 @@
         },
         created: function() {
 
-            // console.log('widget');
-
-            var shell = Vue.service('shell');
-
-            // this.widget = shell.getWidget(this.model.type);
-            this.widget = this.model;
-            this.decorator = this.decorators.alternatives[this.model.tag] || this.decorators.fallback;
-
-            // console.log(this.$route);
-            // this.decorator = 'shell-decorator-stub';
+            var palette = Vue.service('palette');
+            this.widget = palette.widget(this.model.name);
+            this.decorator = this.decorators.alternatives[this.widget.tag] || this.decorators.fallback;
         },
         data: function() {
 
             return {
                 widget: this.widget,
                 decorator: this.decorator,
-                // items: this.widgets,
             };
         },
     });

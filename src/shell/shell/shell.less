@@ -13,7 +13,7 @@
     left: 0px;
     right: 0px;
     bottom: 0px;
-
+    overflow: hidden;
     background: #34495E;
 
     .ge.ge-head {
@@ -50,7 +50,7 @@
         }
     }
 
-    .ge.ge-nav {
+    .ge.ge-left {
         flex: 0 1 40px;
         vertical-align: top;
         width: 40px;
@@ -91,7 +91,6 @@
         &:hover {
             transition: 0.5s;
             flex: 0 1 320px;
-            // width: 320px;
             .ge.ge-subnav {
                 transition: 0.5s;
                 left: 40px;
@@ -99,7 +98,7 @@
         }
     }
 
-    .ge.ge-structure {
+    .ge.ge-right {
         flex: 0 1 40px;
         vertical-align: top;
         width: 40px;
@@ -139,8 +138,7 @@
 
         &:hover {
             transition: 0.5s;
-            flex: 0 1 -320px;
-            // width: 320px;
+            flex: 0 1 320px;
             .ge.ge-subnav {
                 transition: 0.5s;
                 right: 40px;

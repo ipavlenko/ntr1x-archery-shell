@@ -96,7 +96,7 @@
         //         //     if (w) {
         //         //
         //         //         var ni = stack.find(stack.items, $item.index());
-        //         //         stack.items.splice(ni, 0, Vue.service('palette').widget(w));
+        //         //         stack.items.splice(ni, 0, Vue.service('palette').item(w));
         //         //         $item.remove();
         //         //
         //         //     } else {

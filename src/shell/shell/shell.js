@@ -39,6 +39,8 @@
 
         created: function() {
 
+            this.scale = 1;
+
             function relevant(current, collection) {
 
                 if (!current || current._action == 'remove' || (collection && collection.indexOf(current) < 0)) {
@@ -90,26 +92,39 @@
 
         },
         events: {
+            zoomIn: function(data) {
+                this.scale += 0.1;
+                $('.ge.ge-page', this.$el).css('transform', 'scale(' + this.scale + ')');
+                $('.ge.ge-container', this.$el).perfectScrollbar('update');
+            },
+            zoomOut: function(data) {
+                this.scale -= 0.1;
+                $('.ge.ge-page', this.$el).css('transform', 'scale(' + this.scale + ')');
+                $('.ge.ge-container', this.$el).perfectScrollbar('update');
+            },
             pull: function(data) {
                 $.ajax({
-                    url: '/settings',
+                    url: `/ws/portals/${this.model.id}`,
                     method: 'GET',
                     dataType: "json"
                 })
                 .done((d) => {
-                    Object.assign(this.model, d);
+
+                        console.log(d);
+                    this.$set('model', d.portal);
                 })
             },
             push: function(data) {
                 $.ajax({
-                    url: '/settings/do-update',
-                    method: 'POST',
+                    url: `/ws/portals/${this.model.id}`,
+                    method: 'PUT',
                     dataType: "json",
                     data: JSON.stringify(this.model),
                     contentType: "application/json",
                 })
                 .done((d) => {
-                    Object.assign(this.model, d);
+                    console.log(d);
+                    this.$set('model', d.portal);
                 })
             },
             selectCategory: function(data) {
