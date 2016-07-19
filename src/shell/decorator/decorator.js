@@ -251,20 +251,20 @@
 
         methods: {
 
-            find: function(children, domIndex) {
-
-                var index = 0;
-                for (var i = 0; i < children.length && index < domIndex; i++) {
-
-                    var child = children[i];
-
-                    if (child._action != 'remove') {
-                        index++;
-                    }
-                }
-
-                return index;
-            }
+            // find: function(children, item) {
+            //
+            //     var index = 0;
+            //     for (var i = 0; i < children.length && index < domIndex; i++) {
+            //
+            //         var child = children[i];
+            //
+            //         if (child._action != 'remove') {
+            //             index++;
+            //         }
+            //     }
+            //
+            //     return index;
+            // }
         },
     };
 
@@ -434,46 +434,83 @@
                     _super(context, event);
 
                     var stack = $(context.$container).closest('.ge.ge-widget').get(0).__vue__;
+                    var vue = context.$originalItem.find('.ge.ge-widget:first').get(0).__vue__;
 
+                    // console.log(vue.model);
                     dragged = {
                         stack: stack,
-                        index: stack.find(stack.items, context.$originalItem.index()),
-                        vue: context.$originalItem.find('.ge.ge-widget:first').get(0).__vue__,
+                        // index: stack.find(stack.items, context.$originalItem.index()),
+                        index: stack.items.indexOf(vue.model),
+                        vue: vue,
                     };
                 },
                 onDrop: function(context, event, _super) {
 
                     _super(context, event);
 
-                    var stack = context.location.$container.closest('.ge.ge-widget').get(0).__vue__;
+                    var vue = context.location.$item.find('.ge.ge-widget:first').get(0).__vue__
 
+                    var newStack = context.location.$container.closest('.ge.ge-widget').get(0).__vue__;
+
+                    console.log(vue.model, newStack.items, newStack.items.indexOf(vue.model))
+                    var newIndex = newStack.items.indexOf(vue.model) + (context.location.before ? 0 : 1);
+                    
                     var w = context.$item.data('widget');
 
                     if (w) {
 
-                        var ni = stack.find(stack.items, context.$item.index());
-                        stack.items.splice(ni, 0, Vue.service('palette').item(w));
+                        var newItem = Vue.service('palette').item(w);
+                        newStack.items.splice(newIndex, 0, newItem);
 
-                    } else {
+                    } else if (dragged) {
 
-                        if (dragged) {
+                        var oldStack = dragged.stack;
+                        var oldIndex = dragged.index;
+                        var oldItem = dragged.vue.model;
 
-                            var ni = stack.find(stack.items, context.$item.index());
-                            var newItem = JSON.parse(JSON.stringify(dragged.vue.model));
+                        var newItem = Object.assign(JSON.parse(JSON.stringify(dragged.vue.model)));
 
-                            if (newItem._action != 'create') {
+                        if (oldStack != newStack) {
 
-                                dragged.vue.model._action = 'remove';
-                                if ('resource' in newItem) {
-                                    delete newItem.resource.id;
-                                }
-                                delete newItem.id;
-                                newItem._action = 'create';
+                            delete newItem.resource.id;
+                            delete newItem.id;
+                            newItem._action = 'create';
+
+                            if (oldItem._action == 'create') {
+                                oldStack.items.splice(oldIndex, 1);
+                            } else {
+                                oldItem._action = 'remove';
                             }
 
-                            // dragged.stack.items.splice(dragged.index, 1);
-                            stack.items.splice(ni, 0, newItem);
+                            newStack.items.splice(newIndex, 0, newItem);
+
+                        } else if (newIndex != oldIndex && newIndex != oldIndex + 1) {
+
+                            newItem._action = oldItem._action == 'create'
+                                ? 'create'
+                                : 'update'
+                            ;
+
+                            if (newIndex < oldIndex) {
+
+                                console.log('newIndex < oldIndex');
+
+                                oldStack.items.splice(oldIndex, 1);
+                                newStack.items.splice(newIndex, 0, newItem);
+
+                            } else if (newIndex > oldIndex) {
+
+                                console.log('newIndex > oldIndex');
+
+                                newStack.items.splice(newIndex, 0, newItem);
+                                oldStack.items.splice(oldIndex, 1);
+                            }
                         }
+
+                        console.log(oldItem._action, oldIndex, newItem._action, newIndex);
+
+                        oldStack.items = oldStack.items.slice();
+                        newStack.items = newStack.items.slice();
                     }
 
                     context.$item.remove();
