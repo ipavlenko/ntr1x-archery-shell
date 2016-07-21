@@ -21,6 +21,10 @@
                 :item.sync="item"
                 :globals.sync="globals"
             ></params-multiple>
+            <params-object v-if="item.prop.type == 'object'" :id="'pages-widgets-dialog-props-' + $index"
+                :item.sync="item"
+                :globals.sync="globals"
+            ></params-object>
         </div>
     </div>
 </template>

@@ -20,8 +20,8 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="nav nav-pills nav-stacked">
-                                <li :class="{ 'active': isActive('binding') }"><a href="#" @click="activate('binding')">Binding</a></li>
                                 <li v-for="tab in context.prop.tabs" :class="{ 'active': isActive(tab.name) }"><a href="#" @click="activate(tab.name)">{{ tab.title }}</a></li>
+                                <li :class="{ 'active': isActive('binding') }"><a href="#" @click="activate('binding')">Binding</a></li>
                             </ul>
                         </div>
                         <div class="col-xs-9">

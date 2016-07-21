@@ -23,7 +23,6 @@
                             </ul>
                         </div>
                         <div class="col-xs-9">
-                            <pre>{{ context.prop | json }}</pre>
                             <div class="tab-content" style="min-height: 450px; max-height: 450px; overflow: auto;">
                                 <div v-for="tab in context.prop.tabs" class="tab-pane" :class="{ 'active': isActive(tab.name) }">
                                     <params :items.sync="items" :globals.sync="globals" :owner.sync="context.prop" :tab="tab.name"></params>

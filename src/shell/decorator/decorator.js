@@ -12,7 +12,6 @@
                         return value;
                     } else if (b.strategy == 'wire') {
                         var value = self.$get(b.expression);
-                        // console.log('value', value, b);
                         return value;
                     } else {
                         return self.$interpolate(b.expression);
@@ -49,7 +48,20 @@
                 var v = item.param.value;
 
                 if (item.prop.type == 'object') {
-                    // TODO Implement
+
+                    var vv;
+
+                    if (b && b.expression) {
+
+                        value[n] = vv;
+
+                    } else {
+
+                        var res = this.evaluateParams(self, item.prop.props, v);
+                        vv = r ? { value: res } : res;
+                        value[n] = vv;
+                    }
+
                 } else if (item.prop.type == 'multiple') {
 
                     if (b && b.expression) {
@@ -452,9 +464,8 @@
 
                     var newStack = context.location.$container.closest('.ge.ge-widget').get(0).__vue__;
 
-                    console.log(vue.model, newStack.items, newStack.items.indexOf(vue.model))
                     var newIndex = newStack.items.indexOf(vue.model) + (context.location.before ? 0 : 1);
-                    
+
                     var w = context.$item.data('widget');
 
                     if (w) {
@@ -493,21 +504,15 @@
 
                             if (newIndex < oldIndex) {
 
-                                console.log('newIndex < oldIndex');
-
                                 oldStack.items.splice(oldIndex, 1);
                                 newStack.items.splice(newIndex, 0, newItem);
 
                             } else if (newIndex > oldIndex) {
 
-                                console.log('newIndex > oldIndex');
-
                                 newStack.items.splice(newIndex, 0, newItem);
                                 oldStack.items.splice(oldIndex, 1);
                             }
                         }
-
-                        console.log(oldItem._action, oldIndex, newItem._action, newIndex);
 
                         oldStack.items = oldStack.items.slice();
                         newStack.items = newStack.items.slice();
