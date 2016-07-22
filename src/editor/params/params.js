@@ -122,8 +122,6 @@
                 for (var i = 0; i < this.context.prop.props.length; i++) {
 
                     var prop = this.context.prop.props[i];
-                    // var param = binding.params[prop.name] = binding.params[prop.name] || {};
-                    // console.log(prop.name, JSON.parse(JSON.stringify(this.current)));
                     var param = this.current.value[prop.name] = this.current.value[prop.name] || {};
 
                     param._action = param._action == 'update'
@@ -139,8 +137,6 @@
                     items.push(item);
                 }
             }
-
-            console.log(items);
 
             this.$set('current.binding', binding);
             this.$set('items', items);

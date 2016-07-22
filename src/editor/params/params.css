@@ -1,0 +1,8 @@
+.ge.ge-param > .ge.ge-param-label {
+  position: relative;
+  display: table;
+  width: 100%;
+}
+.ge.ge-param > .ge.ge-param-input {
+  display: table;
+}
