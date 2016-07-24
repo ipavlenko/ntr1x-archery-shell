@@ -1,0 +1,57 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/opt/atom/resources/app/apm/bin/node',
+1 verbose cli   '/opt/atom/resources/app/apm/node_modules/npm/bin/npm-cli.js',
+1 verbose cli   '--globalconfig',
+1 verbose cli   '/home/pavlenko/.atom/.apm/.apmrc',
+1 verbose cli   '--userconfig',
+1 verbose cli   '/home/pavlenko/.atom/.apmrc',
+1 verbose cli   'install',
+1 verbose cli   '--target=0.36.8',
+1 verbose cli   '--arch=x64' ]
+2 info using npm@2.13.3
+3 info using node@v0.10.40
+4 verbose readDependencies loading dependencies from /home/pavlenko/Projects/ntr1x-archery-shell/package.json
+5 warn package.json ntr1x-archery-shell@1.0.0 No repository field.
+6 warn package.json ntr1x-archery-shell@1.0.0 No README data
+7 verbose install where, deps [ '/home/pavlenko/Projects/ntr1x-archery-shell', [] ]
+8 verbose install where, peers [ '/home/pavlenko/Projects/ntr1x-archery-shell', [] ]
+9 verbose installManyTop reading for lifecycle /home/pavlenko/Projects/ntr1x-archery-shell/package.json
+10 info preinstall ntr1x-archery-shell@1.0.0
+11 verbose readDependencies loading dependencies from /home/pavlenko/Projects/ntr1x-archery-shell/package.json
+12 silly install resolved []
+13 info build /home/pavlenko/Projects/ntr1x-archery-shell
+14 info linkStuff ntr1x-archery-shell@1.0.0
+15 silly linkStuff ntr1x-archery-shell@1.0.0 has /home/pavlenko/Projects as its parent node_modules
+16 verbose linkBins ntr1x-archery-shell@1.0.0
+17 verbose linkMans ntr1x-archery-shell@1.0.0
+18 verbose rebuildBundles ntr1x-archery-shell@1.0.0
+19 info install ntr1x-archery-shell@1.0.0
+20 info postinstall ntr1x-archery-shell@1.0.0
+21 verbose unsafe-perm in lifecycle true
+22 info ntr1x-archery-shell@1.0.0 Failed to exec postinstall script
+23 verbose stack Error: ntr1x-archery-shell@1.0.0 postinstall: `node ./node_modules/bower/bin/bower install && node ./node_modules/gulp-cli/bin/gulp`
+23 verbose stack Exit status 8
+23 verbose stack     at EventEmitter.<anonymous> (/opt/atom/resources/app/apm/node_modules/npm/lib/utils/lifecycle.js:214:16)
+23 verbose stack     at EventEmitter.emit (events.js:98:17)
+23 verbose stack     at ChildProcess.<anonymous> (/opt/atom/resources/app/apm/node_modules/npm/lib/utils/spawn.js:24:14)
+23 verbose stack     at ChildProcess.emit (events.js:98:17)
+23 verbose stack     at maybeClose (child_process.js:766:16)
+23 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:833:5)
+24 verbose pkgid ntr1x-archery-shell@1.0.0
+25 verbose cwd /home/pavlenko/Projects/ntr1x-archery-shell
+26 error Linux 4.2.0-42-generic
+27 error argv "/opt/atom/resources/app/apm/bin/node" "/opt/atom/resources/app/apm/node_modules/npm/bin/npm-cli.js" "--globalconfig" "/home/pavlenko/.atom/.apm/.apmrc" "--userconfig" "/home/pavlenko/.atom/.apmrc" "install" "--target=0.36.8" "--arch=x64"
+28 error node v0.10.40
+29 error npm  v2.13.3
+30 error code ELIFECYCLE
+31 error ntr1x-archery-shell@1.0.0 postinstall: `node ./node_modules/bower/bin/bower install && node ./node_modules/gulp-cli/bin/gulp`
+31 error Exit status 8
+32 error Failed at the ntr1x-archery-shell@1.0.0 postinstall script 'node ./node_modules/bower/bin/bower install && node ./node_modules/gulp-cli/bin/gulp'.
+32 error This is most likely a problem with the ntr1x-archery-shell package,
+32 error not with npm itself.
+32 error Tell the author that this fails on your system:
+32 error     node ./node_modules/bower/bin/bower install && node ./node_modules/gulp-cli/bin/gulp
+32 error You can get their info via:
+32 error     npm owner ls ntr1x-archery-shell
+32 error There is likely additional logging output above.
+33 verbose exit [ 1, true ]

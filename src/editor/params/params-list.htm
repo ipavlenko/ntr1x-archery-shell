@@ -9,6 +9,10 @@
                 :item.sync="item"
                 :globals.sync="globals"
             ></params-string>
+            <params-select v-if="item.prop.type == 'select'" :id="'pages-widgets-dialog-props-' + $index"
+                :item.sync="item"
+                :globals.sync="globals"
+            ></params-select>
             <params-rich v-if="item.prop.type == 'rich'" :id="'pages-widgets-dialog-props-' + $index"
                 :item.sync="item"
                 :globals.sync="globals"

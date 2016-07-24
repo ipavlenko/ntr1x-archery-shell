@@ -20,6 +20,16 @@
         }
     });
 
+    var ParamSelect =
+    Vue.component('params-select', {
+        template: '#params-select',
+        props: {
+            id: String,
+            item: Object,
+            globals: Object,
+        }
+    });
+
     var ParamRich =
     Vue.component('params-rich', {
         template: '#params-rich',
