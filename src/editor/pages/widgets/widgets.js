@@ -89,9 +89,6 @@
                 var data = {
                     type: widget.id,
                     params: {},
-                    resource: {
-                        params: [],
-                    }
                 };
 
                 var params = {};

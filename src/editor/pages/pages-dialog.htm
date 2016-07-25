@@ -45,11 +45,8 @@
                                 <div class="tab-pane" :class="{ 'active': isActive('sources') }">
                                     <pages-sources :items.sync="current.sources"></pages-sources>
                                 </div>
-                                <div class="tab-pane" :class="{ 'active': isActive('storages') }">
-                                    <storages :items.sync="current.storages"></storages>
-                                </div>
                                 <div class="tab-pane" :class="{ 'active': isActive('settings') }">
-                                    <pages-settings :items.sync="current.resource.params"></pages-settings>
+                                    <pages-settings :items.sync="current.settings"></pages-settings>
                                 </div>
                                 <div class="tab-pane" :class="{ 'active': isActive('metas') }">
                                     <pages-metas :items.sync="current.metas"></pages-metas>

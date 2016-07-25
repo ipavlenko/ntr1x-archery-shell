@@ -483,7 +483,6 @@
 
                         if (oldStack != newStack) {
 
-                            delete newItem.resource.id;
                             delete newItem.id;
                             newItem._action = 'create';
 
