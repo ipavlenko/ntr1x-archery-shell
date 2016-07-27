@@ -44,8 +44,9 @@
 
                 var n = item.prop.name;
                 var r = item.prop.variable;
-                var b = item.param.binding;
-                var v = item.param.value;
+
+                var b = item.param ? item.param.binding : null;
+                var v = item.param ? item.param.value : null;
 
                 if (item.prop.type == 'object') {
 
@@ -408,7 +409,7 @@
 
     Vue.component('shell-decorator-canvas', {
         template: '#shell-decorator-canvas',
-        mixins: [ CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table') ],
+        mixins: [ CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table'), BindingsMixin ],
         props: {
             globals: Object,
             settings: Object,
@@ -418,6 +419,19 @@
             storage: Object,
             editable: Boolean,
             items: Array,
+        },
+        data: function() {
+
+            return {
+                widget: this.widget,
+                model: this.page,
+            }
+        },
+        init: function() {
+            this.widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
+        },
+        created: function() {
+            this.selected = true;
         },
         attached: function() {
 
@@ -448,7 +462,6 @@
                     var stack = $(context.$container).closest('.ge.ge-widget').get(0).__vue__;
                     var vue = context.$originalItem.find('.ge.ge-widget:first').get(0).__vue__;
 
-                    // console.log(vue.model);
                     dragged = {
                         stack: stack,
                         // index: stack.find(stack.items, context.$originalItem.index()),
@@ -520,9 +533,6 @@
                     context.$item.remove();
                 }
             });
-        },
-        created: function() {
-            this.selected = true;
         },
         methods: {
             placeholder: function() {

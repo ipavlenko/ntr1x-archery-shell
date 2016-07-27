@@ -14,7 +14,7 @@
             <div v-for="group in category.groups()" class="ge ge-palette-category">
                 <div class="ge ge-category-title">{{ group.title }}</div>
                 <div class="ge ge-category-palette">
-                    <palette-item v-for="item in group.items()"
+                    <palette-item v-for="item in group.items()" v-if="!item.hidden"
                         :category="category"
                         :group="group"
                         :item="item"

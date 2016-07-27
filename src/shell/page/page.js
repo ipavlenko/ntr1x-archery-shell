@@ -23,17 +23,6 @@
             this.data = {};
             this.storage = {};
 
-            // this.$watch('page.resource', (resource) => {
-            //     if (resource) {
-            //         for (param in resource.params) {
-            //             this.$set('pageSettings.' + resource.params[param].name, resource.params[param].value);
-            //         }
-            //     }
-            // }, {
-            //     immediate: true,
-            //     deep: true,
-            // });
-
             this.$watch('page.storages', (storages) => {
 
                 if (storages) {

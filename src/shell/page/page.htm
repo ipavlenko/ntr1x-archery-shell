@@ -1,8 +1,6 @@
 <template id="shell-page">
 
-    <div class="ge ge-page" :style="{
-        'width': page.settings.width || '960px',
-    }">
+    <div class="ge ge-page">
         <div
             :is="decorator"
             :globals.sync="globals"
