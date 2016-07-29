@@ -13,9 +13,12 @@
                 decorator: this.decorator,
                 data: this.data,
                 storage: this.storage,
+                widget: this.widget,
             };
         },
         created: function() {
+
+            this.widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
 
             var runtime = Vue.service('runtime');
 

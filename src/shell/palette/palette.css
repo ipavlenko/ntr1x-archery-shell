@@ -6,6 +6,12 @@
   right: 0px;
   padding: 15px;
 }
+.ge.ge-palette .ge.ge-palette-selector .dropdown-menu {
+  width: 100%;
+}
+.ge.ge-palette .ge.ge-palette-selector .dropdown-menu a {
+  cursor: pointer;
+}
 .ge.ge-palette .ge.ge-palette-selector .btn.btn-palette {
   background: #34495E;
   border-radius: 4px;

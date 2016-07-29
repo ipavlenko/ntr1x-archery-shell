@@ -4,9 +4,10 @@
         template: '#shell-actions',
         props: {
             model: Object,
-            category: Object,
-            domain: Object,
-            page: Object
+            globals: Object,
+            // category: Object,
+            // domain: Object,
+            // page: Object
         },
         methods: {
             trigger: function(event, item, context) {

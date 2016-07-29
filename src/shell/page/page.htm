@@ -1,5 +1,4 @@
 <template id="shell-page">
-
     <div class="ge ge-page">
         <div
             :is="decorator"
@@ -8,8 +7,9 @@
             :page.sync="page"
             :data.sync="data"
             :storage.sync="storage"
-            :items.sync="page.widgets"
+            :model.sync="page.root"
+            :widget.sync="widget"
+            :items.sync="page.root.widgets"
         ></div>
     </div>
-
 </template>

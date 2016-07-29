@@ -9,6 +9,30 @@
                 <span class="glyphicon glyphicon-cloud-download"></span>
                 <span>Discard Changes</span>
             </button>
+            <!--
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ globals.selection.page.name }} - {{ globals.selection.page.title.value }} <span class="caret"></span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="ge ge-pages-selector">
+                        <div class="ge ge-selector-row" v-for="p in model.pages">
+                            <div class="ge ge-selector-cell ge-cell-page">
+                                <div><a href="">{{ p.name || 'default' }}</a></div>
+                                <div>{{ p.title.value }}</div>
+                            </div>
+                            <div class="ge ge-selector-cell ge-cell-actions">
+                                <button class="btn btn-primary" @click="update">Edit</button>
+                                <button class="btn btn-danger" @click="remove">Remove</button>
+                            </div>
+                        </div>
+                        <div class="ge ge-selector-row" v-for="p in model.pages">
+                            <button class="btn btn-block btn-default" @click="create">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
         </div>
         <div class="pull-right">
 

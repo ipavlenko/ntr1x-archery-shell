@@ -188,6 +188,7 @@
         created: function() {
 
             this.$watch('data', (data) => {
+                console.log(this);
                 var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
                 this.$set('bindings', bindings);
             }, {
@@ -417,18 +418,10 @@
             page: Object,
             data: Object,
             storage: Object,
+            model: Object,
+            widget: Object,
             editable: Boolean,
             items: Array,
-        },
-        data: function() {
-
-            return {
-                widget: this.widget,
-                model: this.page,
-            }
-        },
-        init: function() {
-            this.widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
         },
         created: function() {
             this.selected = true;

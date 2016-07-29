@@ -3,6 +3,7 @@ var Shell =
 
     Shell = {
         Widgets: {},
+        Pages: {},
     };
 
     return Shell;

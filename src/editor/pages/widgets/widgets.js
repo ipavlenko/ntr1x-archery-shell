@@ -1,25 +1,8 @@
 (function(Vue, $, Core, Shell) {
 
-    var WidgetsListViewer =
-    Vue.component('pages-widgets-list', {
-        template: '#pages-widgets-list',
-        mixins: [Core.ListViewerMixin],
-        methods: {
-            getWidget: function(w) {
-                for (var i = 0; i < this.globals.widgets.length; i++) {
-                    var widget = this.globals.widgets[i];
-                    if (w.type == widget.id) {
-                        return widget;
-                    }
-                }
-                return null;
-            }
-        }
-    });
-
     var WidgetsModalEditor = Shell.Widgets.ModalEditor =
-    Vue.component('pages-widgets-dialog', {
-        template: '#pages-widgets-dialog',
+    Vue.component('shell-widgets-dialog', {
+        template: '#shell-widgets-dialog',
         mixins: [Core.ModalEditorMixin, Core.TabsMixin('data')],
         created: function() {
 
@@ -28,22 +11,7 @@
             for (var i = 0; i < this.context.widget.props.length; i++) {
 
                 var prop = this.context.widget.props[i];
-
-                // TODO Move to service layer
-                var param = this.current.params[prop.name] = this.current.params[prop.name] || {
-                    _action: 'create',
-                    value: (prop.type == 'multiple' ? [] : null),
-                    binding: {
-                        strategy: null,
-                        expression: null,
-                        params: (prop.type == 'multiple' ? null : undefined),
-                    },
-                };
-
-                param._action = param._action == 'update'
-                    ? 'update'
-                    : 'create'
-                ;
+                var param = this.current.params[prop.name];
 
                 var item = {
                     prop: prop,
@@ -72,46 +40,6 @@
                 }
                 return false;
             }
-        }
-    });
-
-    var WidgetsEditor =
-    Vue.component('pages-widgets', {
-        mixins: [Core.EditorMixin(WidgetsListViewer, WidgetsModalEditor)],
-        template: '#pages-widgets',
-        props: {
-            widget: Object
-        },
-        methods: {
-
-            proto: function(widget) {
-
-                var data = {
-                    type: widget.id,
-                    params: {},
-                };
-
-                var params = {};
-
-                for (var i = 0; i < widget.props.length; i++) {
-
-                    var prop = widget.props[i];
-                    // TODO Move to service layer
-                    params[prop.name] = {
-                        _action: 'create',
-                        value: (prop.type == 'multiple' ? [] : null),
-                        binding: {
-                            strategy: null,
-                            expression: null,
-                            params: (prop.type == 'multiple' ? null : undefined),
-                        },
-                    };
-                }
-
-                data.params = params;
-
-                return data;
-            },
         }
     });
 

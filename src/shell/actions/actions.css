@@ -10,3 +10,18 @@
 .ge.ge-actions .btn {
   margin: 0px 2px;
 }
+.ge.ge-actions .ge.ge-pages-selector {
+  display: table;
+}
+.ge.ge-actions .ge.ge-pages-selector .ge.ge-selector-row {
+  display: table-row;
+}
+.ge.ge-actions .ge.ge-pages-selector .ge.ge-selector-row .ge.ge-selector-cell {
+  display: table-cell;
+}
+.ge.ge-actions .ge.ge-pages-selector .ge.ge-selector-row .ge.ge-selector-cell.ge-cell-page {
+  width: 200px;
+}
+.ge.ge-actions .ge.ge-pages-selector .ge.ge-selector-row .ge.ge-selector-cell.ge-cell-actions {
+  width: 100px;
+}
