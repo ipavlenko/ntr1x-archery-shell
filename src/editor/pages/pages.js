@@ -11,7 +11,7 @@
             for (var i = 0; i < this.context.widget.props.length; i++) {
 
                 var prop = this.context.widget.props[i];
-                var param = this.current.params[prop.name];
+                var param = this.current.root.params[prop.name];
 
                 var item = {
                     prop: prop,

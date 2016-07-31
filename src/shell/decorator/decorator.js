@@ -188,7 +188,6 @@
         created: function() {
 
             this.$watch('data', (data) => {
-                console.log(this);
                 var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
                 this.$set('bindings', bindings);
             }, {

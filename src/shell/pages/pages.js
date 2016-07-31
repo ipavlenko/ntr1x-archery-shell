@@ -7,15 +7,30 @@
             globals: Object,
         },
         methods: {
-            doApply: function() {
+            doUpdate: function() {
 
+                Object.assign(this.model, JSON.parse(JSON.stringify(model)), {
+                    _action: this.model._action
+                        ? this.model._action
+                        : 'update'
+                });
+
+                $(window).trigger('resize');
             },
             remove: function() {
 
             },
             create: function() {
 
+                var root = Vue.service('palette').item('default-container/default-container-stack/stack-canvas');
                 var widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
+
+                var page = {
+                    _action: 'create',
+                    root: root,
+                    sources: [],
+                    storages: [],
+                };
 
                 var dialog = new Shell.Pages.ModalEditor({
 
@@ -26,17 +41,18 @@
                             widget: widget,
                         },
                         original: page,
-                        current: {
-                            params: [],
-                            widgets: [],
-                            sources: [],
-                            storages: [],
-                        },
+                        current: JSON.parse(JSON.stringify(page)),
                     },
 
                     methods: {
                         submit: function() {
-                            // this.owner.doApply(this.current);
+
+                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
+                            this.original._action = this.original._action ? this.original._action : 'create';
+                            this.original.root._action = this.original.root._action ? this.original.root._action : 'create';
+
+                            this.owner.pages.push(this.original);
+
                             this.$remove();
                             this.$destroy();
                         },
@@ -65,7 +81,13 @@
 
                     methods: {
                         submit: function() {
-                            // this.owner.doApply(this.current);
+
+                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
+                            this.original._action = this.original._action ? this.original._action : 'update';
+                            this.original.root._action = this.original.root._action ? this.original.root._action : 'update';
+
+                            this.owner.pages = this.owner.pages.slice();
+
                             this.$remove();
                             this.$destroy();
                         },
