@@ -6,20 +6,44 @@
             pages: Array,
             globals: Object,
         },
+        data: function() {
+            return {
+                items: this.items,
+            }
+        },
+        created: function() {
+
+            this.$watch('pages', (pages) => {
+
+                var items = [];
+                for (var i = 0; i < this.pages.length; i++) {
+                    var page = this.pages[i];
+                    if (page._action != 'remove') {
+                        items.push(page);
+                    }
+                }
+                this.items = items;
+                
+            }, { deep: true, immediate: true })
+        },
         methods: {
-            doUpdate: function() {
 
-                Object.assign(this.model, JSON.parse(JSON.stringify(model)), {
-                    _action: this.model._action
-                        ? this.model._action
-                        : 'update'
-                });
+            remove: function(page) {
 
-                $(window).trigger('resize');
+                var index = this.pages.indexOf(page);
+                if (index !== -1) {
+                    var item = this.pages[index];
+                    if (item._action == 'create') {
+                        this.pages.$remove(item);
+                    } else {
+                        item._action = 'remove';
+                    }
+                }
+
+                this.pages = this.pages.slice();
+                // console.log(this.pages);
             },
-            remove: function() {
 
-            },
             create: function() {
 
                 var root = Vue.service('palette').item('default-container/default-container-stack/stack-canvas');
