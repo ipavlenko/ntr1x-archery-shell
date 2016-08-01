@@ -469,7 +469,6 @@
 
                     var newStack = context.location.$container.closest('.ge.ge-widget').get(0).__vue__;
 
-                    console.log(newStack, newStack.items);
                     var newIndex = newStack.items.indexOf(vue.model) + (context.location.before ? 0 : 1);
 
                     var w = context.$item.data('widget');
