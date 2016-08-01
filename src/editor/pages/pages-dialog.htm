@@ -13,8 +13,6 @@
                         <span v-if="!original">Новая страница</span>
                         <span>&gt;</span>
                         <span v-if="isActive('main')">Основное</span>
-                        <span v-if="isActive('sources')">Источники</span>
-                        <span v-if="isActive('storages')">Данные</span>
                         <span v-for="tab in context.widget.tabs" v-if="tab && isActive(tab.name)">{{ tab.title }}</span>
                     </h4>
                 </div>
@@ -23,8 +21,6 @@
                         <div class="col-xs-3">
                             <ul class="nav nav-pills nav-stacked">
                                 <li :class="{ 'active': isActive('main') }"><a href="#" @click="activate('main')">Основное</a></li>
-                                <li :class="{ 'active': isActive('sources') }"><a href="#" @click="activate('sources')">Источники</a></li>
-                                <li :class="{ 'active': isActive('storages') }"><a href="#" @click="activate('storages')">Данные</a></li>
                                 <li v-for="tab in context.widget.tabs" v-if="tab && hasProps(tab.name)" :class="{ 'active': tab && isActive(tab.name) }"><a href="#" @click="activate(tab.name)">{{ tab.title }}</a></li>
                             </ul>
                         </div>
@@ -35,9 +31,6 @@
                                         <label for="dialog-page-name">Имя</label>
                                         <input class="form-control" type="text" id="dialog-page-name" v-model="current.name" />
                                     </div>
-                                </div>
-                                <div class="tab-pane" :class="{ 'active': isActive('sources') }">
-                                    <pages-sources :items.sync="current.sources"></pages-sources>
                                 </div>
                                 <div v-for="tab in context.widget.tabs" class="tab-pane" :class="{ 'active': isActive(tab.name) }">
                                     <params :items.sync="items" :globals.sync="globals" :owner.sync="context.widget" :tab="tab.name"></params>
