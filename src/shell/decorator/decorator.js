@@ -357,8 +357,8 @@
         },
     });
 
-    Vue.component('shell-decorator-horisontal', {
-        template: '#shell-decorator-horisontal',
+    Vue.component('shell-decorator-horizontal', {
+        template: '#shell-decorator-horizontal',
         mixins: [ DecoratorMixin, CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table >.wg.wg-row'), BindingsMixin ],
         props: {
             globals: Object,
@@ -375,7 +375,7 @@
         methods: {
             placeholder: function() {
                 return Vue.service('palette').placeholder(`
-                    <small>Horisontal Stack</small>
+                    <small>Horizontal Stack</small>
                     <div>Drop Here</div>
                 `);
             }
@@ -439,7 +439,7 @@
                 excludeSelector: '.ge.ge-overlay',
 
                 verticalClass: "wg-sortable-vertical",
-                horisontalClass: "wg-sortable-horisontal",
+                horizontalClass: "wg-sortable-horizontal",
                 placeholder: `
                     <div class="wg wg-sortable-placeholder">
                         <div class="wg wg-placeholder-container">

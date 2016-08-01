@@ -17,7 +17,7 @@
         init: function() {
             this.decorators = {
                 alternatives: {
-                    'default-stack-horisontal': 'shell-decorator-horisontal',
+                    'default-stack-horizontal': 'shell-decorator-horizontal',
                     'default-stack-vertical': 'shell-decorator-vertical',
                     'default-stub': 'shell-decorator-stub',
                 },
