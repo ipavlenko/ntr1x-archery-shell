@@ -10,7 +10,7 @@ gulp.task('scripts', function() {
         // .pipe(browserify())
         .pipe(concat('shell.js'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist/'))
+        .pipe(gulp.dest('dist/js/'))
 })
 
 gulp.task('styles', function() {
@@ -19,7 +19,7 @@ gulp.task('styles', function() {
         .pipe(cleancss())
         .pipe(concat('shell.css'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('dist/css/'));
 })
 
 gulp.task('templates', function() {
@@ -27,7 +27,7 @@ gulp.task('templates', function() {
         .pipe(sourcemaps.init())
         .pipe(concat('shell.htm'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('dist/htm/'));
 })
 
 gulp.task('default', [
