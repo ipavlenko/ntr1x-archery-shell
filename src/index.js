@@ -1,7 +1,7 @@
-var Shell =
+window.Shell =
 (function($, Vue, Core) {
 
-    Shell = {
+    var Shell = {
         Widgets: {},
         Pages: {},
     };

@@ -1,15 +1,17 @@
 var gulp = require('gulp');
-var browserify = require('gulp-browserify');
 var concat = require('gulp-concat');
 var cleancss = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
+var babel = require('gulp-babel');
+var uglify = require('gulp-uglify');
 
 gulp.task('scripts', function() {
     return gulp.src(['src/**/*.js'])
         .pipe(sourcemaps.init())
-        // .pipe(browserify())
         .pipe(concat('shell.js'))
-        .pipe(sourcemaps.write())
+        .pipe(babel())
+        .pipe(uglify())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist/js/'))
 })
 
@@ -18,7 +20,7 @@ gulp.task('styles', function() {
         .pipe(sourcemaps.init())
         .pipe(cleancss())
         .pipe(concat('shell.css'))
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist/css/'));
 })
 
