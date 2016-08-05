@@ -86,6 +86,10 @@
         }
     });
 
+    var defaults = {
+        'multiple': [],
+        'object': {},
+    };
 
     var ParamMultipleListViewer =
     Vue.component('params-multiple-list', {
@@ -132,7 +136,7 @@
                 for (var i = 0; i < this.context.prop.props.length; i++) {
 
                     var prop = this.context.prop.props[i];
-                    var param = this.current.value[prop.name] = this.current.value[prop.name] || {};
+                    var param = this.current.value[prop.name] = this.current.value[prop.name] || { value: defaults[prop.type] || null };
 
                     param._action = param._action == 'update'
                         ? 'update'
@@ -179,14 +183,10 @@
 
             var items = [];
 
-            // console.log('created', ParamMultipleModalEditor);
-
-            // console.log(this.context.prop);
-
             for (var i = 0; i < this.context.prop.props.length; i++) {
 
                 var prop = this.context.prop.props[i];
-                var param = this.current[prop.name] = this.current[prop.name] || { value: null };
+                var param = this.current[prop.name] = this.current[prop.name] || { value: defaults[prop.type] || null };
 
                 param._action = param._action == 'update'
                     ? 'update'
@@ -197,8 +197,6 @@
                     prop: prop,
                     param: param,
                 };
-
-                // console.log(item);
 
                 items.push(item);
             }
