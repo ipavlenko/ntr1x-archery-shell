@@ -17,6 +17,7 @@
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
+  outline: 1px dashed #F0F0F0;
   opacity: 0;
 }
 .ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-left {
