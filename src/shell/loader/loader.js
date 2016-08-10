@@ -5,15 +5,19 @@
         template: '#shell-loader',
         data: function() {
             return {
-                portal: null,
-                settings: null,
+                model: this.model,
             }
         },
         created: function() {
-            Vue.service('portals').get({ id: this.$route.params.portal }).then(
+
+            this.model = null;
+
+            Vue.service('portals').get({ id: this.$root.portal.id }).then(
                 (d) => {
-                    this.$set('portal', d.data.portal);
-                    this.$set('settings', d.data.settings);
+                    this.$set('model', {
+                        portal: d.data.portal,
+                        pages: d.data.pages,
+                    });
                 },
                 (e) => {
                     console.log(e);
