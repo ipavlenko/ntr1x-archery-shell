@@ -76,12 +76,6 @@
 
             this.globals.selection.category = Vue.service('palette').categories()[0];
 
-            this.$watch('model.domains', (domains) => {
-                this.globals.selection.domain = relevant(this.globals.selection.domain, domains);
-            }, {
-                immediate: true,
-            });
-
             this.$watch('model.pages', (pages) => {
                 this.globals.selection.page = relevant(this.globals.selection.page, pages);
             }, {
@@ -114,27 +108,32 @@
             },
             pull: function(data) {
                 $.ajax({
-                    url: `/ws/portals/${this.model.id}`,
+                    url: `/ws/portals/${this.model.portal.id}`,
                     method: 'GET',
                     dataType: "json"
                 })
                 .done((d) => {
 
-                        console.log(d);
-                    this.$set('model', d.portal);
+                    this.$set('model', {
+                        portal: d.portal,
+                        pages: d.pages,
+                    });
                 })
             },
             push: function(data) {
                 $.ajax({
-                    url: `/ws/portals/${this.model.id}`,
+                    url: `/ws/portals/${this.model.portal.id}`,
                     method: 'PUT',
                     dataType: "json",
                     data: JSON.stringify(this.model),
                     contentType: "application/json",
                 })
                 .done((d) => {
-                    console.log(d);
-                    this.$set('model', d.portal);
+
+                    this.$set('model', {
+                        portal: d.portal,
+                        pages: d.pages,
+                    });
                 })
             },
             selectCategory: function(data) {
