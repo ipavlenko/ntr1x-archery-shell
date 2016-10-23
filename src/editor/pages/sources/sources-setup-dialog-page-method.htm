@@ -1,0 +1,55 @@
+<template id="pages-sources-setup-dialog-page-method">
+    <div class="modal-dialog modal-lg">
+        <form class="modal-content page-method"
+            @submit.prevent.stop
+            @reset.prevent.stop="reset"
+        >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">
+                    Импорт
+                </h4>
+            </div>
+            <div class="modal-body modal-notice">
+                <h4>{{ selection.spec.info.title }} <small>{{ selection.spec.info.version }}</small></h4>
+                <h6>{{ selection.spec.info.description }}</h6>
+            </div>
+            <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li v-for="tag in tags" v-if="tag.methods.length" :class="{ 'active': active == tag }">
+                                <a href="#" class="tag-item" @click.stop.prevent="active = tag">
+                                    <span class="tag-name">{{ tag.name || 'Untagged' }}</span>
+                                    <span class="tag-description">{{ tag.description }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-9">
+                        <table class="table table-stripped">
+                            <tr v-for="method in active.methods">
+                                <td style="width: 1%">
+                                    <span class="label label-default" :class="{
+                                        'label-primary': method.method == 'get',
+                                        'label-success': method.method == 'post',
+                                        'label-danger': method.method == 'delete',
+                                        'label-warning': method.method == 'put',
+                                    }">{{ method.method }}</span>
+                                </td>
+                                <td>
+                                    <div>{{ method.path }}</div>
+                                </td>
+                                <td style="width: 1%"><a class="btn btn-default btn-xs" @click="submit(method)">Choose</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" @click="prev()">&lt; Назад</button>
+                <button type="reset" class="btn btn-default">Отменить</button>
+            </div>
+        </form>
+    </div>
+</template>

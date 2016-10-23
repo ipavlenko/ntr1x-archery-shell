@@ -37,7 +37,17 @@
         mixins: [ Shell.Shell ],
         template: '#shell-private',
 
+        data: function() {
+            return {
+                leftOpen: this.left,
+                rightOpen: this.right,
+            }
+        },
+
         created: function() {
+
+            this.leftOpen = true;
+            this.rightOpen = true;
 
             this.scale = 1;
 

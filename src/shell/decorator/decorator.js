@@ -295,19 +295,7 @@
             attached: function() {
 
                 if (this.$route.private) {
-
                     var shell = Vue.service('shell');
-
-                    // this.$watch('selected', function(selected) {
-                    //
-                    //     if (this.sortable) {
-                    //         if (selected) {
-                    //             this.sortable.sortable("disable");
-                    //         } else {
-                    //             this.sortable.sortable("enable");
-                    //         }
-                    //     }
-                    // });
                 }
             },
 

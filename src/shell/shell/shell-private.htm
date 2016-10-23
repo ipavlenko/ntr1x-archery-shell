@@ -8,12 +8,12 @@
         </div>
         <div class="ge ge-body">
             <div class="ge ge-body-table">
-                <div class="ge ge-left" v-scrollable>
+                <div class="ge ge-left" :class="{ 'ge-left-open' : leftOpen }" v-scrollable>
                     <div class="ge ge-hover">
-                        <div class="ge ge-hover-button">
+                        <a class="ge ge-hover-button" @click = "leftOpen = !leftOpen">
                             <span class="glyphicon glyphicon-th"></span>
                             Palette
-                        </div>
+                        </a>
                     </div>
                     <div class="ge ge-subnav">
                         <shell-palette
@@ -33,7 +33,7 @@
                         :page.sync="globals.selection.page"
                     ></shell-container>
                 </div>
-                <div class="ge ge-right" v-scrollable>
+                <div class="ge ge-right" :class="{ 'ge-right-open' : rightOpen }"  v-scrollable>
                     <div class="ge ge-subnav">
                         <shell-pages
                             :pages.sync="model.pages"
@@ -49,10 +49,10 @@
                         ></shell-storages>
                     </div>
                     <div class="ge ge-hover">
-                        <div class="ge ge-hover-button">
+                        <a class="ge ge-hover-button" @click = "rightOpen = !rightOpen">
                             <span class="glyphicon glyphicon-th"></span>
                             Stucture
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>

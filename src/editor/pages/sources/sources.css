@@ -1,0 +1,11 @@
+.pages-sources-setup-dialog .modal-body.modal-notice {
+  background-color: #f7f7f9;
+  border-bottom: 1px solid #e1e1e8;
+}
+.pages-sources-setup-dialog .page-method .tag-item > .tag-name {
+  display: block;
+}
+.pages-sources-setup-dialog .page-method .tag-item > .tag-description {
+  display: block;
+  font-size: 0.7em;
+}

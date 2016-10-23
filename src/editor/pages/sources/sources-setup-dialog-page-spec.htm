@@ -1,0 +1,44 @@
+<template id="pages-sources-setup-dialog-page-spec">
+    <div class="modal-dialog">
+        <form class="modal-content"
+            @submit.prevent.stop="submit"
+            @reset.prevent.stop="reset"
+        >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">
+                    Импорт
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" :class="{ 'has-error': this.error }">
+                    <label class="control-label" for="pages-sources-setup-dialog-spec">Спецификация</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" id="pages-sources-setup-dialog-type" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span>Swagger 2.0</span>
+                                &nbsp;
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" @click="type = 'swagger_2.0'">Swagger 2.0</a></li>
+                            </ul>
+                        </div>
+                        <input class="form-control" type="text" data-auto-focus="true" id="pages-sources-setup-dialog-url" v-model="url" />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" :disabled="loading" @click="load()">
+                                <span v-if="!loading">Load</span>
+                                <span v-if="loading">Loading ...</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="help-block" v-if="error"><b>Error: </b><span>{{ error }}</span></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-default">Отменить</button>
+                <button type="submit" class="btn btn-primary" v-if="spec != null">Далее &gt;</button>
+            </div>
+        </form>
+    </div>
+</template>

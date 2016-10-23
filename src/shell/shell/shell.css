@@ -11,6 +11,15 @@
   overflow: hidden;
   background: #34495E;
 }
+.ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-y-rail {
+  width: 10px;
+}
+.ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+  width: 6px;
+}
+.ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-y-rail:hover {
+  background: rgba(200, 200, 200, 0.3);
+}
 .ge.ge-shell.ge-shell-private .ge.ge-head {
   position: absolute;
   top: 0px;
@@ -53,6 +62,8 @@
 }
 .ge.ge-shell.ge-shell-private .ge.ge-left .ge.ge-hover .ge.ge-hover-button {
   position: absolute;
+  cursor: pointer;
+  text-decoration: none;
   top: 30px;
   left: -20px;
   transform: rotate(-90deg);
@@ -64,6 +75,10 @@
   width: 80px;
   text-align: center;
 }
+.ge.ge-shell.ge-shell-private .ge.ge-left .ge.ge-hover .ge.ge-hover-button:hover {
+  color: #1F2E3C;
+  background-color: #F0F0F0;
+}
 .ge.ge-shell.ge-shell-private .ge.ge-left .ge.ge-subnav {
   position: absolute;
   top: 0px;
@@ -72,11 +87,11 @@
   width: 280px;
   z-index: 10;
 }
-.ge.ge-shell.ge-shell-private .ge.ge-left:hover {
+.ge.ge-shell.ge-shell-private .ge.ge-left.ge-left-open {
   transition: 0.5s;
   flex: 0 1 320px;
 }
-.ge.ge-shell.ge-shell-private .ge.ge-left:hover .ge.ge-subnav {
+.ge.ge-shell.ge-shell-private .ge.ge-left.ge-left-open .ge.ge-subnav {
   transition: 0.5s;
   left: 40px;
 }
@@ -96,6 +111,7 @@
 }
 .ge.ge-shell.ge-shell-private .ge.ge-right .ge.ge-hover .ge.ge-hover-button {
   position: absolute;
+  cursor: pointer;
   top: 30px;
   left: -20px;
   transform: rotate(-90deg);
@@ -107,6 +123,10 @@
   width: 80px;
   text-align: center;
 }
+.ge.ge-shell.ge-shell-private .ge.ge-right .ge.ge-hover .ge.ge-hover-button:hover {
+  color: #1F2E3C;
+  background-color: #F0F0F0;
+}
 .ge.ge-shell.ge-shell-private .ge.ge-right .ge.ge-subnav {
   position: absolute;
   top: 0px;
@@ -115,11 +135,11 @@
   width: 280px;
   z-index: 10;
 }
-.ge.ge-shell.ge-shell-private .ge.ge-right:hover {
+.ge.ge-shell.ge-shell-private .ge.ge-right.ge-right-open {
   transition: 0.5s;
   flex: 0 1 320px;
 }
-.ge.ge-shell.ge-shell-private .ge.ge-right:hover .ge.ge-subnav {
+.ge.ge-shell.ge-shell-private .ge.ge-right.ge-right-open .ge.ge-subnav {
   transition: 0.5s;
   right: 40px;
 }

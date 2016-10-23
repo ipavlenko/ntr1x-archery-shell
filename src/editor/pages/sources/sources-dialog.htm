@@ -13,10 +13,10 @@
                         <span v-if="!original">Новый источник</span>
                     </h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
                     <div class="form-group">
                         <label for="pages-sources-dialog-name">Имя</label>
-                        <input class="form-control" type="text" id="pages-sources-dialog-name" required="true" v-model="current.name" />
+                        <input class="form-control" type="text" data-auto-focus="true" id="pages-sources-dialog-name" required="true" v-model="current.name" />
                     </div>
                     <div class="form-group">
                         <label for="pages-sources-dialog-url">URL</label>
@@ -39,9 +39,11 @@
                                     <li><a href="#" @click="current.method = 'DELETE'"><span class="label label-danger">DELETE</span></a></li>
                                 </ul>
                             </div>
-                            <input class="form-control" type="text" id="pages-sources-dialog-url" v-model="current.url" />
+                            <input class="form-control" type="text" id="pages-sources-dialog-url" v-model="url" />
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-default">...</button>
+                                <pages-sources-setup :model.sync="current" inline-template>-
+                                    <button type="button" class="btn btn-default" @click="open({})">...</button>
+                                </pages-sources-setup>
                             </div>
                         </div>
                     </div>

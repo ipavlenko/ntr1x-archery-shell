@@ -10,9 +10,22 @@
     Vue.component('pages-sources-dialog', {
         template: '#pages-sources-dialog',
         mixins: [Core.ModalEditorMixin],
+        computed: {
+            url: {
+                get: function () {
+                    return this.current.url;
+                },
+                set: function (v) {
+                    this.current.url = v;
+                }
+            }
+        },
         methods: {
             check: function() {
                 console.log('check');
+            },
+            setup: function() {
+                console.log('setup');
             }
         }
     });
