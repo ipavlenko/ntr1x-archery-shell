@@ -7,9 +7,9 @@
                     <th>
                         <div class="pull-right">
                             <a class="btn btn-xs btn-primary" @click="create({}, { prop: prop })">Add</a>
-                            <params-bindings :model.sync="param" :context="{ prop: prop }" inline-template>
+                            <params-proto :model.sync="param" :context="{ prop: prop }" inline-template>
                                 <a class="btn btn-xs btn-default" @click="open()">Advanced</a>
-                            </params-bindings>
+                            </params-proto>
                         </div>
                     </th>
                 </tr>

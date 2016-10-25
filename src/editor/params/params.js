@@ -10,6 +10,54 @@
         }
     });
 
+    var ParamAsis =
+    Vue.component('params-asis', {
+        template: '#params-asis',
+        props: {
+            id: String,
+            item: Object,
+            globals: Object,
+        },
+        data: function() {
+            return {
+                value: this.value,
+                error: this.error,
+            }
+        },
+        created: function() {
+
+            try {
+                this.value = this.item.param.value == null
+                    ? null
+                    : JSON.stringify(this.item.param.value)
+                ;
+                this.error = false;
+            } catch (e) {
+                this.value = '';
+                this.error = true;
+            }
+
+            this.$watch('value', (v) => {
+
+                let pv = null;
+
+                try {
+                    pv = (v == null || v == '')
+                        ? null
+                        : JSON.parse(v)
+                    ;
+                    this.error = false;
+                } catch (e) {
+                    pv = null;
+                    console.log(e, v);
+                    this.error = true;
+                }
+
+                this.$set('item.param.value', pv);
+            });
+        },
+    });
+
     var ParamString =
     Vue.component('params-string', {
         template: '#params-string',
@@ -126,10 +174,10 @@
 
             var items = [];
 
-            var binding = this.current.binding || {};
-            if (!binding.strategy) binding.strategy = 'interpolate';
-
-            binding.params = binding.params || {};
+            this.$set('current.binding', this.current.binding || {
+                strategy: 'interpolate',
+                expression: null,
+            })
 
             if (this.context.prop.props) {
 
@@ -152,7 +200,6 @@
                 }
             }
 
-            this.$set('current.binding', binding);
             this.$set('items', items);
         },
         methods: {
@@ -165,9 +212,65 @@
         },
     });
 
-    var Editor =
+    var ParamBindingsEditor =
     Vue.component('params-bindings', {
         mixins: [Core.ActionMixin(ParamBindingsModalEditor)],
+    });
+
+    var ParamProtoModalEditor =
+    Vue.component('params-proto-dialog', {
+        template: '#params-proto-dialog',
+        mixins: [ Core.ModalEditorMixin, Core.TabsMixin('binding') ],
+        data: function() {
+            return {
+                items: this.items,
+            };
+        },
+        created: function() {
+
+            var items = [];
+
+            this.$set('current.binding', this.current.binding || {
+                strategy: 'interpolate',
+                expression: null,
+            })
+            
+            if (this.context.prop.props) {
+
+                for (var i = 0; i < this.context.prop.props.length; i++) {
+
+                    var prop = this.context.prop.props[i];
+                    var param = this.current.proto[prop.name] = this.current.proto[prop.name] || { value: defaults[prop.type] || null };
+
+                    param._action = param._action == 'update'
+                        ? 'update'
+                        : 'create'
+                    ;
+
+                    var item = {
+                        prop: prop,
+                        param: param,
+                    };
+
+                    items.push(item);
+                }
+            }
+
+            this.$set('items', items);
+        },
+        methods: {
+            setStrategy: function(strategy) {
+                this.$set('current.binding.strategy', strategy);
+            },
+            getStrategy: function(strategy) {
+                return this.$get('current.binding.strategy');
+            },
+        },
+    });
+
+    var ParamProtoEditor =
+    Vue.component('params-proto', {
+        mixins: [Core.ActionMixin(ParamProtoModalEditor)],
     });
 
     var ParamMultipleModalEditor =

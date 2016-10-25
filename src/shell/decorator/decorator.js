@@ -28,13 +28,16 @@
         evaluateParams: function(self, props, params) {
 
             var items = [];
-            for (var i = 0; i < props.length; i++) {
-                var prop = props[i];
-                var param = params && params[prop.name];
-                items.push({
-                    prop: prop,
-                    param: param,
-                });
+            // console.log(props, params);
+            if (props) {
+                for (var i = 0; i < props.length; i++) {
+                    var prop = props[i];
+                    var param = params && params[prop.name];
+                    items.push({
+                        prop: prop,
+                        param: param,
+                    });
+                }
             }
 
             var value = {};
@@ -44,22 +47,33 @@
 
                 var n = item.prop.name;
                 var r = item.prop.variable;
+                var t = item.prop.type;
 
                 var b = item.param ? item.param.binding : null;
                 var v = item.param ? item.param.value : null;
+                var p = item.param ? item.param.proto : null;
 
-                if (item.prop.type == 'object') {
+                if (item.prop.type == 'asis') {
+
+                    var res = runtime.evaluate(self, b, v);
+                    var vv = r ? { value: res } : res;
+                    // console.log(n, b, v, vv, item);
+                    value[n] = vv;
+
+                } else if (item.prop.type == 'object') {
 
                     var vv;
 
                     if (b && b.expression) {
 
+                        vv = runtime.evaluate(self, b, v);
                         value[n] = vv;
 
                     } else {
 
                         var res = this.evaluateParams(self, item.prop.props, v);
                         vv = r ? { value: res } : res;
+
                         value[n] = vv;
                     }
 
@@ -82,14 +96,11 @@
 
                                     var vm = new Vue({
                                         data: Object.assign(JSON.parse(JSON.stringify(self.$data)), {
-                                            item: {
-                                                index: j,
-                                                value: result[j],
-                                            }
+                                            item: result[j]
                                         })
                                     });
 
-                                    array.push(this.evaluateParams(vm, item.prop.props, b.params));
+                                    array.push(this.evaluateParams(vm, item.prop.props, p));
                                 }
 
                                 vv = array;
