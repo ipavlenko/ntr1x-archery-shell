@@ -39,7 +39,7 @@
                                     <li><a href="#" @click="current.method = 'DELETE'"><span class="label label-danger">DELETE</span></a></li>
                                 </ul>
                             </div>
-                            <input class="form-control" type="text" id="pages-sources-dialog-url" v-model="url" />
+                            <input class="form-control" type="text" id="pages-sources-dialog-url" v-model="current.url" />
                             <div class="input-group-btn">
                                 <pages-sources-setup :model.sync="current" inline-template>-
                                     <button type="button" class="btn btn-default" @click="open({})">...</button>

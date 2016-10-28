@@ -172,7 +172,7 @@
         },
         events: {
             submit: function() {
-                this.current = {
+                Object.assign(this.current, {
                     method: (this.selection.method.method || '').toUpperCase(),
                     name: this.selection.method.operation.operationId,
                     url: `${this.selection.url}${this.selection.method.path}`,
@@ -183,7 +183,7 @@
                         required: p.required,
                         specified: true,
                     }))
-                };
+                });
                 this.submit();
             },
             reset: function() {

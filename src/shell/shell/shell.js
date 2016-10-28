@@ -25,10 +25,41 @@
         },
     };
 
+    function relevant(current, collection) {
+
+        if (!current || current._action == 'remove' || (collection && collection.indexOf(current) < 0)) {
+
+            if (collection) {
+                for (var i = 0; i < collection.length; i++) {
+                    var c = collection[i];
+                    if (c._action != 'remove') {
+                        return c;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        if (current && current._action == 'remove') {
+            return null;
+        }
+
+        return current;
+    }
+
     Shell.ShellPublic =
     Vue.component('shell-public', {
         mixins: [ Shell.Shell ],
         template: '#shell-public',
+        data: function() {
+            return {
+                page: this.page
+            }
+        },
+        created: function() {
+            this.page = relevant(null, this.model.pages);
+        }
     });
 
     Shell.ShellPrivate =
@@ -50,29 +81,6 @@
             this.rightOpen = true;
 
             this.scale = 1;
-
-            function relevant(current, collection) {
-
-                if (!current || current._action == 'remove' || (collection && collection.indexOf(current) < 0)) {
-
-                    if (collection) {
-                        for (var i = 0; i < collection.length; i++) {
-                            var c = collection[i];
-                            if (c._action != 'remove') {
-                                return c;
-                            }
-                        }
-                    }
-
-                    return null;
-                }
-
-                if (current && current._action == 'remove') {
-                    return null;
-                }
-
-                return current;
-            }
 
             this.globals.selection.category = Vue.service('palette').categories()[0];
 

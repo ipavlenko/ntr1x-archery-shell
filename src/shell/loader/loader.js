@@ -1,6 +1,6 @@
 (function($, Vue, Core, Shell) {
 
-    Shell.Loader =
+    var LoaderMixin = Shell.LoaderMixin =
     Vue.component('shell-loader', {
         template: '#shell-loader',
         data: function() {
@@ -24,6 +24,18 @@
                 }
             );
         }
+    });
+
+    Shell.LoaderPrivate =
+    Vue.component('shell-loader-private', {
+        mixins: [ LoaderMixin ],
+        template: '#shell-loader-private'
+    });
+
+    Shell.LoaderPublic =
+    Vue.component('shell-loader-public', {
+        mixins: [ LoaderMixin ],
+        template: '#shell-loader-public'
     });
 
 })(jQuery, Vue, Core, Shell);

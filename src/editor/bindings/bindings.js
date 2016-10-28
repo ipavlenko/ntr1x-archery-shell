@@ -13,7 +13,13 @@
             },
         },
         created: function() {
-            if (!this.current.binding) this.current.binding = {};
+
+            this.$set('current.binding', this.current.binding || {
+                strategy: 'interpolate',
+                expression: null,
+            })
+
+            // if (!this.current.binding) this.current.binding = {};
         },
     });
 

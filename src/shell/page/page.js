@@ -53,7 +53,7 @@
                 deep: true,
             });
 
-            this.$watch('page.sources', (sources) => {
+            let loadData = (sources) => {
 
                 if (sources) {
 
@@ -82,7 +82,14 @@
                     }
                 }
 
-            }, {
+            };
+
+            this.$watch('page.sources', (sources) => loadData(sources), {
+                immediate: true,
+                deep: true,
+            });
+
+            this.$watch('storage', (storage) => loadData(this.page.sources), {
                 immediate: true,
                 deep: true,
             });
@@ -94,11 +101,11 @@
                     var param = s.params[i];
                     if (param.in == 'query' && param.specified) {
 
-                        var value = param.binding
-                                ? this.$interpolate(param.binding) // TODO Interpolate in page context
-                                : param.value
-                            ;
+                        var b = param.binding;
+                        var v = param.value;
 
+                        var value = Vue.service('runtime').evaluate(this, b, v);
+                        
                         query[param.name] = value;
                     }
                 }
