@@ -8,6 +8,12 @@
                 model: this.model,
             }
         },
+    });
+
+    Shell.LoaderPrivate =
+    Vue.component('shell-loader-private', {
+        mixins: [ LoaderMixin ],
+        template: '#shell-loader-private',
         created: function() {
 
             this.model = null;
@@ -26,16 +32,18 @@
         }
     });
 
-    Shell.LoaderPrivate =
-    Vue.component('shell-loader-private', {
-        mixins: [ LoaderMixin ],
-        template: '#shell-loader-private'
-    });
-
     Shell.LoaderPublic =
     Vue.component('shell-loader-public', {
         mixins: [ LoaderMixin ],
-        template: '#shell-loader-public'
+        template: '#shell-loader-public',
+        data: function() {
+            return {
+                page: this.page,
+            }
+        },
+        created: function() {
+            this.page = this.$route.page;
+        }
     });
 
 })(jQuery, Vue, Core, Shell);

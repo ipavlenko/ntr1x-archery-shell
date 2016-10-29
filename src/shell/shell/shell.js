@@ -1,28 +1,7 @@
 (function($, Vue, Core, Shell) {
 
     Shell.Shell = {
-        props: {
-            settings: Object,
-            model: Object,
-        },
-        data: function() {
-            return {
-                globals: this.globals,
-            };
-        },
-        created: function() {
 
-            this.globals = {
-                selection: {
-                    category: null,
-                    page: null,
-                    source: null,
-                    storage: null,
-                },
-                settings: this.settings,
-                model: this.model,
-            };
-        },
     };
 
     function relevant(current, collection) {
@@ -52,30 +31,37 @@
     Vue.component('shell-public', {
         mixins: [ Shell.Shell ],
         template: '#shell-public',
-        data: function() {
-            return {
-                page: this.page
-            }
+        props: {
+            page: Object
         },
-        created: function() {
-            this.page = relevant(null, this.model.pages);
-        }
     });
 
     Shell.ShellPrivate =
     Vue.component('shell-private', {
-
-        mixins: [ Shell.Shell ],
         template: '#shell-private',
-
+        props: {
+            // settings: Object,
+            model: Object,
+        },
         data: function() {
             return {
+                globals: this.globals,
                 leftOpen: this.left,
                 rightOpen: this.right,
-            }
+            };
         },
-
         created: function() {
+
+            this.globals = {
+                selection: {
+                    category: null,
+                    page: null,
+                    source: null,
+                    storage: null,
+                },
+                // settings: this.settings,
+                model: this.model,
+            };
 
             this.leftOpen = true;
             this.rightOpen = true;
