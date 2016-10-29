@@ -439,7 +439,7 @@
 
                 containerSelector: '.wg.wg-sortable-container.wg-sortable-editable',
                 itemSelector: '.wg.wg-sortable-item.wg-sortable-editable',
-                excludeSelector: '.ge.ge-overlay',
+                excludeSelector: '.ge.ge-overlay, .dropdown-menu',
 
                 verticalClass: "wg-sortable-vertical",
                 horizontalClass: "wg-sortable-horizontal",
