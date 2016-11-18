@@ -46,4 +46,18 @@
         }
     });
 
+    Shell.LoaderFrame =
+    Vue.component('shell-loader-frame', {
+        mixins: [ LoaderMixin ],
+        template: '#shell-loader-frame',
+        data: function() {
+            return {
+                page: this.page,
+            }
+        },
+        created: function() {
+            this.page = this.$route.page;
+        }
+    });
+
 })(jQuery, Vue, Core, Shell);

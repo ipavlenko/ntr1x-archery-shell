@@ -1,8 +1,6 @@
 (function($, Vue, Core, Shell) {
 
-    Shell.Shell = {
-
-    };
+    Shell.Shell = {};
 
     function relevant(current, collection) {
 

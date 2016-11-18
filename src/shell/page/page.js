@@ -105,7 +105,7 @@
                         var v = param.value;
 
                         var value = Vue.service('runtime').evaluate(this, b, v);
-                        
+
                         query[param.name] = value;
                     }
                 }
@@ -118,6 +118,11 @@
                 });
             }
         },
+        events: {
+            action: function(expression) {
+                eval(expression);
+            }
+        }
     });
 
 })(jQuery, Vue, Core, Shell);

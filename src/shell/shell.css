@@ -1,11 +1,11 @@
-[data-vue-body] {
+body {
   position: absolute;
   top: 0px;
   left: 0px;
   bottom: 0px;
   right: 0px;
 }
-.ge.ge-shell-loader {
+[data-vue-body] {
   position: absolute;
   top: 0px;
   left: 0px;

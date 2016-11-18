@@ -11,6 +11,27 @@
   overflow: hidden;
   background: #34495E;
 }
+.ge.ge-shell.ge-shell-private .ge.ge-shell-block > .ge.ge-block-selector {
+  position: relative;
+  height: 60px;
+  padding: 15px;
+}
+.ge.ge-shell.ge-shell-private .ge.ge-shell-block > .ge.ge-block-selector .dropdown-menu {
+  width: 100%;
+}
+.ge.ge-shell.ge-shell-private .ge.ge-shell-block > .ge.ge-block-selector .dropdown-menu a {
+  cursor: pointer;
+}
+.ge.ge-shell.ge-shell-private .ge.ge-shell-block > .ge.ge-block-selector .btn.btn-shell {
+  background: #34495E;
+  border-radius: 4px;
+  color: #FFFFFF;
+  display: inline-block;
+}
+.ge.ge-shell.ge-shell-private .ge.ge-shell-block > .ge.ge-block-content {
+  position: relative;
+  width: 100%;
+}
 .ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-y-rail {
   width: 10px;
 }
@@ -148,7 +169,7 @@
   position: relative;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-panel {
-  margin-bottom: 40px;
+  margin-bottom: 15px;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-panel .ge.ge-overlays {
   float: right;

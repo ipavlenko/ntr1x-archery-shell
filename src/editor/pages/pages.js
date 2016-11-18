@@ -1,5 +1,7 @@
 (function($, Vue, Core, Shell) {
 
+    Shell.Pages = Shell.Pages || {};
+
     var PagesModalEditor = Shell.Pages.ModalEditor =
     Vue.component('shell-pages-dialog', {
         template: '#shell-pages-dialog',

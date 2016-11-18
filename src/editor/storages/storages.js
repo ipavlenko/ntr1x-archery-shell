@@ -10,11 +10,6 @@
     Vue.component('storages-dialog', {
         template: '#storages-dialog',
         mixins: [Core.ModalEditorMixin],
-        methods: {
-            check: function() {
-                console.log('check');
-            }
-        }
     });
 
     var StoragesEditor =

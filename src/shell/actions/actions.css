@@ -25,3 +25,8 @@
 .ge.ge-actions .ge.ge-pages-selector .ge.ge-selector-row .ge.ge-selector-cell.ge-cell-actions {
   width: 100px;
 }
+.ge.ge-actions .btn.btn-shell {
+  background: #34495E;
+  border-radius: 4px;
+  color: #FFFFFF;
+}

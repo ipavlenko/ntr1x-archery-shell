@@ -1,23 +1,35 @@
 <template id="shell-storages">
-    <section class="ge ge-panel ge-storages">
-        <storages :items.sync="storages" :globals.sync="globals" inline-template>
-            <h5>
-                <span>Storages</span>
-                <span class="ge ge-overlays">
-                    <span class="ge ge-overlay" @click="create({ variables: [] })"><span class="glyphicon glyphicon-plus-sign"></span></span>
-                </span>
-            </h5>
-            <ul class="nav nav-pills nav-stacked">
-                <li v-for="item in items" v-show="item._action != 'remove'" :class="{ 'active': item == globals.selection.storage }">
-                    <a href="#" @click="trigger('selectStorage', item)">
-                        <span>{{ item.name }}</span>
-                        <span class="ge ge-overlays">
-                            <span class="ge ge-overlay" @click.stop="remove(item)"><span class="glyphicon glyphicon-trash"></span></span>
-                            <span class="ge ge-overlay" @click.stop="update(item)"><span class="glyphicon glyphicon-edit"></span></span>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </storages>
-    </section>
+    <storages :items.sync="storages" :globals.sync="globals" inline-template>
+        <section class="ge ge-panel ge-shell-block ge-storages">
+            <div class="ge ge-block-selector">
+                <div class="btn-toolbar">
+                    <div class="btn-group">
+                        <button class="btn btn-shell dropdown-toggle" type="button" data-toggle="dropdown" style="width: 204px">
+                            Storages <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a>Storages</a></li>
+                            <li><a>Variables</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-shell" @click="create({ variables: [] })"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="ge ge-block-content">
+                <ul class="nav nav-pills nav-stacked">
+                    <li v-for="item in items" v-show="item._action != 'remove'" :class="{ 'active': item == globals.selection.storage }">
+                        <a href="#" @click="trigger('selectStorage', item)">
+                            <span>{{ item.name }}</span>
+                            <span class="ge ge-overlays">
+                                <span class="ge ge-overlay" @click.stop="remove(item)"><span class="glyphicon glyphicon-trash"></span></span>
+                                <span class="ge ge-overlay" @click.stop="update(item)"><span class="glyphicon glyphicon-edit"></span></span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </storages>
 </template>
