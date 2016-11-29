@@ -86,6 +86,16 @@
                 immediate: true,
             });
 
+            Vue.service('app', {
+                modal: (name) => {
+                    for (let p of this.model.pages) {
+                        if (p.name == name) {
+                            return p;
+                        }
+                    }
+                    return null;
+                }
+            });
         },
         events: {
             zoomIn: function(data) {

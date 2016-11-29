@@ -119,9 +119,12 @@
             }
         },
         events: {
+            // modal: function(name, config) {
+            //     window.Modal.show(this.page, config);
+            // },
             action: function(expression) {
                 eval(expression);
-            }
+            },
         }
     });
 

@@ -302,14 +302,7 @@
                     selected: this.selected,
                 };
             },
-
-            // attached: function() {
-            //
-            //     if (this.$route.private) {
-            //         var shell = Vue.service('shell');
-            //     }
-            // },
-
+            
             methods: {
                 selectTarget: function() {
                     this.selected = true;
@@ -426,7 +419,7 @@
         },
         attached: function() {
 
-            if (!this.$route.private) {
+            if (!this.$route || !this.$route.private) {
                 return;
             }
 

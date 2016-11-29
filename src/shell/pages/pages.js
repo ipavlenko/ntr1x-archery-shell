@@ -8,12 +8,21 @@
         },
         data: function() {
             return {
+                type: this.type,
+                types: this.types,
                 items: this.items,
             }
         },
         created: function() {
 
-            this.$watch('pages', (pages) => {
+            this.types = [
+                { name: 'page', title: 'Pages' },
+                { name: 'modal', title: 'Modals' },
+            ];
+
+            this.type = this.types[0];
+
+            this.$watch('pages', () => {
 
                 var items = [];
                 for (var i = 0; i < this.pages.length; i++) {
@@ -23,7 +32,7 @@
                     }
                 }
                 this.items = items;
-                
+
             }, { deep: true, immediate: true })
         },
         methods: {
@@ -52,11 +61,12 @@
                 var page = {
                     _action: 'create',
                     root: root,
+                    type: this.type.name,
                     sources: [],
                     storages: [],
                 };
 
-                var dialog = new Shell.Pages.ModalEditor({
+                new Shell.Pages.ModalEditor({
 
                     data: {
                         globals: this.globals,
@@ -91,7 +101,7 @@
 
                 var widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
 
-                var dialog = new Shell.Pages.ModalEditor({
+                new Shell.Pages.ModalEditor({
 
                     data: {
                         globals: this.globals,
