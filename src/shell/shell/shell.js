@@ -1,6 +1,26 @@
 (function($, Vue, Core, Shell) {
 
-    Shell.Shell = {};
+    Shell.Shell = {
+
+        props: {
+            model: Object
+        },
+        created: function() {
+
+            Vue.service('shell', {
+
+                page: (name) => {
+
+                    for (let p of this.model.pages) {
+                        if (p.name == name) {
+                            return p;
+                        }
+                    }
+                    return null;
+                }
+            });
+        }
+    };
 
     function relevant(current, collection) {
 
@@ -29,18 +49,20 @@
     Vue.component('shell-public', {
         mixins: [ Shell.Shell ],
         template: '#shell-public',
-        props: {
-            page: Object
+        data: function() {
+            return {
+                page: this.page,
+            }
         },
+        created: function() {
+            this.page = this.$route.page;
+        }
     });
 
     Shell.ShellPrivate =
     Vue.component('shell-private', {
+        mixins: [ Shell.Shell ],
         template: '#shell-private',
-        props: {
-            // settings: Object,
-            model: Object,
-        },
         data: function() {
             return {
                 globals: this.globals,
@@ -84,17 +106,6 @@
                 this.globals.selection.storage = relevant(this.globals.selection.storage, storages);
             }, {
                 immediate: true,
-            });
-
-            Vue.service('app', {
-                modal: (name) => {
-                    for (let p of this.model.pages) {
-                        if (p.name == name) {
-                            return p;
-                        }
-                    }
-                    return null;
-                }
             });
         },
         events: {

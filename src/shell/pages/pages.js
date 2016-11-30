@@ -50,7 +50,6 @@
                 }
 
                 this.pages = this.pages.slice();
-                // console.log(this.pages);
             },
 
             create: function() {

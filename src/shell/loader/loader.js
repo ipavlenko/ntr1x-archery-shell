@@ -36,13 +36,11 @@
     Vue.component('shell-loader-public', {
         mixins: [ LoaderMixin ],
         template: '#shell-loader-public',
-        data: function() {
-            return {
-                page: this.page,
-            }
-        },
         created: function() {
-            this.page = this.$route.page;
+            this.$set('model', {
+                portal: this.$root.portal,
+                pages: this.$root.pages,
+            });
         }
     });
 
@@ -50,13 +48,11 @@
     Vue.component('shell-loader-frame', {
         mixins: [ LoaderMixin ],
         template: '#shell-loader-frame',
-        data: function() {
-            return {
-                page: this.page,
-            }
-        },
         created: function() {
-            this.page = this.$route.page;
+            this.$set('model', {
+                portal: this.$root.portal,
+                pages: this.$root.pages,
+            });
         }
     });
 

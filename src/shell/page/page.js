@@ -7,6 +7,7 @@
             globals: Object,
             settings: Object,
             page: Object,
+            editable: Boolean,
         },
         data: function() {
             return {

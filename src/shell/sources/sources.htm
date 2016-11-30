@@ -1,25 +1,24 @@
 <template id="shell-sources">
-    <storages :items.sync="sources" :globals.sync="globals" inline-template>
-        <section class="ge ge-panel ge-shell-block ge-sources">
-            <div class="ge ge-block-selector">
-                <div class="btn-toolbar">
-                    <div class="btn-group">
-                        <button class="btn btn-shell dropdown-toggle" type="button" data-toggle="dropdown" style="width: 204px">
-                            Sources <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a>Sources</a></li>
-                            <li><a>Actions</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group pull-right">
-                        <button class="btn btn-shell" @click="create({ method: 'GET', params: [], url: '', name: '' })"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                    </div>
+    <section class="ge ge-panel ge-shell-block ge-sources">
+        <div class="ge ge-block-selector">
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <button class="btn btn-shell dropdown-toggle" type="button" data-toggle="dropdown" style="width: 204px">
+                        {{ type.title }} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li v-for="t in types" :class="{ 'active': type == t }"><a @click="type = t">{{ t.title }}</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group pull-right">
+                    <button class="btn btn-shell" @click="create({ method: 'GET', type: 'source', params: [], url: '', name: '' })"><span class="glyphicon glyphicon-plus-sign"></span></button>
                 </div>
             </div>
-            <div class="ge ge-block-content">
-                <ul class="nav nav-pills nav-stacked">
-                    <li v-for="item in items" v-show="item._action != 'remove'" :class="{ 'active': item == globals.selection.source }">
+        </div>
+        <div class="ge ge-block-content">
+            <ul class="nav nav-pills nav-stacked">
+                <host v-for="item in items">
+                    <li v-if="item.type == type.name" :class="{ 'active': item == globals.selection.source }">
                         <a href="#" @click="trigger('selectSource', item)">
                             <span>{{ item.name }}</span>
                             <span class="ge ge-overlays">
@@ -28,8 +27,8 @@
                             </span>
                         </a>
                     </li>
-                </ul>
-            </div>
-        </section>
-    </storages>
+                </host>
+            </ul>
+        </div>
+    </section>
 </template>

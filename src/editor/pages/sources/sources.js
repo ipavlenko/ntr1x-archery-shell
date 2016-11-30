@@ -1,12 +1,14 @@
 (function(Vue, $, Core, Shell) {
 
+    Shell.Sources = Shell.Sources || {};
+
     var SourcesListViewer =
     Vue.component('pages-sources-list', {
         template: '#pages-sources-list',
         mixins: [Core.ListViewerMixin],
     });
 
-    var SourcesModalEditor =
+    var SourcesModalEditor = Shell.Sources.ModalEditor =
     Vue.component('pages-sources-dialog', {
         template: '#pages-sources-dialog',
         mixins: [Core.ModalEditorMixin],
