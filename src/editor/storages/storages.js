@@ -1,12 +1,14 @@
 (function(Vue, $, Core, Shell) {
 
+    Shell.Storages = Shell.Storages || {};
+
     var StoragesListViewer =
     Vue.component('storages-list', {
         template: '#storages-list',
         mixins: [Core.ListViewerMixin],
     });
 
-    var StoragesModalEditor =
+    var StoragesModalEditor = Shell.Storages.ModalEditor =
     Vue.component('storages-dialog', {
         template: '#storages-dialog',
         mixins: [Core.ModalEditorMixin],

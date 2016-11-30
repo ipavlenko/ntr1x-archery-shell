@@ -38,12 +38,14 @@
                         var st = storages[i];
                         storage[st.name] = {};
 
-                        for (var j = 0; j < st.variables.length; j++) {
+                        if (st.variables) {
+                            for (var j = 0; j < st.variables.length; j++) {
 
-                            var variable = st.variables[j];
-                            storage[st.name][variable.name] = {
-                                value: runtime.evaluate(this, variable.binding, variable.value) || null
-                            };
+                                var variable = st.variables[j];
+                                storage[st.name][variable.name] = {
+                                    value: runtime.evaluate(this, variable.binding, variable.value) || null
+                                };
+                            }
                         }
                     }
 
