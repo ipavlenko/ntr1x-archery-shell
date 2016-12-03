@@ -7,29 +7,29 @@
                         {{ globals.selection.category.title }} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <host v-for="category in categories">
+                        <template v-for="category in categories">
                             <li v-if="!category.ignore"><a @click.prevent="trigger('selectCategory', category)">{{ category.title }}</a></li>
-                        </host>
+                        </template>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="ge ge-palette-categories wg-sortable-container" v-scrollable>
 
-            <host v-for="group in category.groups()">
+            <template v-for="group in category.groups()">
                 <div v-if="!group.ignore" class="ge ge-palette-category">
                     <div class="ge ge-category-title">{{ group.title }}</div>
                     <div class="ge ge-category-palette">
-                        <host v-for="item in group.items()">
+                        <template v-for="item in group.items()">
                             <palette-item v-if="!item.hidden"
                                 :category="category"
                                 :group="group"
                                 :item="item"
                             ></palette-item>
-                        </host>
+                        </template>
                     </div>
                 </div>
-            </host>
+            </template>
         </div>
     </section>
 </template>

@@ -2,8 +2,8 @@
     <div class="ge ge-shell ge-shell-private">
         <div class="ge ge-head">
             <shell-brand
-                :model.sync="model"
-                :globals.sync="globals"
+                :model="model"
+                :globals="globals"
             ></shell-brand>
         </div>
         <div class="ge ge-body">
@@ -17,35 +17,34 @@
                     </div>
                     <div class="ge ge-subnav">
                         <shell-palette
-                            :category.sync="globals.selection.category"
-                            :globals.sync="globals"
+                            :category="globals.selection.category"
+                            :globals="globals"
                         ></shell-palette>
                     </div>
                 </div>
                 <div class="ge ge-editor">
                     <shell-actions
-                        :model.sync="model"
-                        :globals.sync="globals"
+                        :model="model"
+                        :globals="globals"
                     ></shell-actions>
                     <shell-container
-                        :globals.sync="globals"
-                        :settings.sync="settings"
-                        :page.sync="globals.selection.page"
+                        :globals="globals"
+                        :page="globals.selection.page"
                     ></shell-container>
                 </div>
                 <div class="ge ge-right" :class="{ 'ge-right-open' : rightOpen }"  v-scrollable>
                     <div class="ge ge-subnav">
                         <shell-pages
-                            :pages.sync="model.pages"
-                            :globals.sync="globals"
+                            :pages="model.pages"
+                            :globals="globals"
                         ></shell-pages>
                         <shell-sources
-                            :sources.sync="globals.selection.page.sources"
-                            :globals.sync="globals"
+                            :sources="globals.selection.page.sources"
+                            :globals="globals"
                         ></shell-sources>
                         <shell-storages
-                            :storages.sync="globals.selection.page.storages"
-                            :globals.sync="globals"
+                            :storages="globals.selection.page.storages"
+                            :globals="globals"
                         ></shell-storages>
                     </div>
                     <div class="ge ge-hover">
@@ -58,7 +57,7 @@
             </div>
         </div>
         <shell-modal-stack
-            :pages.sync="model.pages"
+            :pages="model.pages"
         ></shell-modal-stack>
     </div>
 </template>

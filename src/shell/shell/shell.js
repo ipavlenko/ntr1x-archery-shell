@@ -55,7 +55,7 @@
             }
         },
         created: function() {
-            this.page = this.$route.page;
+            this.page = this.$route.meta.page;
         }
     });
 

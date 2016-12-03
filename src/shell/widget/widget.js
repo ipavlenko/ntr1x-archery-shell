@@ -14,7 +14,7 @@
             storage: Object,
             editable: Boolean,
         },
-        init: function() {
+        beforeCreate: function() {
             this.decorators = {
                 alternatives: {
                     'default-stack-horizontal': 'shell-decorator-horizontal',

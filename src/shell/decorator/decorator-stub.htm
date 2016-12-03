@@ -3,7 +3,7 @@
         <div class="ge ge-content">
             <div
                 :is="widget.tag"
-                v-ref:widget
+                ref="widget"
                 :page.sync="page"
                 :data.sync="data"
                 :storage.sync="storage"

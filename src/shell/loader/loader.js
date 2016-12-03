@@ -20,10 +20,10 @@
 
             Vue.service('portals').get({ id: this.$root.portal.id }).then(
                 (d) => {
-                    this.$set('model', {
+                    this.model = {
                         portal: d.data.portal,
                         pages: d.data.pages,
-                    });
+                    }
                 },
                 (e) => {
                     console.log(e);
@@ -37,10 +37,10 @@
         mixins: [ LoaderMixin ],
         template: '#shell-loader-public',
         created: function() {
-            this.$set('model', {
+            this.model = {
                 portal: this.$root.portal,
                 pages: this.$root.pages,
-            });
+            };
         }
     });
 
@@ -49,10 +49,10 @@
         mixins: [ LoaderMixin ],
         template: '#shell-loader-frame',
         created: function() {
-            this.$set('model', {
+            this.model = {
                 portal: this.$root.portal,
                 pages: this.$root.pages,
-            });
+            }
         }
     });
 

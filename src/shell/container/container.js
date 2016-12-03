@@ -4,7 +4,6 @@
         template: '#shell-container',
         props: {
             globals: Object,
-            settings: Object,
             page: Object,
         },
     });

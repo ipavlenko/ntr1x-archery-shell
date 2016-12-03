@@ -5,7 +5,6 @@
         mixins: [ /*Core.ContainerMixin, Core.SortableMixin*/ ],
         props: {
             globals: Object,
-            settings: Object,
             page: Object,
             editable: Boolean,
         },
@@ -49,7 +48,7 @@
                         }
                     }
 
-                    this.$set('storage', storage);
+                    this.storage = storage;
                 }
             }, {
                 immediate: true,
@@ -72,7 +71,7 @@
                             for (var i = 0; i < arguments.length; i++) {
                                 data[sources[i].name] = arguments[i][0];
                             }
-                            this.$set('data', data);
+                            this.data = data;
                         }.bind(this));
 
                     } else if (deferred.length == 1) {
@@ -80,7 +79,7 @@
                         deferred[0].done(function(d) {
                             var data = {};
                             data[sources[0].name] = d;
-                            this.$set('data', data);
+                            this.data = data;
                         }.bind(this));
                     }
                 }
@@ -121,14 +120,6 @@
                 });
             }
         },
-        events: {
-            // modal: function(name, config) {
-            //     window.Modal.show(this.page, config);
-            // },
-            action: function(expression) {
-                eval(expression);
-            },
-        }
     });
 
 })(jQuery, Vue, Core, Shell);

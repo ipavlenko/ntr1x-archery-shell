@@ -8,16 +8,18 @@
 
                 try {
                     if (b.strategy == 'eval') {
-                        var value = self.$eval(b.expression);
-                        return value;
+                        return self.$eval(b.expression);
                     } else if (b.strategy == 'wire') {
-                        var value = self.$get(b.expression);
-                        return value;
+                        return _.get(self, b.expression, null);
                     } else {
                         return self.$interpolate(b.expression);
                     }
                 } catch (e) {
-                    console.log('Cannot evaluate expression', b.expression);
+                    if (b.strategy == 'interpolate') {
+                        console.log('Cannot evaluate expression', b.strategy, b.expression, self, e, e.stack);
+                        // console.log(e, e.stack);
+                        // console.log(self);
+                    }
                     return v;
                 }
             }
@@ -175,15 +177,21 @@
                     methods: {
                         submit: function() {
                             this.owner.doApply(this.current);
-                            this.$remove();
+                            this.$el.remove();
                             this.$destroy();
                         },
                         reset: function() {
-                            this.$remove();
+                            this.$el.remove();
                             this.$destroy();
                         }
                     }
-                }).$mount().$appendTo($('body').get(0));
+                }).$mount($('<div></div>').get(0));
+
+                console.log(dialog);
+
+                $(document.body).append(dialog.$el);
+
+                // .$mount().$appendTo($('body').get(0));
             },
         },
     };
@@ -198,25 +206,29 @@
 
         created: function() {
 
-            this.$watch('data', (data) => {
+            this.$watch('data', () => {
                 var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
-                this.$set('bindings', bindings);
+                this.bindings = bindings;
             }, {
                 deep: true,
                 immediate: true,
             });
 
-            this.$watch('storage', (storage) => {
+            this.$watch('storage', () => {
                 var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
-                this.$set('bindings', bindings);
+                this.bindings = bindings;
             }, {
                 deep: true,
                 immediate: true,
             });
 
             this.$watch('model', (model) => {
-                var bindings = runtime.evaluateParams(this, this.widget.props, model.params)
-                this.$set('bindings', bindings);
+                try {
+                    var bindings = runtime.evaluateParams(this, this.widget.props, model.params)
+                    this.bindings = bindings;
+                } catch (e) {
+                    console.log(e, e.stack);
+                }
             }, {
                 deep: true,
                 immediate: true,
@@ -261,34 +273,17 @@
 
             removeChildWidget: function(data) {
 
-                var item = data.item;
+                let item = data.item;
 
                 if (item._action == 'create') {
-                    this.items.$remove(item);
+                    let index = this.items.indexOf(item);
+                    this.items.splice(index, 1);
                 } else {
                     item._action = 'remove';
                 }
 
                 this.items = this.items.slice();
             },
-        },
-
-        methods: {
-
-            // find: function(children, item) {
-            //
-            //     var index = 0;
-            //     for (var i = 0; i < children.length && index < domIndex; i++) {
-            //
-            //         var child = children[i];
-            //
-            //         if (child._action != 'remove') {
-            //             index++;
-            //         }
-            //     }
-            //
-            //     return index;
-            // }
         },
     };
 
@@ -302,7 +297,7 @@
                     selected: this.selected,
                 };
             },
-            
+
             methods: {
                 selectTarget: function() {
                     this.selected = true;
@@ -417,9 +412,9 @@
         created: function() {
             this.selected = true;
         },
-        attached: function() {
+        mounted: function() {
 
-            if (!this.$route || !this.$route.private) {
+            if (!this.$route || !this.$route.meta.private) {
                 return;
             }
 

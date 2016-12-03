@@ -17,7 +17,7 @@
         </div>
         <div class="ge ge-block-content">
             <ul class="nav nav-pills nav-stacked">
-                <host v-for="item in items">
+                <template v-for="item in items">
                     <li v-if="item.type == type.name" :class="{ 'active': item == globals.selection.source }">
                         <a href="#" @click="trigger('selectSource', item)">
                             <span>{{ item.name }}</span>
@@ -27,7 +27,7 @@
                             </span>
                         </a>
                     </li>
-                </host>
+                </template>
             </ul>
         </div>
     </section>

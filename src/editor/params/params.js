@@ -53,7 +53,7 @@
                     this.error = true;
                 }
 
-                this.$set('item.param.value', pv);
+                this.item.param.value = pv;
             });
         },
     });
@@ -172,12 +172,13 @@
         },
         created: function() {
 
+            console.log(this.current.binding);
             var items = [];
 
-            this.$set('current.binding', this.current.binding || {
+            this.current.binding = this.current.binding || {
                 strategy: 'interpolate',
                 expression: null,
-            })
+            }
 
             if (this.context.prop.props) {
 
@@ -200,14 +201,15 @@
                 }
             }
 
-            this.$set('items', items);
+            this.items = items.slice();
         },
         methods: {
             setStrategy: function(strategy) {
-                this.$set('current.binding.strategy', strategy);
+                this.current.binding.strategy = strategy;
+                this.$forceUpdate();
             },
-            getStrategy: function(strategy) {
-                return this.$get('current.binding.strategy');
+            getStrategy: function() {
+                return this.current.binding.strategy;
             },
         },
     });
@@ -230,11 +232,11 @@
 
             var items = [];
 
-            this.$set('current.binding', this.current.binding || {
+            this.current.binding = this.current.binding || {
                 strategy: 'interpolate',
                 expression: null,
-            })
-            
+            }
+
             if (this.context.prop.props) {
 
                 for (var i = 0; i < this.context.prop.props.length; i++) {
@@ -256,14 +258,15 @@
                 }
             }
 
-            this.$set('items', items);
+            this.items = items.slice();
         },
         methods: {
             setStrategy: function(strategy) {
-                this.$set('current.binding.strategy', strategy);
+                this.current.binding.strategy = strategy;
+                this.$forceUpdate();
             },
-            getStrategy: function(strategy) {
-                return this.$get('current.binding.strategy');
+            getStrategy: function() {
+                return this.current.binding.strategy;
             },
         },
     });
@@ -304,7 +307,7 @@
                 items.push(item);
             }
 
-            this.$set('items', items);
+            this.items = items.slice();
         },
     });
 

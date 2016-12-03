@@ -1,14 +1,14 @@
 <template id="params-select">
     <div class="ge ge-param form-group">
         <div class="ge ge-param-label">
-            <label class="pull-left" for="{{ id }}">{{ item.prop.title }}</label>
+            <label class="pull-left" :for="id">{{ item.prop.title }}</label>
             <div class="pull-right">
                 <params-bindings :model.sync="item.param" :context="{ prop: item.prop }" inline-template>
                     <button type="button" class="btn btn-xs btn-default" @click="open()">Advanced</button>
                 </params-bindings>
             </div>
         </div>
-        <select class="form-control" type="text" id="{{ id }}" v-model="item.param.value">
+        <select class="form-control" type="text" :id="id" v-model="item.param.value">
             <option v-for="option in item.prop.options" :value="option.value">{{ option.text }}</option>
         </select>
     </div>

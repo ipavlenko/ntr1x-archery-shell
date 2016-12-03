@@ -6,7 +6,7 @@
         props: {
             page: Object,
         },
-        attached: function() {
+        mounted: function() {
 
             $(this.$el).modal('show');
             $(this.$el).on('hidden.bs.modal', (e) => {
@@ -24,7 +24,7 @@
         },
         created: function() {
 
-            this.$set('modals', []);
+            this.modals = [];
 
             Vue.service('modals', {
 

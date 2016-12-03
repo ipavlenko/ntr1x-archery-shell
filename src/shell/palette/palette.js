@@ -28,8 +28,8 @@
         created: function() {
             this.categories = Widgets.Palette.categories();
         },
-        attached: function() {
-
+        mounted: function() {
+            
             this.sortable = $(this.$el).sortable({
                 group: 'widgets',
                 containerSelector: '.wg-sortable-container',

@@ -12,18 +12,18 @@
                         <span v-if="original">&nbsp;Редактирование виджета</span>
                         <span v-if="!original">Новый виджет</span>
                         <span>&gt;</span>
-                        <host v-for="tab in context.widget.tabs">
+                        <template v-for="tab in context.widget.tabs">
                             <span  v-if="tab && isActive(tab.name)">{{ tab.title }}</span>
-                        </host>
+                        </template>
                     </h4>
                 </div>
                 <div class="modal-body" style="height: 500px;">
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="nav nav-pills nav-stacked">
-                                <host v-for="tab in context.widget.tabs">
+                                <template v-for="tab in context.widget.tabs">
                                     <li v-if="tab && hasProps(tab.name)" :class="{ 'active': tab && isActive(tab.name) }"><a href="#" @click="activate(tab.name)">{{ tab.title }}</a></li>
-                                </host>
+                                </template>
                             </ul>
                         </div>
                         <div class="col-xs-9">

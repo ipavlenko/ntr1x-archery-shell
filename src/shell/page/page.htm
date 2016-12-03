@@ -2,14 +2,13 @@
     <div class="ge ge-page">
         <div
             :is="decorator"
-            :globals.sync="globals"
-            :settings.sync="settings"
-            :page.sync="page"
-            :data.sync="data"
-            :storage.sync="storage"
-            :model.sync="page.root"
-            :widget.sync="widget"
-            :items.sync="page.root.widgets"
+            :globals="globals"
+            :page="page"
+            :data="data"
+            :storage="storage"
+            :model="page.root"
+            :widget="widget"
+            :items="page.root.widgets"
             :editable="editable"
         ></div>
     </div>
