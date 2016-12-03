@@ -10,35 +10,28 @@
 
             $(this.$el).modal('show');
             $(this.$el).on('hidden.bs.modal', (e) => {
-                this.$dispatch('close');
+                this.$parent.close();
             });
         },
     });
 
     Vue.component('shell-modal-stack', {
         template: '#shell-modal-stack',
-        data: function() {
-            return {
-                modals: this.modals
-            }
-        },
         created: function() {
-
-            this.modals = [];
 
             Vue.service('modals', {
 
                 show: (page, config) => {
 
-                    this.modals.push({
+                    this.$store.commit('showModal', {
                         page: Vue.service('shell').page(page)
-                    });
+                    })
                 }
             });
         },
-        events: {
+        methods: {
             close: function() {
-                this.modals.pop();
+                this.$store.commit('closeModal')
             }
         }
     });

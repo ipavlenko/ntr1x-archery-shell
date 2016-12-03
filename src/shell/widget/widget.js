@@ -30,6 +30,11 @@
             this.widget = palette.widget(this.model.name);
             this.decorator = this.decorators.alternatives[this.widget.tag] || this.decorators.fallback;
         },
+        updated: function() {
+            var palette = Vue.service('palette');
+            this.widget = palette.widget(this.model.name);
+            this.decorator = this.decorators.alternatives[this.widget.tag] || this.decorators.fallback;
+        },
         data: function() {
 
             return {

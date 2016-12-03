@@ -36,11 +36,11 @@
         </div>
         <div class="pull-right">
 
-            <button type="button" class="btn btn-shell" @click="trigger('zoomIn')">
+            <button type="button" class="btn btn-shell" @click="$store.dispatch('zoomIn')">
                 <span class="glyphicon glyphicon-zoom-in"></span>
                 <span>Zoom in</span>
             </button>
-            <button type="button" class="btn btn-shell" @click="trigger('zoomOut')">
+            <button type="button" class="btn btn-shell" @click="$store.dispatch('zoomOut')">
                 <span class="glyphicon glyphicon-zoom-out"></span>
                 <span>Zoom out</span>
             </button>

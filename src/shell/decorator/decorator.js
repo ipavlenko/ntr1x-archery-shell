@@ -92,7 +92,7 @@
                             vv = result;
                         } else {
 
-                            if ($.isArray(result)) {
+                            if (Array.isArray(result)) {
 
                                 for (var j = 0; j < result.length; j++) {
 
@@ -114,10 +114,12 @@
                         var array = [];
 
                         var index = 0;
-                        for(var j = 0; j < v.length; j++) {
-                            var vi = v[j];
-                            if (vi._action != 'remove') {
-                                array[index++] = this.evaluateParams(self, item.prop.props, vi);
+                        if (Array.isArray(v)) {
+                            for(var j = 0; j < v.length; j++) {
+                                var vi = v[j];
+                                if (vi._action != 'remove') {
+                                    array[index++] = this.evaluateParams(self, item.prop.props, vi);
+                                }
                             }
                         }
 
@@ -187,11 +189,7 @@
                     }
                 }).$mount($('<div></div>').get(0));
 
-                console.log(dialog);
-
                 $(document.body).append(dialog.$el);
-
-                // .$mount().$appendTo($('body').get(0));
             },
         },
     };
@@ -246,6 +244,8 @@
 
         created: function() {
 
+            this.children = [];
+
             this.$watch('items', (items) => {
 
                 var children = [];
@@ -282,7 +282,7 @@
                     item._action = 'remove';
                 }
 
-                this.items = this.items.slice();
+                // this.items = this.items.slice();
             },
         },
     };
@@ -420,6 +420,8 @@
 
             var dragged;
 
+            let self = this;
+
             this.sortable = $(this.$el).sortable({
 
                 vertical: true,
@@ -509,8 +511,8 @@
                             }
                         }
 
-                        oldStack.items = oldStack.items.slice();
-                        newStack.items = newStack.items.slice();
+                        // oldStack.items = oldStack.items.slice();
+                        // newStack.items = newStack.items.slice();
                     }
 
                     context.$item.remove();

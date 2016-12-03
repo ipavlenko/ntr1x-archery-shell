@@ -172,7 +172,6 @@
         },
         created: function() {
 
-            console.log(this.current.binding);
             var items = [];
 
             this.current.binding = this.current.binding || {
