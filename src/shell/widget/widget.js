@@ -5,13 +5,11 @@
         template: '#shell-widget',
         mixins: [ /* Core.DecoratorMixin, Core.ContainerMixin, Core.SortableMixin, Core.BindingsMixin */ ],
         props: {
-            globals: Object,
-            settings: Object,
+            // globals: Object,
+            // settings: Object,
             page: Object,
             stack: Object,
             model: Object,
-            data: Object,
-            storage: Object,
             editable: Boolean,
         },
         beforeCreate: function() {

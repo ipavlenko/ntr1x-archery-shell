@@ -15,6 +15,10 @@
         props: {
             category: Object,
         },
+        computed: {
+            active: function() { return this.$store.state.palette.category; },
+            items: function() { return this.$store.getters.palette.categories(); },
+        },
         components: {
             'palette-item': PaletteItem
         },

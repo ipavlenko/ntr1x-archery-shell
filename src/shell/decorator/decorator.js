@@ -141,10 +141,11 @@
 
     var DecoratorMixin = {
 
-        props: {
-            items: Array,
+        computed: {
+            children: function() {
+                return this.model.widgets;
+            }
         },
-
         methods: {
 
             removeWidget: function() {
@@ -153,11 +154,16 @@
 
             doApply: function(model) {
 
-                Object.assign(this.model, JSON.parse(JSON.stringify(model)), {
-                    _action: this.model._action
-                        ? this.model._action
-                        : 'update'
-                });
+                this.$store.commit('designer/params/update', {
+                    model: this.model,
+                    value: model
+                })
+                //
+                // Object.assign(this.model, JSON.parse(JSON.stringify(model)), {
+                //     _action: this.model._action
+                //         ? this.model._action
+                //         : 'update'
+                // });
 
                 $(window).trigger('resize');
             },
@@ -187,9 +193,9 @@
                             this.$destroy();
                         }
                     }
-                }).$mount($('<div></div>').get(0));
+                }).$mount();
 
-                $(document.body).append(dialog.$el);
+                // $(document.body).append(dialog.$el);
             },
         },
     };
@@ -236,25 +242,15 @@
 
     var CompositeMixin = {
 
-        data: function() {
-            return {
-                children: this.children,
-            };
-        },
+        computed: {
 
-        created: function() {
+            children: function() {
 
-            this.children = [];
+                let children = [];
 
-            this.$watch('items', (items) => {
-
-                var children = [];
-                if (items) {
-                    for (var i = 0; i < items.length; i++) {
-                        var item = items[i];
-                        if (item._action != 'remove') {
-                            children.push(item);
-                        }
+                if (this.items) {
+                    for (var i = 0; i < this.items.length; i++) {
+                        children.push(this.items[i]);
                     }
                 }
 
@@ -262,11 +258,8 @@
                     children.push(JSON.parse(JSON.stringify(this.placeholder())));
                 }
 
-                this.children = children;
-            }, {
-                immediate: true,
-                deep: true,
-            });
+                return children;
+            }
         },
 
         events: {
@@ -314,16 +307,11 @@
         template: '#shell-decorator-stub',
         mixins: [ DecoratorMixin, BindingsMixin ],
         props: {
-            globals: Object,
-            settings: Object,
             stack: Object,
             page: Object,
-            data: Object,
-            storage: Object,
             model: Object,
             widget: Object,
             editable: Boolean,
-            items: Array,
         },
     });
 
@@ -331,16 +319,11 @@
         template: '#shell-decorator-widget',
         mixins: [ DecoratorMixin, BindingsMixin ],
         props: {
-            globals: Object,
-            settings: Object,
             stack: Object,
             page: Object,
-            data: Object,
-            storage: Object,
             model: Object,
             widget: Object,
             editable: Boolean,
-            items: Array,
         },
     });
 
@@ -348,16 +331,16 @@
         template: '#shell-decorator-horizontal',
         mixins: [ DecoratorMixin, CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table >.wg.wg-row'), BindingsMixin ],
         props: {
-            globals: Object,
-            settings: Object,
             stack: Object,
             page: Object,
-            data: Object,
-            storage: Object,
             model: Object,
             widget: Object,
             editable: Boolean,
-            items: Array,
+        },
+        computed: {
+            items: function() {
+                return this.model.widgets
+            }
         },
         methods: {
             placeholder: function() {
@@ -373,16 +356,16 @@
         template: '#shell-decorator-vertical',
         mixins: [ DecoratorMixin, CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table'), BindingsMixin ],
         props: {
-            globals: Object,
-            settings: Object,
             stack: Object,
             page: Object,
-            data: Object,
-            storage: Object,
             model: Object,
             widget: Object,
-            editable: Boolean,
-            items: Array,
+            editable: Boolean
+        },
+        computed: {
+            items: function() {
+                return this.model.widgets
+            }
         },
         methods: {
             placeholder: function() {
@@ -398,19 +381,19 @@
         template: '#shell-decorator-canvas',
         mixins: [ CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table'), BindingsMixin ],
         props: {
-            globals: Object,
-            settings: Object,
             stack: Object,
             page: Object,
-            data: Object,
-            storage: Object,
             model: Object,
             widget: Object,
             editable: Boolean,
-            items: Array,
         },
         created: function() {
             this.selected = true;
+        },
+        computed: {
+            items: function() {
+                return this.page.root.widgets
+            }
         },
         mounted: function() {
 
@@ -444,12 +427,11 @@
 
                     _super(context, event);
 
-                    var stack = $(context.$container).closest('.ge.ge-widget').get(0).__vue__;
-                    var vue = context.$originalItem.find('.ge.ge-widget:first').get(0).__vue__;
+                    let stack = $(context.$container).closest('.ge.ge-widget').get(0).__vue__;
+                    let vue = context.$originalItem.find('.ge.ge-widget:first').get(0).__vue__;
 
                     dragged = {
                         stack: stack,
-                        // index: stack.find(stack.items, context.$originalItem.index()),
                         index: stack.items.indexOf(vue.model),
                         vue: vue,
                     };
@@ -458,61 +440,73 @@
 
                     _super(context, event);
 
-                    var vue = context.location.$item.find('.ge.ge-widget:first').get(0).__vue__
+                    let vue = context.location.$item.find('.ge.ge-widget:first').get(0).__vue__
+                    let newStack = context.location.$container.closest('.ge.ge-widget').get(0).__vue__;
 
-                    var newStack = context.location.$container.closest('.ge.ge-widget').get(0).__vue__;
+                    let newIndex = newStack.items.indexOf(vue.model) + (context.location.before ? 0 : 1);
 
-                    var newIndex = newStack.items.indexOf(vue.model) + (context.location.before ? 0 : 1);
-
-                    var w = context.$item.data('widget');
+                    let w = context.$item.data('widget');
 
                     if (w) {
 
-                        var newItem = self.$store.getters.palette.item(w);
-                        newStack.items.splice(newIndex, 0, newItem);
+                        let newItem = self.$store.getters.palette.item(w);
+
+                        self.$store.commit('designer/widgets/insert', {
+                            parent: newStack.model,
+                            widget: newItem,
+                            index: newIndex
+                        });
 
                     } else if (dragged) {
 
-                        var oldStack = dragged.stack;
-                        var oldIndex = dragged.index;
-                        var oldItem = dragged.vue.model;
+                        let oldStack = dragged.stack;
+                        let oldIndex = dragged.index;
+                        let oldItem = dragged.vue.model;
 
-                        var newItem = Object.assign(JSON.parse(JSON.stringify(dragged.vue.model)));
+                        let newItem = Object.assign(JSON.parse(JSON.stringify(dragged.vue.model)));
 
                         if (oldStack != newStack) {
 
-                            delete newItem.id;
-                            newItem._action = 'create';
+                            self.$store.commit('designer/widgets/remove', {
+                                parent: oldStack.model,
+                                widget: oldItem
+                            });
 
-                            if (oldItem._action == 'create') {
-                                oldStack.items.splice(oldIndex, 1);
-                            } else {
-                                oldItem._action = 'remove';
-                            }
-
-                            newStack.items.splice(newIndex, 0, newItem);
+                            self.$store.commit('designer/widgets/insert', {
+                                parent: newStack.model,
+                                widget: newItem,
+                                index: newIndex
+                            });
 
                         } else if (newIndex != oldIndex && newIndex != oldIndex + 1) {
 
-                            newItem._action = oldItem._action == 'create'
-                                ? 'create'
-                                : 'update'
-                            ;
-
                             if (newIndex < oldIndex) {
 
-                                oldStack.items.splice(oldIndex, 1);
-                                newStack.items.splice(newIndex, 0, newItem);
+                                self.$store.commit('designer/widgets/remove', {
+                                    parent: oldStack.model,
+                                    widget: oldItem
+                                });
+
+                                self.$store.commit('designer/widgets/insert', {
+                                    parent: newStack.model,
+                                    widget: newItem,
+                                    index: newIndex
+                                });
 
                             } else if (newIndex > oldIndex) {
 
-                                newStack.items.splice(newIndex, 0, newItem);
-                                oldStack.items.splice(oldIndex, 1);
+                                self.$store.commit('designer/widgets/remove', {
+                                    parent: oldStack.model,
+                                    widget: oldItem
+                                });
+
+                                self.$store.commit('designer/widgets/insert', {
+                                    parent: newStack.model,
+                                    widget: newItem,
+                                    index: newIndex - 1
+                                });
                             }
                         }
-
-                        // oldStack.items = oldStack.items.slice();
-                        // newStack.items = newStack.items.slice();
                     }
 
                     context.$item.remove();

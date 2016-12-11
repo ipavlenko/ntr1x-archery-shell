@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                                 <div v-for="tab in context.widget.tabs" class="tab-pane" :class="{ 'active': isActive(tab.name) }">
-                                    <params :items.sync="items" :globals.sync="globals" :owner.sync="context.widget" :tab="tab.name"></params>
+                                    <params :items="items" :owner="context.widget" :tab="tab.name"></params>
                                 </div>
                             </div>
                         </div>

@@ -2,15 +2,10 @@
     <div class="ge ge-decorator">
         <div
             :is="decorator"
-            :globals.sync="globals"
-            :settings.sync="settings"
-            :page.sync="page"
-            :data.sync="data"
-            :storage.sync="storage"
-            :model.sync="model"
-            :widget.sync="widget"
-            :editable.sync="editable"
-            :items.sync="model.widgets"
+            :page="page"
+            :model="model"
+            :widget="widget"
+            :editable="editable"
         ></div>
     </div>
 </template>

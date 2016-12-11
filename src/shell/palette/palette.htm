@@ -8,7 +8,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <template v-for="category in $store.getters.palette.categories()">
-                            <li v-if="!category.ignore"><a @click.prevent="$store.dispatch('palette/category', category)">{{ category.title }}</a></li>
+                            <li v-if="!category.ignore"><a @click.prevent="$store.commit('palette/category', category)">{{ category.title }}</a></li>
                         </template>
                     </ul>
                 </div>

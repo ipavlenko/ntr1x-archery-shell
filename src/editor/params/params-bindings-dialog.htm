@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div v-for="tab in context.prop.tabs" class="tab-pane" :class="{ 'active': isActive(tab.name) }">
-                                    <params :items.sync="items" :globals.sync="globals" :owner.sync="context.prop" :tab="tab.name"></params>
+                                    <params :items="items" :owner="context.prop" :tab="tab.name"></params>
                                 </div>
                             </div>
                         </div>
