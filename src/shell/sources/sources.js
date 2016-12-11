@@ -24,11 +24,13 @@
 
             this.$watch('sources', () => {
 
-                var items = [];
-                for (var i = 0; i < this.sources.length; i++) {
-                    var source = this.sources[i];
-                    if (source._action != 'remove') {
-                        items.push(source);
+                let items = [];
+                if (this.sources) {
+                    for (let i = 0; i < this.sources.length; i++) {
+                        let source = this.sources[i];
+                        if (source._action != 'remove') {
+                            items.push(source);
+                        }
                     }
                 }
                 this.items = items;

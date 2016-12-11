@@ -29,12 +29,12 @@
 
         evaluateParams: function(self, props, params) {
 
-            var items = [];
+            let items = [];
             // console.log(props, params);
             if (props) {
-                for (var i = 0; i < props.length; i++) {
-                    var prop = props[i];
-                    var param = params && params[prop.name];
+                for (let i = 0; i < props.length; i++) {
+                    let prop = props[i];
+                    let param = params && params[prop.name];
                     items.push({
                         prop: prop,
                         param: param,
@@ -42,29 +42,29 @@
                 }
             }
 
-            var value = {};
-            for (var i = 0; i < items.length; i++) {
+            let value = {};
+            for (let i = 0; i < items.length; i++) {
 
-                var item = items[i];
+                let item = items[i];
 
-                var n = item.prop.name;
-                var r = item.prop.variable;
-                var t = item.prop.type;
+                let n = item.prop.name;
+                let r = item.prop.variable;
+                let t = item.prop.type;
 
-                var b = item.param ? item.param.binding : null;
-                var v = item.param ? item.param.value : null;
-                var p = item.param ? item.param.proto : null;
+                let b = item.param ? item.param.binding : null;
+                let v = item.param ? item.param.value : null;
+                let p = item.param ? item.param.proto : null;
 
                 if (item.prop.type == 'asis') {
 
-                    var res = runtime.evaluate(self, b, v);
-                    var vv = r ? { value: res } : res;
+                    let res = runtime.evaluate(self, b, v);
+                    let vv = r ? { value: res } : res;
                     // console.log(n, b, v, vv, item);
                     value[n] = vv;
 
                 } else if (item.prop.type == 'object') {
 
-                    var vv;
+                    let vv;
 
                     if (b && b.expression) {
 
@@ -73,7 +73,7 @@
 
                     } else {
 
-                        var res = this.evaluateParams(self, item.prop.props, v);
+                        let res = this.evaluateParams(self, item.prop.props, v);
                         vv = r ? { value: res } : res;
 
                         value[n] = vv;
@@ -361,7 +361,7 @@
         },
         methods: {
             placeholder: function() {
-                return Vue.service('palette').placeholder(`
+                return this.$store.getters.palette.placeholder(`
                     <small>Horizontal Stack</small>
                     <div>Drop Here</div>
                 `);
@@ -386,7 +386,7 @@
         },
         methods: {
             placeholder: function() {
-                return Vue.service('palette').placeholder(`
+                return this.$store.getters.palette.placeholder(`
                     <small>Vertical Stack</small>
                     <div>Drop Here</div>
                 `);
@@ -431,8 +431,8 @@
                 itemSelector: '.wg.wg-sortable-item.wg-sortable-editable',
                 excludeSelector: '.ge.ge-overlay, .dropdown-menu',
 
-                verticalClass: "wg-sortable-vertical",
-                horizontalClass: "wg-sortable-horizontal",
+                verticalClass: 'wg-sortable-vertical',
+                horizontalClass: 'wg-sortable-horizontal',
                 placeholder: `
                     <div class="wg wg-sortable-placeholder">
                         <div class="wg wg-placeholder-container">
@@ -468,7 +468,7 @@
 
                     if (w) {
 
-                        var newItem = Vue.service('palette').item(w);
+                        var newItem = self.$store.getters.palette.item(w);
                         newStack.items.splice(newIndex, 0, newItem);
 
                     } else if (dragged) {
@@ -521,7 +521,7 @@
         },
         methods: {
             placeholder: function() {
-                return Vue.service('palette').placeholder(`
+                return this.$store.getters.palette.placeholder(`
                     <small>Vertical Stack</small>
                     <div>Drop Here</div>
                 `);

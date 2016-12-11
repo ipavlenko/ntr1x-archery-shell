@@ -4,13 +4,11 @@
         template: '#shell-storages',
         props: {
             storages: Array,
-            globals: Object,
         },
         data: function() {
             return {
                 type: this.type,
                 types: this.types,
-                items: this.items,
             }
         },
         created: function() {
@@ -22,34 +20,27 @@
 
             this.type = this.types[0];
 
-            this.$watch('storages', () => {
+            this.$on('storages/create', ({ value }) => {
+                this.$store.commit('designer/storages/create', value);
+            })
 
-                var items = [];
-                for (var i = 0; i < this.storages.length; i++) {
-                    var storage = this.storages[i];
-                    if (storage._action != 'remove') {
-                        items.push(storage);
-                    }
-                }
-                this.items = items;
+            this.$on('storages/update', ({ value }) => {
+                this.$store.commit('designer/storages/update', value);
+            })
 
-            }, { deep: true, immediate: true })
+            this.$on('storages/remove', ({ value }) => {
+                this.$store.commit('designer/storages/remove', value);
+            })
+        },
+        computed: {
+            active: function() { return this.$store.state.designer.storage; },
+            items: function() { return this.$store.state.designer.page.storages; },
         },
         methods: {
 
-            remove: function(storage) {
+            remove: function(value) {
 
-                var index = this.storages.indexOf(storage);
-                if (index !== -1) {
-                    var item = this.storages[index];
-                    if (item._action == 'create') {
-                        this.storages.$remove(storage);
-                    } else {
-                        item._action = 'remove';
-                    }
-                }
-
-                this.storages = this.storages.slice();
+                this.$emit('storages/remove', { value: value })
             },
 
             create: function() {
@@ -64,7 +55,6 @@
                 new Shell.Storages.ModalEditor({
 
                     data: {
-                        globals: this.globals,
                         owner: this,
                         original: storage,
                         current: JSON.parse(JSON.stringify(storage)),
@@ -73,27 +63,24 @@
                     methods: {
                         submit: function() {
 
-                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
-                            this.original._action = this.original._action ? this.original._action : 'create';
+                            this.owner.$emit('storages/create', {
+                                value: this.current
+                            });
 
-                            this.owner.storages.push(this.original);
-
-                            this.$remove();
                             this.$destroy();
                         },
                         reset: function() {
-                            this.$remove();
+
                             this.$destroy();
                         }
                     }
-                }).$mount().$appendTo($('body').get(0));
+                }).$mount();
             },
             update: function(storage) {
 
                 new Shell.Storages.ModalEditor({
 
                     data: {
-                        globals: this.globals,
                         owner: this,
                         original: storage,
                         current: JSON.parse(JSON.stringify(storage))
@@ -102,23 +89,19 @@
                     methods: {
                         submit: function() {
 
-                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
-                            this.original._action = this.original._action ? this.original._action : 'update';
+                            this.owner.$emit('storages/update', {
+                                value: this.current,
+                                oldValue: this.original,
+                            });
 
-                            this.owner.storages = this.owner.storages.slice();
-
-                            this.$remove();
                             this.$destroy();
                         },
                         reset: function() {
-                            this.$remove();
+
                             this.$destroy();
                         }
                     }
-                }).$mount().$appendTo($('body').get(0));
-            },
-            trigger: function(event, item, context) {
-                this.$dispatch(event, { item: item, context: context });
+                }).$mount();
             },
         }
     });

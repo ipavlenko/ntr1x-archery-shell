@@ -1,11 +1,11 @@
-(function($, Vue, Core, Shell) {
+(function($, Vue, Vuex, Core, Shell) {
 
     Vue.component('shell-page', {
         template: '#shell-page',
         mixins: [ /*Core.ContainerMixin, Core.SortableMixin*/ ],
         props: {
-            globals: Object,
             page: Object,
+            style: Object,
             editable: Boolean,
         },
         data: function() {
@@ -18,7 +18,13 @@
         },
         created: function() {
 
-            this.widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
+            this.$page = new Vuex.Store({
+                plugins: [
+                    // storages:
+                ]
+            });
+
+            this.widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
             var runtime = Vue.service('runtime');
 
@@ -122,4 +128,4 @@
         },
     });
 
-})(jQuery, Vue, Core, Shell);
+})(jQuery, Vue, Vuex, Core, Shell);

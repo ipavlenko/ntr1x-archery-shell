@@ -18,7 +18,7 @@
 
             this.model = null;
 
-            Vue.service('portals').get({ id: this.$root.portal.id }).then(
+            this.$store.dispatch('portals/get/id', { id: this.$root.portal.id }).then(
                 (d) => {
                     this.model = {
                         portal: d.data.portal,
@@ -41,6 +41,7 @@
                 portal: this.$root.portal,
                 pages: this.$root.pages,
             };
+            console.log(this.model, this.$route);
         }
     });
 

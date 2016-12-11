@@ -6,7 +6,6 @@
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
@@ -16,7 +15,6 @@
         props: {
             id: String,
             item: Object,
-            globals: Object,
         },
         data: function() {
             return {
@@ -64,7 +62,6 @@
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
@@ -74,7 +71,6 @@
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
@@ -84,7 +80,6 @@
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
@@ -94,7 +89,6 @@
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
@@ -104,7 +98,6 @@
         props: {
             id: String,
             item: Object,
-            globals: Object,
         },
         data: function() {
             return {
@@ -119,7 +112,6 @@
         props: {
             id: String,
             item: Object,
-            globals: Object,
         },
     });
 
@@ -130,7 +122,6 @@
             owner: Object,
             tab: String,
             items: Array,
-            globals: Object
         }
     });
 
@@ -335,7 +326,6 @@
             owner: Object,
             tab: String,
             items: Array,
-            globals: Object
         }
     });
 

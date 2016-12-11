@@ -1,10 +1,7 @@
 <template id="shell-page">
-    <div class="ge ge-page" :style="{
-        'transform': 'scale(' + $store.state.editor.scale + ')'
-    }">
+    <div class="ge ge-page" :style="style">
         <div
             :is="decorator"
-            :globals="globals"
             :page="page"
             :data="data"
             :storage="storage"
