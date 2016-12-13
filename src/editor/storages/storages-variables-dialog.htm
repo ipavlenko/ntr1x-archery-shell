@@ -1,16 +1,16 @@
 <template id="storages-variables-dialog">
-    <div class="ge ge-modal modal modal-center" role="dialog">
+    <section class="ge ge-modal modal modal-medium" role="dialog">
         <div class="modal-dialog">
             <form class="modal-content"
-                @submit.prevent="submit"
-                @reset.prevent="reset"
+                @submit.prevent="submit()"
+                @reset.prevent="reset()"
             >
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h4 class="modal-title">
-                        <span v-if="original" class="label label-primary">{{ original.name }}</span>
-                        <span v-if="original">&nbsp;Edit Variable</span>
-                        <span v-if="!original">New Variable</span>
+                        <span v-if="context.type == 'update'" class="label label-primary">Edit Variable</span>
+                        <span v-if="context.type == 'create'" class="label label-primary">New Variable</span>
+                        <span v-if="original.name">&nbsp;{{ original.name }}</span>
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -23,7 +23,7 @@
                         <div class="input-group">
                             <input class="form-control" type="text" id="storages-variables-dialog-value" v-model="current.value" />
                             <div class="input-group-btn">
-                                <bindings :model.sync="current" inline-template>
+                                <bindings :owner="current" property="binding" inline-template>
                                     <button type="button" class="btn btn-default" @click="open">...</button>
                                 </bindings>
                             </div>
@@ -36,5 +36,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    </section>
 </template>

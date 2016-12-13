@@ -1,5 +1,7 @@
 <template id="shell-modal-stack">
     <section class="ge ge-modal-stack">
-        <shell-modal v-for="modal in $store.state.modals.items" :page="modal.page"></shell-modal>
+        <template v-for="modal in $store.state.modals.items">
+            <component :is="modal.name" :original="modal.original" :context="modal.context" :events="modal.events"></component>
+        </template>
     </section>
 </template>

@@ -18,11 +18,8 @@
         },
         created: function() {
 
-            this.$page = new Vuex.Store({
-                plugins: [
-                    // storages:
-                ]
-            });
+            this.$page = this.page;
+            // console.log(this.$page);
 
             this.widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 

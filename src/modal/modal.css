@@ -15,6 +15,15 @@
   vertical-align: middle;
   width: auto;
 }
+.ge.ge-modal.modal-large > .modal-dialog {
+  width: 900px;
+}
+.ge.ge-modal.modal-medium > .modal-dialog {
+  width: 600px;
+}
+.ge.ge-modal.modal-small > .modal-dialog {
+  width: 300px;
+}
 .ge.ge-modal.modal-center > .modal-dialog {
   width: 900px;
 }

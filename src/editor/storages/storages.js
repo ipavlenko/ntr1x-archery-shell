@@ -8,7 +8,7 @@
         mixins: [Core.ListViewerMixin],
     });
 
-    var StoragesModalEditor = Shell.Storages.ModalEditor =
+    Shell.Storages.ModalEditor =
     Vue.component('storages-dialog', {
         template: '#storages-dialog',
         mixins: [Core.ModalEditorMixin],
@@ -16,7 +16,7 @@
 
     var StoragesEditor =
     Vue.component('storages', {
-        mixins: [Core.EditorMixin(StoragesListViewer, StoragesModalEditor)],
+        mixins: [Core.EditorMixin('storages-dialog')],
         template: '#storages',
     });
 
@@ -34,7 +34,7 @@
 
     var StoragesVariablesEditor =
     Vue.component('storages-variables', {
-        mixins: [Core.EditorMixin(StoragesVariablesListViewer, StoragesVariablesModalEditor)],
+        mixins: [Core.EditorMixin('storages-variables-dialog')],
         template: '#storages-variables',
     });
 

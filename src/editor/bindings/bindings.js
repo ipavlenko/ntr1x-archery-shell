@@ -1,32 +1,28 @@
-(function(Vue, $, Core, Shell) {
+(function(Vue, $, Core) {
 
-    var ModalEditor =
     Vue.component('bindings-dialog', {
         template: '#bindings-dialog',
-        mixins: [Core.ModalEditorMixin],
-        methods: {
-            setStrategy: function(strategy) {
-                this.$set('current.binding.strategy', strategy);
-            },
-            getStrategy: function(strategy) {
-                return this.$get('current.binding.strategy');
-            },
-        },
+        mixins: [ Core.ModalEditorMixin ],
         created: function() {
 
-            this.$set('current.binding', this.current.binding || {
+            this.current = this.current || {
                 strategy: 'interpolate',
                 expression: null,
-            })
-
-            // if (!this.current.binding) this.current.binding = {};
+            }
+        },
+        methods: {
+            setStrategy: function(strategy) {
+                this.current.strategy = strategy;
+                this.$forceUpdate();
+            },
+            getStrategy: function() {
+                return this.current.strategy;
+            },
         },
     });
 
-    var Editor =
     Vue.component('bindings', {
-
-        mixins: [Core.ActionMixin(ModalEditor)],
+        mixins: [Core.ActionMixin('bindings-dialog')],
     });
 
-})(Vue, jQuery, Core, Shell);
+})(Vue, jQuery, Core);

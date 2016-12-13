@@ -11,6 +11,7 @@
         "Core": true,
         "Shell": true,
         "Landing": true,
+        "URI": true
     },
     "extends": "eslint:recommended",
     "rules": {

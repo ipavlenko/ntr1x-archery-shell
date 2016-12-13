@@ -40,7 +40,7 @@
                                 <td>
                                     <div>{{ method.path }}</div>
                                 </td>
-                                <td style="width: 1%"><a class="btn btn-default btn-xs" @click="submit(method)">Choose</a></td>
+                                <td style="width: 1%"><a class="btn btn-default btn-xs" @click.stop.prevent="submit(method)">Choose</a></td>
                             </tr>
                         </table>
                     </div>

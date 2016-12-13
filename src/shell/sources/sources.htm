@@ -18,8 +18,8 @@
         <div class="ge ge-block-content">
             <ul class="nav nav-pills nav-stacked">
                 <template v-for="item in items">
-                    <li v-if="item.type == type.name" :class="{ 'active': item == globals.selection.source }">
-                        <a href="#" @click="trigger('selectSource', item)">
+                    <li :key="item.uuid" v-if="item.type == type.name" :class="{ 'active': item == active }">
+                        <a href="#" @click="$store.commit('designer/sources/select', item)">
                             <span>{{ item.name }}</span>
                             <span class="ge ge-overlays">
                                 <span class="ge ge-overlay" @click.stop="remove(item)"><span class="glyphicon glyphicon-trash"></span></span>

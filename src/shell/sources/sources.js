@@ -22,42 +22,32 @@
 
             this.type = this.types[0];
 
-            this.$watch('sources', () => {
+            this.$on('sources/create', ({ value }) => {
+                this.$store.commit('designer/sources/create', value);
+            })
 
-                let items = [];
-                if (this.sources) {
-                    for (let i = 0; i < this.sources.length; i++) {
-                        let source = this.sources[i];
-                        if (source._action != 'remove') {
-                            items.push(source);
-                        }
-                    }
-                }
-                this.items = items;
+            this.$on('sources/update', ({ value }) => {
+                this.$store.commit('designer/sources/update', value);
+            })
 
-            }, { deep: true, immediate: true })
+            this.$on('sources/remove', ({ value }) => {
+                this.$store.commit('designer/sources/remove', value);
+            })
+        },
+        computed: {
+            active: function() { return this.$store.state.designer.source; },
+            items: function() { return this.$store.state.designer.page.sources; },
         },
         methods: {
 
-            remove: function(source) {
+            remove: function(value) {
 
-                var index = this.sources.indexOf(source);
-                if (index !== -1) {
-                    var item = this.sources[index];
-                    if (item._action == 'create') {
-                        this.sources.$remove(source);
-                    } else {
-                        item._action = 'remove';
-                    }
-                }
-
-                this.sources = this.sources.slice();
+                this.$emit('sources/remove', { value: value })
             },
 
             create: function() {
 
                 var source = {
-                    _action: 'create',
                     method: 'GET',
                     type: this.type.name,
                     params: [],
@@ -77,27 +67,25 @@
                     methods: {
                         submit: function() {
 
-                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
-                            this.original._action = this.original._action ? this.original._action : 'create';
+                            this.owner.$emit('sources/create', {
+                                value: this.current
+                            });
 
-                            this.owner.sources.push(this.original);
-
-                            this.$remove();
                             this.$destroy();
                         },
                         reset: function() {
-                            this.$remove();
+
                             this.$destroy();
                         }
                     }
-                }).$mount().$appendTo($('body').get(0));
+                }).$mount()
             },
+
             update: function(source) {
 
                 new Shell.Sources.ModalEditor({
 
                     data: {
-                        globals: this.globals,
                         owner: this,
                         original: source,
                         current: JSON.parse(JSON.stringify(source))
@@ -106,23 +94,19 @@
                     methods: {
                         submit: function() {
 
-                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
-                            this.original._action = this.original._action ? this.original._action : 'update';
+                            this.owner.$emit('sources/update', {
+                                value: this.current,
+                                oldValue: this.original,
+                            });
 
-                            this.owner.sources = this.owner.sources.slice();
-
-                            this.$remove();
                             this.$destroy();
                         },
                         reset: function() {
-                            this.$remove();
+
                             this.$destroy();
                         }
                     }
-                }).$mount().$appendTo($('body').get(0));
-            },
-            trigger: function(event, item, context) {
-                this.$dispatch(event, { item: item, context: context });
+                }).$mount()
             },
         }
     });

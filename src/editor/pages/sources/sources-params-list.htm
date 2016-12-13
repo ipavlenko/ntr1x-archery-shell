@@ -2,8 +2,8 @@
     <section>
         <table class="table table-condensed">
             <tbody>
-                <tr v-for="item in items" v-show="item._action != 'remove'">
-                    <td>{{ $index + 1 }}</td>
+                <tr v-for="(item, index) in items" :key="item.uuid">
+                    <td>{{ index + 1 }}</td>
                     <td>
                         <div style="white-space: nowrap">
                             <span class="label" :class="{
