@@ -8,6 +8,7 @@
             items: function() {
                 return this.context.widget.props.map(prop => ({
                     prop,
+                    owner: this.current.root.params,
                     param: this.current.root.params[prop.name]
                 }))
             }

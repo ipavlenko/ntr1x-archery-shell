@@ -50,8 +50,6 @@
             },
             update: function(page) {
 
-                console.log(page);
-
                 let widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
                 this.$store.commit('modals/show', {

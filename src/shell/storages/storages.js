@@ -38,7 +38,7 @@
 
                 this.$store.commit('modals/show', {
                     name: 'storages-dialog',
-                    context: { type: 'create'},
+                    context: { type: 'create' },
                     original: storage,
                     events: {
                         submit: (current) => { this.$store.commit('designer/storages/create', current) },
@@ -50,7 +50,7 @@
 
                 this.$store.commit('modals/show', {
                     name: 'storages-dialog',
-                    context: { type: 'update'},
+                    context: { type: 'update' },
                     original: storage,
                     events: {
                         submit: (current) => { this.$store.commit('designer/storages/update', current) },

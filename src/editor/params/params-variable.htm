@@ -3,11 +3,11 @@
         <div class="ge ge-param-label">
             <label class="pull-left" :for="id">{{ item.prop.title }}</label>
             <div class="pull-right">
-                <params-bindings :model.sync="item.param" :context="{ prop: item.prop }" inline-template>
+                <params-bindings :owner="item.owner" :property="item.prop.name" :context="{ type: 'update', prop: item.prop }" inline-template>
                     <button type="button" class="btn btn-xs btn-default" @click="open()">Advanced</button>
                 </params-bindings>
             </div>
         </div>
-        <div class="form-control">{{ item.param.value.value | json }}</div>
+        <div class="form-control">{{ item.param.value.value }}</div>
     </div>
 </template>

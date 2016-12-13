@@ -152,50 +152,16 @@
                 this.$dispatch('removeChildWidget', { item: this.model });
             },
 
-            doApply: function(model) {
-
-                this.$store.commit('designer/params/update', {
-                    model: this.model,
-                    value: model
-                })
-                //
-                // Object.assign(this.model, JSON.parse(JSON.stringify(model)), {
-                //     _action: this.model._action
-                //         ? this.model._action
-                //         : 'update'
-                // });
-
-                $(window).trigger('resize');
-            },
-
             showSettings: function() {
 
-                var dialog = new Shell.Widgets.ModalEditor({
-
-                    data: {
-                        globals: this.globals,
-                        owner: this,
-                        context: {
-                            widget: this.widget
-                        },
-                        original: this.model,
-                        current: JSON.parse(JSON.stringify(this.model))
-                    },
-
-                    methods: {
-                        submit: function() {
-                            this.owner.doApply(this.current);
-                            this.$el.remove();
-                            this.$destroy();
-                        },
-                        reset: function() {
-                            this.$el.remove();
-                            this.$destroy();
-                        }
+                this.$store.commit('modals/show', {
+                    name: 'shell-widgets-dialog',
+                    context: { type: 'update', widget: this.widget },
+                    original: this.model,
+                    events: {
+                        submit: (current) => { this.$store.commit('designer/params/update', { model: this.model, value: current }) },
                     }
-                }).$mount();
-
-                // $(document.body).append(dialog.$el);
+                })
             },
         },
     };

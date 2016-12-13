@@ -119,7 +119,6 @@
     Vue.component('params', {
         template: '#params',
         props: {
-            owner: Object,
             tab: String,
             items: Array,
         }
@@ -151,47 +150,27 @@
             },
         }
     });
-
-    var ParamBindingsModalEditor =
+    
     Vue.component('params-bindings-dialog', {
         template: '#params-bindings-dialog',
         mixins: [ Core.ModalEditorMixin, Core.TabsMixin('binding') ],
-        data: function() {
-            return {
-                items: this.items,
-            };
+        computed: {
+            items: function() {
+                return this.context.prop.props.map(prop => ({
+                    prop,
+                    owner: this.current.value,
+                    param: this.current.value[prop.name] || { value: defaults[prop.type] || null }
+                }))
+            }
         },
-        created: function() {
 
-            var items = [];
+        created: function() {
 
             this.current.binding = this.current.binding || {
                 strategy: 'interpolate',
                 expression: null,
             }
 
-            if (this.context.prop.props) {
-
-                for (var i = 0; i < this.context.prop.props.length; i++) {
-
-                    var prop = this.context.prop.props[i];
-                    var param = this.current.value[prop.name] = this.current.value[prop.name] || { value: defaults[prop.type] || null };
-
-                    param._action = param._action == 'update'
-                        ? 'update'
-                        : 'create'
-                    ;
-
-                    var item = {
-                        prop: prop,
-                        param: param,
-                    };
-
-                    items.push(item);
-                }
-            }
-
-            this.items = items.slice();
         },
         methods: {
             setStrategy: function(strategy) {
@@ -206,7 +185,7 @@
 
     var ParamBindingsEditor =
     Vue.component('params-bindings', {
-        mixins: [Core.ActionMixin(ParamBindingsModalEditor)],
+        mixins: [Core.ActionMixin('params-bindings-dialog')],
     });
 
     var ParamProtoModalEditor =
@@ -316,14 +295,7 @@
     var ParamsList =
     Vue.component('params-list', {
         template: '#params-list',
-        components: {
-            'params-string': ParamString,
-            'params-rich': ParamRich,
-            'params-source': ParamSource,
-            'params-multiple': ParamMultiple,
-        },
         props: {
-            owner: Object,
             tab: String,
             items: Array,
         }
