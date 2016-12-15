@@ -1,33 +1,22 @@
 (function(Vue, $, Core, Shell) {
 
-    var WidgetsModalEditor = Shell.Widgets.ModalEditor =
+    let defaults = {
+        'multiple': [],
+        'object': {},
+    };
+
+    Shell.Widgets.ModalEditor =
     Vue.component('shell-widgets-dialog', {
         template: '#shell-widgets-dialog',
         mixins: [Core.ModalEditorMixin, Core.TabsMixin('data')],
-        created: function() {
-
-            var items = [];
-
-            for (var i = 0; i < this.context.widget.props.length; i++) {
-
-                var prop = this.context.widget.props[i];
-                var param = this.current.params[prop.name];
-
-                var item = {
-                    prop: prop,
-                    param: param,
-                };
-
-                items.push(item);
+        computed: {
+            items: function() {
+                return this.context.widget.props.map(prop => ({
+                    prop,
+                    owner: this.current.params,
+                    param: this.current.params[prop.name] || { value: defaults[prop.type] || null }
+                }))
             }
-
-            this.items = items;
-        },
-        data: function() {
-            return {
-                context: this.context,
-                items: this.items,
-            };
         },
         methods: {
 

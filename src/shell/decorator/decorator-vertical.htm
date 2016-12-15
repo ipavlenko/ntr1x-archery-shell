@@ -4,15 +4,14 @@
             <div
                 :is="widget.tag"
                 ref="widget"
-                :page.sync="page"
-                :data.sync="data"
-                :storage.sync="storage"
-                :bindings.sync="bindings"
-                :children.sync="children"
-                :editable.sync="selected"
+                :page="page"
+                :stack="model"
+                :bindings="bindings"
+                :children="children"
+                :editable="selected"
             ></div>
         </div>
-        <div class="ge ge-overlay" v-if="$route && $route.private && editable">
+        <div class="ge ge-overlay" v-if="$route && $route.meta.private && editable">
             <div class="ge ge-overlay-left">
                 <a href="#" v-if="!selected" @click.stop.prevent="selectTarget()" class="label label-success">Unlock</a>
                 <a href="#" v-if="selected" @click.stop.prevent="unselectTarget()" class="label label-success">Lock</a>

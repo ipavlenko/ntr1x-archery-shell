@@ -149,7 +149,7 @@
         methods: {
 
             removeWidget: function() {
-                this.$dispatch('removeChildWidget', { item: this.model });
+                this.$store.commit('designer/widgets/remove', { parent: this.stack, widget: this.model });
             },
 
             showSettings: function() {
@@ -206,25 +206,15 @@
         }
     };
 
-    var CompositeMixin = {
+    let CompositeMixin = {
 
         computed: {
 
             children: function() {
 
-                let children = [];
-
-                if (this.items) {
-                    for (var i = 0; i < this.items.length; i++) {
-                        children.push(this.items[i]);
-                    }
-                }
-
-                if (children.length < 1) {
-                    children.push(JSON.parse(JSON.stringify(this.placeholder())));
-                }
-
-                return children;
+                return this.items.length > 0
+                    ? [ ...this.items ]
+                    : [ JSON.parse(JSON.stringify(this.placeholder())) ]
             }
         },
 
@@ -246,27 +236,25 @@
         },
     };
 
-    var SortableMixin = function (selector) {
+    let SortableMixin = {
 
-        return {
-
-            data: function() {
-
-                return {
-                    selected: this.selected,
-                };
+        data: function() {
+            return {
+                selected: this.selected
+            }
+        },
+        created: function() {
+            this.selected = false;
+        },
+        methods: {
+            selectTarget: function() {
+                this.selected = true;
             },
 
-            methods: {
-                selectTarget: function() {
-                    this.selected = true;
-                },
-
-                unselectTarget: function() {
-                    this.selected = false;
-                },
-            }
-        };
+            unselectTarget: function() {
+                this.selected = false;
+            },
+        }
     };
 
     Vue.component('shell-decorator-stub', {
@@ -295,7 +283,7 @@
 
     Vue.component('shell-decorator-horizontal', {
         template: '#shell-decorator-horizontal',
-        mixins: [ DecoratorMixin, CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table >.wg.wg-row'), BindingsMixin ],
+        mixins: [ DecoratorMixin, CompositeMixin, SortableMixin, BindingsMixin ],
         props: {
             stack: Object,
             page: Object,
@@ -320,7 +308,7 @@
 
     Vue.component('shell-decorator-vertical', {
         template: '#shell-decorator-vertical',
-        mixins: [ DecoratorMixin, CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table'), BindingsMixin ],
+        mixins: [ DecoratorMixin, CompositeMixin, SortableMixin, BindingsMixin ],
         props: {
             stack: Object,
             page: Object,
@@ -345,7 +333,7 @@
 
     Vue.component('shell-decorator-canvas', {
         template: '#shell-decorator-canvas',
-        mixins: [ CompositeMixin, SortableMixin('>.ge.ge-content >.wg.wg-default-stack >.wg.wg-content >.wg.wg-table'), BindingsMixin ],
+        mixins: [ CompositeMixin, SortableMixin, BindingsMixin ],
         props: {
             stack: Object,
             page: Object,

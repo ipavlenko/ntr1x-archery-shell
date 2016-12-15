@@ -1,6 +1,10 @@
 (function(Vue, $, Core, Shell) {
 
-    var ParamVariable =
+    let defaults = {
+        'multiple': [],
+        'object': {},
+    };
+
     Vue.component('params-variable', {
         template: '#params-variable',
         props: {
@@ -9,7 +13,6 @@
         }
     });
 
-    var ParamAsis =
     Vue.component('params-asis', {
         template: '#params-asis',
         props: {
@@ -56,7 +59,6 @@
         },
     });
 
-    var ParamString =
     Vue.component('params-string', {
         template: '#params-string',
         props: {
@@ -65,7 +67,6 @@
         }
     });
 
-    var ParamSelect =
     Vue.component('params-select', {
         template: '#params-select',
         props: {
@@ -74,7 +75,6 @@
         }
     });
 
-    var ParamRich =
     Vue.component('params-rich', {
         template: '#params-rich',
         props: {
@@ -83,7 +83,6 @@
         }
     });
 
-    var ParamSource =
     Vue.component('params-source', {
         template: '#params-source',
         props: {
@@ -92,12 +91,20 @@
         }
     });
 
-    var ParamMultiple =
     Vue.component('params-multiple', {
         template: '#params-multiple',
         props: {
             id: String,
             item: Object,
+        },
+        computed: {
+            items: function() {
+                return this.context.prop.props.map(prop => ({
+                    prop,
+                    owner: this.current.value,
+                    param: this.current.value[prop.name] || { value: defaults[prop.type] || null }
+                }))
+            }
         },
         data: function() {
             return {
@@ -106,7 +113,6 @@
         },
     });
 
-    var ParamObject =
     Vue.component('params-object', {
         template: '#params-object',
         props: {
@@ -115,7 +121,6 @@
         },
     });
 
-    var Params =
     Vue.component('params', {
         template: '#params',
         props: {
@@ -123,11 +128,6 @@
             items: Array,
         }
     });
-
-    var defaults = {
-        'multiple': [],
-        'object': {},
-    };
 
     var ParamMultipleListViewer =
     Vue.component('params-multiple-list', {
@@ -150,7 +150,7 @@
             },
         }
     });
-    
+
     Vue.component('params-bindings-dialog', {
         template: '#params-bindings-dialog',
         mixins: [ Core.ModalEditorMixin, Core.TabsMixin('binding') ],

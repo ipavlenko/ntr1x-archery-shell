@@ -3,10 +3,7 @@
     Shell.Widget =
     Vue.component('shell-widget', {
         template: '#shell-widget',
-        mixins: [ /* Core.DecoratorMixin, Core.ContainerMixin, Core.SortableMixin, Core.BindingsMixin */ ],
         props: {
-            // globals: Object,
-            // settings: Object,
             page: Object,
             stack: Object,
             model: Object,
@@ -23,7 +20,6 @@
             };
         },
         created: function() {
-
             this.widget = this.$store.getters.palette.widget(this.model.name);
             this.decorator = this.decorators.alternatives[this.widget.tag] || this.decorators.fallback;
         },
