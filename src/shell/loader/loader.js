@@ -1,6 +1,6 @@
 (function($, Vue, Core, Shell) {
 
-    var LoaderMixin = Shell.LoaderMixin =
+    let LoaderMixin = Shell.LoaderMixin =
     Vue.component('shell-loader', {
         template: '#shell-loader',
         data: function() {

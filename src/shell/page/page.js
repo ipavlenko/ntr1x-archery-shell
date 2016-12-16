@@ -1,4 +1,4 @@
-(function($, Vue, Vuex, Core, Shell) {
+(function($, Vue, Vuex) {
 
     Vue.component('shell-page', {
         template: '#shell-page',
@@ -94,7 +94,7 @@
                 deep: true,
             });
 
-            this.$watch('storage', (storage) => loadData(this.page.sources), {
+            this.$watch('storage', () => loadData(this.page.sources), {
                 immediate: true,
                 deep: true,
             });
@@ -118,11 +118,11 @@
                 return $.ajax({
                     method: s.method,
                     url: s.url,
-                    dataType: "json",
+                    dataType: '"json',
                     data: query,
                 });
             }
         },
     });
 
-})(jQuery, Vue, Vuex, Core, Shell);
+})(jQuery, Vue, Vuex);

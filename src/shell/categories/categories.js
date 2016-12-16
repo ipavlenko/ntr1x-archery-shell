@@ -1,4 +1,4 @@
-(function($, Vue, Core, Shell) {
+(function(Vue) {
 
     Vue.component('shell-categories', {
         template: '#shell-categories',
@@ -13,4 +13,4 @@
         }
     });
 
-})(jQuery, Vue, Core, Shell);
+})(Vue);

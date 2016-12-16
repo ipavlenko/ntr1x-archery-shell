@@ -1,4 +1,4 @@
-(function($, Vue, Core, Shell) {
+(function($, Vue) {
 
     var PaletteItem =
     Vue.component('shell-palette-item', {
@@ -33,4 +33,4 @@
         },
     });
 
-})(jQuery, Vue, Core, Shell);
+})(jQuery, Vue);

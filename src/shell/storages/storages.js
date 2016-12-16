@@ -1,4 +1,4 @@
-(function($, Vue, Core, Shell) {
+(function($, Vue) {
 
     Vue.component('shell-storages', {
         template: '#shell-storages',
@@ -60,4 +60,4 @@
         }
     });
 
-})(jQuery, Vue, Core, Shell);
+})(jQuery, Vue);

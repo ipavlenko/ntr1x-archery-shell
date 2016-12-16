@@ -1,4 +1,4 @@
-(function($, Vue, Core, Shell) {
+(function(Vue) {
 
     Vue.component('shell-container', {
         template: '#shell-container',
@@ -7,4 +7,4 @@
         }
     });
 
-})(jQuery, Vue, Core, Shell);
+})(Vue);

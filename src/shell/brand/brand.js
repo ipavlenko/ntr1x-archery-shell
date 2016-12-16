@@ -1,7 +1,7 @@
-(function($, Vue, Core, Shell) {
+(function(Vue) {
 
     Vue.component('shell-brand', {
         template: '#shell-brand',
     });
 
-})(jQuery, Vue, Core, Shell);
+})(Vue);

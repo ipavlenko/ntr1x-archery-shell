@@ -1,4 +1,4 @@
-(function($, Vue, Core, Shell) {
+(function($, Vue) {
 
     var runtime = Vue.service('runtime', {
 
@@ -49,7 +49,7 @@
 
                 let n = item.prop.name;
                 let r = item.prop.variable;
-                let t = item.prop.type;
+                // let t = item.prop.type;
 
                 let b = item.param ? item.param.binding : null;
                 let v = item.param ? item.param.value : null;
@@ -64,29 +64,27 @@
 
                 } else if (item.prop.type == 'object') {
 
-                    let vv;
-
                     if (b && b.expression) {
 
-                        vv = runtime.evaluate(self, b, v);
+                        let vv = runtime.evaluate(self, b, v);
                         value[n] = vv;
 
                     } else {
 
                         let res = this.evaluateParams(self, item.prop.props, v);
-                        vv = r ? { value: res } : res;
+                        let vv = r ? { value: res } : res;
 
                         value[n] = vv;
                     }
 
                 } else if (item.prop.type == 'multiple') {
 
+                    let vv;
+
                     if (b && b.expression) {
 
-                        var vv = null;
-
-                        var array = [];
-                        var result = runtime.evaluate(self, b, v);
+                        let array = [];
+                        let result = runtime.evaluate(self, b, v);
 
                         if (r) {
                             vv = result;
@@ -94,9 +92,9 @@
 
                             if (Array.isArray(result)) {
 
-                                for (var j = 0; j < result.length; j++) {
+                                for (let j = 0; j < result.length; j++) {
 
-                                    var vm = new Vue({
+                                    let vm = new Vue({
                                         data: Object.assign(JSON.parse(JSON.stringify(self.$data)), {
                                             item: result[j]
                                         })
@@ -111,7 +109,7 @@
 
                     } else {
 
-                        var array = [];
+                        let array = [];
 
                         var index = 0;
                         if (Array.isArray(v)) {
@@ -130,7 +128,7 @@
 
                 } else {
 
-                    var vv = runtime.evaluate(self, b, v);
+                    let vv = runtime.evaluate(self, b, v);
                     value[n] = vv || '';
                 }
             }
@@ -477,4 +475,4 @@
         },
     });
 
-})(jQuery, Vue, Core, Shell);
+})(jQuery, Vue);

@@ -1,4 +1,4 @@
-(function($, Vue, Core, Shell) {
+(function($, Vue) {
 
     Vue.component('shell-pages', {
         template: '#shell-pages',
@@ -64,4 +64,4 @@
         }
     });
 
-})(jQuery, Vue, Core, Shell);
+})(jQuery, Vue);

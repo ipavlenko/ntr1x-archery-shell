@@ -1,11 +1,7 @@
-(function($, Vue, Core, Shell) {
+(function(Vue) {
 
     Vue.component('shell-domains', {
         template: '#shell-domains',
-        props: {
-            domains: Array,
-            globals: Object,
-        },
     });
 
-})(jQuery, Vue, Core, Shell);
+})(Vue);
