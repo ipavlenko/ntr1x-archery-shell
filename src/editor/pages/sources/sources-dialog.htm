@@ -50,8 +50,7 @@
                     <div class="form-group">
                         <label for="pages-sources-dialog-params">Параметры</label>
                         <div>
-                            <pages-sources-params :items.sync="current.params">
-                            </pages-sources-params>
+                            <pages-sources-params :owner="current" property="params"></pages-sources-params>
                         </div>
                     </div>
                 </div>
