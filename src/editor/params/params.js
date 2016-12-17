@@ -220,16 +220,23 @@
             items: function() {
                 return this.context.prop.props.map(prop => ({
                     prop,
-                    owner: this.current.params,
-                    param: this.current.params[prop.name] || { value: defaults[prop.type] || null }
+                    owner: this.current.value,
+                    param: this.current.value[prop.name] || { value: defaults[prop.type] || null }
                 }))
             }
         },
         created: function() {
-
             this.current.binding = this.current.binding || {
                 strategy: 'interpolate',
                 expression: null,
+            }
+
+            this.current.value = this.current.value || {}
+
+            if (this.context.prop.props) {
+                for (let prop of this.context.prop.props) {
+                    this.current.value[prop.name] = this.current.value[prop.name] || { value: defaults[prop.type] || null }
+                }
             }
 
         },
@@ -304,6 +311,13 @@
                     owner: this.current,
                     param: this.current[prop.name] || { value: defaults[prop.type] || null }
                 }))
+            },
+            proto: function() {
+                return {
+                    prop: this.context.prop,
+                    owner: this.current,
+                    param: this.current.proto,
+                }
             }
         },
         created: function() {
