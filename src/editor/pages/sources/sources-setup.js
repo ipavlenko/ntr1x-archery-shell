@@ -1,6 +1,6 @@
 (function(Vue, $, Core, Shell) {
 
-    var PageSpec =
+    let PageSpec =
     Vue.component('pages-sources-setup-dialog-page-spec', {
         template: '#pages-sources-setup-dialog-page-spec',
         props: {
@@ -54,7 +54,7 @@
         }
     });
 
-    var PageMethod =
+    let PageMethod =
     Vue.component('pages-sources-setup-dialog-page-method', {
         template: '#pages-sources-setup-dialog-page-method',
         props: {
@@ -144,7 +144,6 @@
         }
     });
 
-    var SetupModalEditor =
     Vue.component('pages-sources-setup-dialog', {
         template: '#pages-sources-setup-dialog',
         mixins: [Core.ModalEditorMixin],
@@ -177,6 +176,7 @@
                         name: p.name,
                         required: p.required,
                         specified: true,
+                        uuid: Core.UUID.random()
                     }))
                 });
                 this.submit();
@@ -218,9 +218,8 @@
         }
     });
 
-    var SourcesSetupEditor =
     Vue.component('pages-sources-setup', {
-        mixins: [Core.ActionMixin(SetupModalEditor)],
+        mixins: [Core.ActionApplyMixin('pages-sources-setup-dialog')],
     });
 
 })(Vue, jQuery, Core, Shell);

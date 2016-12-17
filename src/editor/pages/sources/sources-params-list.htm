@@ -3,8 +3,8 @@
         <table class="table table-condensed">
             <tbody>
                 <tr v-for="(item, index) in items" :key="item.uuid">
-                    <td>{{ index + 1 }}</td>
-                    <td>
+                    <td style="width: 1%">{{ index + 1 }}</td>
+                    <td style="width: 1%">
                         <div style="white-space: nowrap">
                             <span class="label" :class="{
                                 'label-default': item.in == 'path',
@@ -14,7 +14,7 @@
                             <span>&nbsp;{{item.name }}</span>
                         </div>
                     </td>
-                    <td style="width: 60%">
+                    <td style="width: 100%">
                         <div class="input-group input-group-sm">
                             <label class="input-group-addon">
                                 <input type="checkbox" id="pages-sources-dialog-specified" v-model="item.specified" :disabled="item.required" />
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </td>
-                    <td>
+                    <td style="width: 1%">
                         <a class="btn btn-xs btn-danger pull-right" @click="remove(item)">Удалить</a>
                     </td>
                 </tr>

@@ -1,7 +1,9 @@
 <template id="shell-modal-stack">
     <section class="ge ge-modal-stack">
         <template v-for="modal in $store.state.modals.items">
-            <component :is="modal.name" :original="modal.original" :context="modal.context" :events="modal.events"></component>
+            <transition name="bounce" appear>
+                <component :is="modal.name" :original="modal.original" :context="modal.context" :events="modal.events"></component>
+            </transition>
         </template>
     </section>
 </template>
