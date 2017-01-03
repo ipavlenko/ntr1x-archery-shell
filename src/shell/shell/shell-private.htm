@@ -7,7 +7,7 @@
             <div class="ge ge-body-table">
                 <div class="ge ge-left" :class="{ 'ge-left-open' : $store.state.designer.leftOpen }" v-scrollable>
                     <div class="ge ge-hover">
-                        <a class="ge ge-hover-button" @click = "$store.dispatch('designer/rightToggle')">
+                        <a class="ge ge-hover-button" @click = "$store.commit('designer/leftToggle')">
                             <span class="glyphicon glyphicon-th"></span>
                             Palette
                         </a>
@@ -27,7 +27,7 @@
                         <shell-storages></shell-storages>
                     </div>
                     <div class="ge ge-hover">
-                        <a class="ge ge-hover-button" @click = "$store.dispatch('designer/rightToggle')">
+                        <a class="ge ge-hover-button" @click = "$store.commit('designer/rightToggle')">
                             <span class="glyphicon glyphicon-th"></span>
                             Stucture
                         </a>

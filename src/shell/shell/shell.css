@@ -60,12 +60,13 @@
   display: flex;
   width: 100%;
   height: 100%;
+  background: #1F2E3C;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-body .ge.ge-subnav {
   background: #1F2E3C;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-body .ge.ge-editor {
-  background: #F3F7F7 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQIW2NMS0v7P2vWLEYGKIAziBcAAP+yBAXz7lxnAAAAAElFTkSuQmCC') repeat;
+  background: #F3F7F7 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIElEQVQYV2M8c+bMfxMTE0YGAoCgApj+UYV4Q5Lo4AEAZk8EC6uDq0gAAAAASUVORK5CYII=') repeat;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-left {
   flex: 0 1 40px;
