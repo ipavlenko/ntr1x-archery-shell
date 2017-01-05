@@ -19,7 +19,7 @@
         },
         computed: {
             active: function() { return this.$store.state.designer.page; },
-            items: function() { return this.$store.state.designer.pages; },
+            items: function() { return this.$store.state.designer.content.pages; },
         },
         methods: {
 

@@ -15,20 +15,10 @@
         mixins: [ LoaderMixin ],
         template: '#shell-loader-private',
         created: function() {
-
-            this.model = null;
-
-            this.$store.dispatch('portals/get/id', { id: this.$root.portal.id }).then(
-                (d) => {
-                    this.model = {
-                        portal: d.data.portal,
-                        pages: d.data.pages,
-                    }
-                },
-                (e) => {
-                    console.log(e);
-                }
-            );
+            this.model = {
+                portal: this.$root.portal,
+                pages: this.$root.model.content.pages,
+            }
         }
     });
 
@@ -39,9 +29,8 @@
         created: function() {
             this.model = {
                 portal: this.$root.portal,
-                pages: this.$root.pages,
-            };
-            console.log(this.model, this.$route);
+                pages: this.$root.model.content.pages,
+            }
         }
     });
 
