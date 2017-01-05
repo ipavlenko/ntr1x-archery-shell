@@ -14,12 +14,12 @@
     Vue.component('shell-loader-private', {
         mixins: [ LoaderMixin ],
         template: '#shell-loader-private',
-        created: function() {
-            this.model = {
-                portal: this.$root.portal,
-                pages: this.$root.model.content.pages,
-            }
-        }
+        // created: function() {
+        //     this.model = {
+        //         portal: this.$root.portal,
+        //         pages: this.$root.model.content.pages,
+        //     }
+        // }
     });
 
     Shell.LoaderPublic =

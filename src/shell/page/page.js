@@ -60,6 +60,8 @@
 
             let loadData = (sources) => {
 
+                console.log('Load data');
+
                 if (sources) {
 
                     var deferred = [];

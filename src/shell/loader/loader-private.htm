@@ -1,5 +1,5 @@
 <template id="shell-loader-private">
     <div class="ge ge-shell-loader">
-        <shell-private></shell-private>
+        <shell-private v-if="$store.state.designer.content"></shell-private>
     </div>
 </template>
