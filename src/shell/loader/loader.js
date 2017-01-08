@@ -3,28 +3,12 @@
     let LoaderMixin = Shell.LoaderMixin =
     Vue.component('shell-loader', {
         template: '#shell-loader',
-        // data: function() {
-        //     console.log(this);
-        //     return {
-        //         model: {
-        //             portal: this.context.portal,
-        //             content: this.context.content
-        //         },
-        //     }
-        // },
     });
 
     Shell.LoaderPrivate =
     Vue.component('shell-loader-private', {
         mixins: [ LoaderMixin ],
         template: '#shell-loader-private',
-        created: function() {
-            console.log('asd');
-            // this.model = {
-            //     portal: this.$root.portal,
-            //     pages: this.$root.model.content.pages,
-            // }
-        }
     });
 
     Shell.LoaderPublic =
@@ -33,8 +17,8 @@
         template: '#shell-loader-public',
         created: function() {
             this.model = {
-                portal: this.$root.portal,
-                pages: this.$root.model.content.pages,
+                portal: this.$root.context.portal,
+                pages: this.$root.context.content.pages,
             }
         }
     });
@@ -45,8 +29,8 @@
         template: '#shell-loader-frame',
         created: function() {
             this.model = {
-                portal: this.$root.portal,
-                pages: this.$root.pages,
+                portal: this.$root.context.portal,
+                pages: this.$root.context.content.pages,
             }
         }
     });
