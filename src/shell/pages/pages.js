@@ -39,7 +39,7 @@
                     storages: [],
                 };
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'pages-dialog',
                     context: { type: 'create', widget },
                     original: page,
@@ -52,7 +52,7 @@
 
                 let widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'pages-dialog',
                     context: { type: 'update', widget },
                     original: page,

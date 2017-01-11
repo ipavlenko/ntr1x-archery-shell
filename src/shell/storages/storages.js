@@ -36,7 +36,7 @@
                     variables: [],
                 }
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'storages-dialog',
                     context: { type: 'create' },
                     original: storage,
@@ -48,7 +48,7 @@
 
             update: function(storage) {
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'storages-dialog',
                     context: { type: 'update' },
                     original: storage,

@@ -76,6 +76,13 @@
 
                         value[n] = vv;
                     }
+                } else if (item.prop.type == 'action') {
+
+                    let vv = runtime.evaluate(self, b, v);
+                    value[n] = {
+                        action: item.param.action,
+                        payload: vv
+                    }// vv || '';
 
                 } else if (item.prop.type == 'multiple') {
 
@@ -129,7 +136,7 @@
                 } else {
 
                     let vv = runtime.evaluate(self, b, v);
-                    value[n] = vv || '';
+                    value[n] = vv// || '';
                 }
             }
 
@@ -152,7 +159,7 @@
 
             showSettings: function() {
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'shell-widgets-dialog',
                     context: { type: 'update', widget: this.widget },
                     original: this.model,
@@ -168,7 +175,7 @@
 
         data: function() {
             return {
-                bindings: this.bindings,
+                bindings: this.bindings
             };
         },
 

@@ -38,7 +38,7 @@
                     name: ''
                 }
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'pages-sources-dialog',
                     context: { type: 'create' },
                     original: source,
@@ -50,7 +50,7 @@
 
             update: function(source) {
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'pages-sources-dialog',
                     context: { type: 'update' },
                     original: source,

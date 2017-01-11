@@ -26,6 +26,9 @@
                 <params-object v-if="item.prop.type == 'object'" :id="'pages-widgets-dialog-props-' + index"
                     :item="item"
                 ></params-object>
+                <params-action v-if="item.prop.type == 'action'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
+                ></params-action>
             </div>
         </template>
     </div>

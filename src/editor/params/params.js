@@ -83,6 +83,28 @@
         }
     });
 
+    Vue.component('params-action', {
+        template: '#params-action',
+        props: {
+            id: String,
+            item: Object,
+        },
+        computed: {
+            actions: function() {
+                return [
+                    'actions/execute',
+                    'modals/show',
+                    'modals/close',
+                ]
+            }
+        },
+        methods: {
+            select: function(action) {
+                this.$store.commit('designer/property/update', { parent: this.item.param, property: 'action', value: action })
+            }
+        }
+    });
+
     Vue.component('params-source', {
         template: '#params-source',
         props: {
@@ -123,7 +145,7 @@
                 let value = {
                 }
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'params-multiple-dialog',
                     context: { type: 'create', prop: this.item.prop },
                     original: value,
@@ -135,7 +157,7 @@
 
             update: function(current, index) {
 
-                this.$store.commit('modals/show', {
+                this.$store.commit('modals/editor/show', {
                     name: 'params-multiple-dialog',
                     context: { type: 'update', prop: this.item.prop },
                     original: current,
