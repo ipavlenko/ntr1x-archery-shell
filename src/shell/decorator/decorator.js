@@ -10,7 +10,7 @@
                     if (b.strategy == 'eval') {
                         return self.$eval(b.expression);
                     } else if (b.strategy == 'wire') {
-                        return _.get(self, b.expression, null);
+                        return self.$get(b.expression);
                     } else {
                         return self.$interpolate(b.expression);
                     }
@@ -181,17 +181,24 @@
 
         created: function() {
 
-            this.$watch('data', () => {
-                var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
-                this.bindings = bindings;
-            }, {
-                deep: true,
-                immediate: true,
-            });
+            // this.$watch('data', () => {
+            //     var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
+            //     this.bindings = bindings;
+            // }, {
+            //     deep: true,
+            //     immediate: true,
+            // });
 
-            this.$watch('storage', () => {
-                var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
-                this.bindings = bindings;
+            // console.log('$page', this.$page);
+
+            this.$watch('$page', () => {
+                try {
+                    var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
+                    this.bindings = bindings;
+                    console.log(this.model.name, this.bindings);
+                } catch (e) {
+                    console.log(e, e.stack);
+                }
             }, {
                 deep: true,
                 immediate: true,

@@ -11,47 +11,50 @@
         data: function() {
             return {
                 decorator: this.decorator,
-                data: this.data,
-                storage: this.storage,
                 widget: this.widget,
+                context: this.context,
             };
         },
         created: function() {
 
-            this.$page = this.page;
-            // console.log(this.$page);
+            // console.log(this);
+
+            this._page = {}
+
+            // Object.assign(this.$context = this.context = {
+            //     storage: {},
+            //     sources: {},
+            //     // place path, query and server data here
+            // })
 
             this.widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
             var runtime = Vue.service('runtime');
 
             this.decorator = 'shell-decorator-canvas';
-            this.data = {};
-            this.storage = {};
+            // this.data = {};
+            // this.storage = {};
 
             this.$watch('page.storages', (storages) => {
 
                 if (storages) {
 
-                    var storage = {};
+                    let data = {};
 
-                    for (var i = 0; i < storages.length; i++) {
+                    for (let st of storages) {
 
-                        var st = storages[i];
-                        storage[st.name] = {};
+                        let sdata = data[st.name] = {};
 
                         if (st.variables) {
-                            for (var j = 0; j < st.variables.length; j++) {
-
-                                var variable = st.variables[j];
-                                storage[st.name][variable.name] = {
-                                    value: runtime.evaluate(this, variable.binding, variable.value) || null
+                            for (let variable of st.variables) {
+                                sdata[variable.name] = {
+                                    value: runtime.evaluate(this, variable.binding, variable.value)
                                 };
                             }
                         }
                     }
 
-                    this.storage = storage;
+                    this.$page.storage = data
                 }
             }, {
                 immediate: true,
@@ -60,31 +63,34 @@
 
             let loadData = (sources) => {
 
-                console.log('Load data');
-
                 if (sources) {
 
-                    var deferred = [];
-                    for (var i = 0; i < sources.length; i++) {
-                        deferred.push(this.doRequest(sources[i]));
+                    let deferred = [];
+                    for (let source of sources) {
+                        deferred.push(this.doRequest(source));
                     }
 
                     if (deferred.length > 1) {
 
                         $.when.apply(this, deferred).done(function() {
-                            var data = {};
-                            for (var i = 0; i < arguments.length; i++) {
+
+                            let data = {};
+                            for (let i = 0; i < arguments.length; i++) {
                                 data[sources[i].name] = arguments[i][0];
                             }
-                            this.data = data;
+
+                            this.$page.sources = data;
+
                         }.bind(this));
 
                     } else if (deferred.length == 1) {
 
                         deferred[0].done(function(d) {
-                            var data = {};
+
+                            let data = {};
                             data[sources[0].name] = d;
-                            this.data = data;
+                            this.$page.sources = data;
+
                         }.bind(this));
                     }
                 }
