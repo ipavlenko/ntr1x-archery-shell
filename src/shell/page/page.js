@@ -1,4 +1,4 @@
-(function($, Vue, Vuex) {
+(function($, Vue, Vuex, Core) {
 
     Vue.component('shell-page', {
         template: '#shell-page',
@@ -15,25 +15,20 @@
                 context: this.context,
             };
         },
+        beforeCreate: function() {
+            this.$page = {
+                uuid: Core.UUID.random(),
+                storage: null,
+                sources: null,
+            }
+        },
         created: function() {
-
-            // console.log(this);
-
-            this._page = {}
-
-            // Object.assign(this.$context = this.context = {
-            //     storage: {},
-            //     sources: {},
-            //     // place path, query and server data here
-            // })
 
             this.widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
             var runtime = Vue.service('runtime');
 
             this.decorator = 'shell-decorator-canvas';
-            // this.data = {};
-            // this.storage = {};
 
             this.$watch('page.storages', (storages) => {
 
@@ -53,7 +48,6 @@
                             }
                         }
                     }
-
                     this.$page.storage = data
                 }
             }, {
@@ -97,15 +91,17 @@
 
             };
 
-            this.$watch('page.sources', (sources) => loadData(sources), {
-                immediate: true,
-                deep: true,
-            });
+            // this.$watch('page.sources', (sources) => loadData(sources), {
+            //     immediate: true,
+            //     deep: true,
+            // });
 
-            this.$watch('storage', () => loadData(this.page.sources), {
-                immediate: true,
-                deep: true,
-            });
+            // this.$watch('storage', () => loadData(this.page.sources), {
+            //     immediate: true,
+            //     deep: true,
+            // });
+
+            // console.log(this.$page);
         },
         methods: {
             doRequest: function(s) {
@@ -133,4 +129,4 @@
         },
     });
 
-})(jQuery, Vue, Vuex);
+})(jQuery, Vue, Vuex, Core);

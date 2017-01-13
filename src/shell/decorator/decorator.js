@@ -189,13 +189,11 @@
             //     immediate: true,
             // });
 
-            // console.log('$page', this.$page);
-
             this.$watch('$page', () => {
                 try {
                     var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
                     this.bindings = bindings;
-                    console.log(this.model.name, this.bindings);
+                    // console.log('$page', this.$page.uuid, this.$page.constructor, this.model.name, this.bindings);
                 } catch (e) {
                     console.log(e, e.stack);
                 }
