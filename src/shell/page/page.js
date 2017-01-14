@@ -27,8 +27,6 @@
 
             this.widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
-            var runtime = Vue.service('runtime');
-
             this.decorator = 'shell-decorator-canvas';
 
             this.$watch('page.storages', (storages) => {
@@ -44,7 +42,7 @@
                         if (st.variables) {
                             for (let variable of st.variables) {
                                 sdata[variable.name] = {
-                                    value: runtime.evaluate(this, variable.binding, variable.value)
+                                    value: this.$runtime.evaluate(this, variable.binding, variable.value)
                                 };
                             }
                         }
@@ -116,7 +114,7 @@
                         var b = param.binding;
                         var v = param.value;
 
-                        var value = Vue.service('runtime').evaluate(this, b, v);
+                        var value = this.$runtime.evaluate(this, b, v);
 
                         query[param.name] = value;
                     }
