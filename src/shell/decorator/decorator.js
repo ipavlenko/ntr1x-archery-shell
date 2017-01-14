@@ -17,8 +17,6 @@
                 } catch (e) {
                     if (b.strategy == 'interpolate') {
                         console.log('Cannot evaluate expression', b.strategy, b.expression, self, e, e.stack);
-                        // console.log(e, e.stack);
-                        // console.log(self);
                     }
                     return v;
                 }
@@ -27,10 +25,15 @@
             return v;
         },
 
-        evaluateParams: function(self, props, params) {
+        evaluateParams: function(self, props, params, trace) {
+
+            if (trace) {
+                console.log(self);
+                console.log(props);
+                console.log(params);
+            }
 
             let items = [];
-            // console.log(props, params);
             if (props) {
                 for (let i = 0; i < props.length; i++) {
                     let prop = props[i];
@@ -53,13 +56,12 @@
 
                 let b = item.param ? item.param.binding : null;
                 let v = item.param ? item.param.value : null;
-                let p = item.param ? item.param.proto : null;
+                let p = (item.param && item.param.binding) ? item.param.binding.proto : null;
 
                 if (item.prop.type == 'asis') {
 
                     let res = runtime.evaluate(self, b, v);
                     let vv = r ? { value: res } : res;
-                    // console.log(n, b, v, vv, item);
                     value[n] = vv;
 
                 } else if (item.prop.type == 'object') {
@@ -88,11 +90,10 @@
 
                     let vv;
 
-                    if (b && b.expression) {
+                    if (b) {
 
                         let array = [];
                         let result = runtime.evaluate(self, b, v);
-
                         if (r) {
                             vv = result;
                         } else {
@@ -181,19 +182,10 @@
 
         created: function() {
 
-            // this.$watch('data', () => {
-            //     var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
-            //     this.bindings = bindings;
-            // }, {
-            //     deep: true,
-            //     immediate: true,
-            // });
-
             this.$watch('$page', () => {
                 try {
                     var bindings = runtime.evaluateParams(this, this.widget.props, this.model.params);
                     this.bindings = bindings;
-                    // console.log('$page', this.$page.uuid, this.$page.constructor, this.model.name, this.bindings);
                 } catch (e) {
                     console.log(e, e.stack);
                 }

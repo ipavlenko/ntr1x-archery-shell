@@ -66,35 +66,39 @@
 
                     if (deferred.length > 1) {
 
-                        $.when.apply(this, deferred).done(function() {
+                        $.when.apply(this, deferred)
+                            .done(function() {
 
-                            let data = {};
-                            for (let i = 0; i < arguments.length; i++) {
-                                data[sources[i].name] = arguments[i][0];
-                            }
+                                let data = {};
+                                for (let i = 0; i < arguments.length; i++) {
+                                    data[sources[i].name] = arguments[i][0];
+                                }
 
-                            this.$page.sources = data;
+                                this.$page.sources = data;
 
-                        }.bind(this));
+                            }.bind(this));
 
                     } else if (deferred.length == 1) {
 
-                        deferred[0].done(function(d) {
+                        deferred[0]
+                            .done((d) => {
 
-                            let data = {};
-                            data[sources[0].name] = d;
-                            this.$page.sources = data;
-
-                        }.bind(this));
+                                let data = {};
+                                data[sources[0].name] = d;
+                                this.$page.sources = data;
+                            })
+                            .fail((e, e1, e2) => {
+                                console.log(e, e1, e2);
+                            });
                     }
                 }
 
             };
 
-            // this.$watch('page.sources', (sources) => loadData(sources), {
-            //     immediate: true,
-            //     deep: true,
-            // });
+            this.$watch('page.sources', (sources) => loadData(sources), {
+                immediate: true,
+                deep: true,
+            });
 
             // this.$watch('storage', () => loadData(this.page.sources), {
             //     immediate: true,
@@ -122,7 +126,7 @@
                 return $.ajax({
                     method: s.method,
                     url: s.url,
-                    dataType: '"json',
+                    dataType: 'json',
                     data: query,
                 });
             }

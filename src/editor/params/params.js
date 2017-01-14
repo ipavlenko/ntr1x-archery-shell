@@ -1,10 +1,5 @@
 (function(Vue, $, Core, Shell) {
 
-    let defaults = {
-        'multiple': [],
-        'object': {},
-    };
-
     Vue.component('params-variable', {
         template: '#params-variable',
         props: {
@@ -137,7 +132,8 @@
 
             remove: function(index) {
 
-                this.$store.commit('designer/array/remove', { parent: this.item.param, property: 'value', index });
+                this.$store.commit('designer/array/remove', { parent: this.item.param, property: 'value', index })
+                this.$forceUpdate()
             },
 
             create: function() {
@@ -150,7 +146,10 @@
                     context: { type: 'create', prop: this.item.prop },
                     original: value,
                     events: {
-                        submit: (current) => { this.$store.commit('designer/array/create', { parent: this.item.param, property: 'value', item: current }) },
+                        submit: (current) => {
+                            this.$store.commit('designer/array/create', { parent: this.item.param, property: 'value', item: current })
+                            this.$forceUpdate()
+                        },
                     }
                 })
             },
@@ -162,25 +161,14 @@
                     context: { type: 'update', prop: this.item.prop },
                     original: current,
                     events: {
-                        submit: (current) => { this.$store.commit('designer/array/update', { parent: this.item.param, property: 'value', item: current, index }) },
+                        submit: (current) => {
+                            this.$store.commit('designer/array/update', { parent: this.item.param, property: 'value', item: current, index })
+                            this.$forceUpdate()
+                        },
                     }
                 })
             },
         }
-        // computed: {
-        //     items: function() {
-        //         return this.context.prop.props.map(prop => ({
-        //             prop,
-        //             owner: this.current.value,
-        //             param: this.current.value[prop.name] || { value: defaults[prop.type] || null }
-        //         }))
-        //     }
-        // },
-        // data: function() {
-        //     return {
-        //         items: this.item.items
-        //     }
-        // },
     });
 
     Vue.component('params-object', {
@@ -207,7 +195,7 @@
                 return this.context.prop.props.map(prop => ({
                     prop,
                     owner: this.current.value,
-                    param: this.current.value[prop.name] || { value: defaults[prop.type] || null }
+                    param: this.current.value[prop.name]
                 }))
             }
         },
@@ -219,6 +207,11 @@
                 expression: null,
             }
 
+            if (this.context.prop.props) {
+                for (let prop of this.context.prop.props) {
+                    this.current.value[prop.name] = this.current.value[prop.name] || window.Widgets.buildParam(prop, { value: null })
+                }
+            }
         },
         methods: {
             setStrategy: function(strategy) {
@@ -242,8 +235,8 @@
             items: function() {
                 return this.context.prop.props.map(prop => ({
                     prop,
-                    owner: this.current.value,
-                    param: this.current.value[prop.name] || { value: defaults[prop.type] || null }
+                    owner: this.current.binding.proto,
+                    param: this.current.binding.proto[prop.name]
                 }))
             }
         },
@@ -251,16 +244,14 @@
             this.current.binding = this.current.binding || {
                 strategy: 'interpolate',
                 expression: null,
+                proto: {}
             }
-
-            this.current.value = this.current.value || {}
 
             if (this.context.prop.props) {
                 for (let prop of this.context.prop.props) {
-                    this.current.value[prop.name] = this.current.value[prop.name] || { value: defaults[prop.type] || null }
+                    this.current.binding.proto[prop.name] = this.current.binding.proto[prop.name] || window.Widgets.buildParam(prop, { value: null })
                 }
             }
-
         },
         methods: {
             setStrategy: function(strategy) {
@@ -271,52 +262,6 @@
                 return this.current.binding.strategy;
             },
         },
-        // data: function() {
-        //     return {
-        //         items: this.items,
-        //     };
-        // },
-        // created: function() {
-        //
-        //     var items = [];
-        //
-        //     this.current.binding = this.current.binding || {
-        //         strategy: 'interpolate',
-        //         expression: null,
-        //     }
-        //
-        //     if (this.context.prop.props) {
-        //
-        //         for (var i = 0; i < this.context.prop.props.length; i++) {
-        //
-        //             var prop = this.context.prop.props[i];
-        //             var param = this.current.proto[prop.name] = this.current.proto[prop.name] || { value: defaults[prop.type] || null };
-        //
-        //             param._action = param._action == 'update'
-        //                 ? 'update'
-        //                 : 'create'
-        //             ;
-        //
-        //             var item = {
-        //                 prop: prop,
-        //                 param: param,
-        //             };
-        //
-        //             items.push(item);
-        //         }
-        //     }
-        //
-        //     this.items = items.slice();
-        // },
-        // methods: {
-        //     setStrategy: function(strategy) {
-        //         this.current.binding.strategy = strategy;
-        //         this.$forceUpdate();
-        //     },
-        //     getStrategy: function() {
-        //         return this.current.binding.strategy;
-        //     },
-        // },
     });
 
     Vue.component('params-proto', {
@@ -331,22 +276,19 @@
                 return this.context.prop.props.map(prop => ({
                     prop,
                     owner: this.current,
-                    param: this.current[prop.name] || { value: defaults[prop.type] || null }
+                    param: this.current[prop.name]
                 }))
             },
-            proto: function() {
-                return {
-                    prop: this.context.prop,
-                    owner: this.current,
-                    param: this.current.proto,
-                }
-            }
         },
         created: function() {
 
+            if (this.current == null) {
+                this.current = {}
+            }
+
             if (this.context.prop.props) {
                 for (let prop of this.context.prop.props) {
-                    this.current[prop.name] = this.current[prop.name] || { value: defaults[prop.type] || null }
+                    this.current[prop.name] = this.current[prop.name] || window.Widgets.buildParam(prop, { value: null })
                 }
             }
         }

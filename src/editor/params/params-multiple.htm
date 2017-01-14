@@ -3,11 +3,11 @@
         <table class="table table-condensed">
             <thead>
                 <tr>
-                    <th style="width: 80%" colspan="2">{{ item.prop.title }}</th>
+                    <th style="width: 70%" colspan="2">{{ item.prop.title }}</th>
                     <th>
                         <div class="pull-right">
                             <a class="btn btn-xs btn-primary" @click="create()">Add</a>
-                            <params-proto :owner="item.param" property="proto" :context="{ type: 'update', prop: item.prop }" inline-template>
+                            <params-proto :owner="item.owner" :property="item.prop.name" :context="{ type: 'update', prop: item.prop }" inline-template>
                                 <a class="btn btn-xs btn-default" @click="open()">Advanced</a>
                             </params-proto>
                         </div>
@@ -27,5 +27,6 @@
                 </tr>
             </tbody>
         </table>
+        <pre>{{ item.param }}</pre>
     </section>
 </template>
