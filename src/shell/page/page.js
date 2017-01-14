@@ -18,6 +18,7 @@
         beforeCreate: function() {
             this.$page = {
                 uuid: Core.UUID.random(),
+                actions: null,
                 storage: null,
                 sources: null,
             }
@@ -60,9 +61,14 @@
                 if (sources) {
 
                     let deferred = [];
+                    let actions = {};
+
                     for (let source of sources) {
-                        deferred.push(this.doRequest(source));
+                        actions[source.name] = source
+                        deferred.push(this.doRequest(source))
                     }
+
+                    this.$page.actions = actions;
 
                     if (deferred.length > 1) {
 
@@ -99,13 +105,6 @@
                 immediate: true,
                 deep: true,
             });
-
-            // this.$watch('storage', () => loadData(this.page.sources), {
-            //     immediate: true,
-            //     deep: true,
-            // });
-
-            // console.log(this.$page);
         },
         methods: {
             doRequest: function(s) {

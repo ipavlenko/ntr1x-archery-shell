@@ -42,11 +42,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <pre>{{ current }}</pre>
                         <label for="dialog-pages-sources-params-value">Значение</label>
                         <div class="input-group">
                             <input class="form-control" type="text" id="dialog-pages-sources-params-value" v-model="current.value" />
                             <div class="input-group-btn">
-                                <bindings :model.sync="current" inline-template>
+                                <bindings :owner="current" property="binding" inline-template>
                                     <button type="button" class="btn btn-default" @click="open">...</button>
                                 </bindings>
                             </div>

@@ -365,6 +365,7 @@
 
                 vertical: true,
                 drop: true,
+                offset: 'position',
 
                 containerSelector: '.wg.wg-sortable-container.wg-sortable-editable',
                 itemSelector: '.wg.wg-sortable-item.wg-sortable-editable',
