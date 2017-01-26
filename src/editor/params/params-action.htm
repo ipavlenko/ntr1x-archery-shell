@@ -3,19 +3,17 @@
         <div class="ge ge-param-label">
             <label class="pull-left" :for="id">{{ item.prop.title }}</label>
             <div class="pull-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">{{ item.param.action }} <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li v-for="a in actions"><a @click="select(a)">{{ a }}</a></li>
+                    </ul>
+                </div>
                 <params-bindings :owner="item.owner" :property="item.prop.name" :context="{ type: 'update', prop: item.prop }" inline-template>
                     <button type="button" class="btn btn-xs btn-default" @click="open()">Advanced</button>
                 </params-bindings>
             </div>
         </div>
-        <div class="input-group">
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ item.param.action }} <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li v-for="a in actions"><a @click="select(a)">{{ a }}</a></li>
-                </ul>
-            </div>
-            <input class="form-control" type="text" :id="id" v-model="item.param.value" />
-        </div>
+        <texteditor class="form-control" mode="ace/mode/javascript" theme="ace/theme/chrome" v-model="item.param.value"></texteditor>
     </div>
 </template>
