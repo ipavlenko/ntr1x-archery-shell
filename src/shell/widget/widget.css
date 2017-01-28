@@ -8,6 +8,8 @@
 }
 .ge.ge-widget .ge.ge-overlay {
   position: absolute;
+  overflow: visible;
+  z-index: 10000;
   top: 0px;
   left: 0px;
   right: 0px;
@@ -17,7 +19,7 @@
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
-  outline: 1px dashed #F0F0F0;
+  outline: 1px dashed blue;
   opacity: 0;
 }
 .ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-left {
@@ -38,6 +40,8 @@
   position: absolute;
   top: 2px;
   right: 4px;
+  min-width: 120px;
+  text-align: right;
 }
 .ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-right > a {
   display: inline-block;
