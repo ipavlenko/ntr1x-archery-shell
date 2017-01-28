@@ -1,13 +1,11 @@
 <template id="shell-container">
-
     <section class="ge ge-container" v-scrollable>
-        <shell-page
-            :globals.sync="globals"
-            :settings.sync="settings"
-            :page.sync="page"
-            :items.sync="page.widgets"
+        <shell-page v-if="page != null"
+            :page="page"
             :editable="true"
+            :style="{
+               'transform': 'scale(' + $store.state.designer.scale + ')'
+            }"
         ></shell-page>
     </section>
-
 </template>

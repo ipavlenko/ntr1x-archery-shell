@@ -1,12 +1,10 @@
-(function($, Vue, Core, Shell) {
+(function(Vue) {
 
     Vue.component('shell-container', {
         template: '#shell-container',
         props: {
-            globals: Object,
-            settings: Object,
             page: Object,
-        },
+        }
     });
 
-})(jQuery, Vue, Core, Shell);
+})(Vue);

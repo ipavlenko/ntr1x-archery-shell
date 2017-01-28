@@ -1,6 +1,6 @@
 (function(Vue, $, Core, Shell) {
 
-    var PageSpec =
+    let PageSpec =
     Vue.component('pages-sources-setup-dialog-page-spec', {
         template: '#pages-sources-setup-dialog-page-spec',
         props: {
@@ -28,8 +28,8 @@
                 $.ajax({
                     url: this.url,
                     method: 'GET',
-                    dataType: "json",
-                    contentType: "application/json",
+                    dataType: 'json',
+                    contentType: 'application/json',
                 })
                 .done((d, a, b, c) => {
                     this.loading = false;
@@ -45,16 +45,16 @@
             },
             submit: function() {
                 if (this.spec) {
-                    this.$dispatch('next', { page: 'spec', spec: this.spec, url: this.url });
+                    this.$parent.next({ page: 'spec', spec: this.spec, url: this.url });
                 }
             },
             reset: function() {
-                this.$dispatch('reset');
+                this.$parent.reset();
             },
         }
     });
 
-    var PageMethod =
+    let PageMethod =
     Vue.component('pages-sources-setup-dialog-page-method', {
         template: '#pages-sources-setup-dialog-page-method',
         props: {
@@ -75,11 +75,7 @@
 
                 for (const tag of this.selection.spec.tags) {
 
-                    let t = {
-                        ...tag,
-                        methods: []
-                    }
-
+                    let t = Object.assign({}, tag, { methods: [] });
                     tags.push(t);
                     tagsMap[t.name] = t;
                 }
@@ -137,18 +133,17 @@
         methods: {
             submit: function(method) {
                 this.selection.method = method;
-                this.$dispatch('submit');
+                this.$parent.select(this.selection);
             },
             reset: function() {
-                this.$dispatch('reset');
+                this.$parent.reset();
             },
             prev: function() {
-                this.$dispatch('prev', { page: 'method' });
+                this.$parent.prev({ page: 'method' });
             },
         }
     });
 
-    var SetupModalEditor =
     Vue.component('pages-sources-setup-dialog', {
         template: '#pages-sources-setup-dialog',
         mixins: [Core.ModalEditorMixin],
@@ -170,43 +165,40 @@
             'page-spec': PageSpec,
             'page-method': PageMethod,
         },
-        events: {
-            submit: function() {
+        methods: {
+            select: function(selection) {
                 Object.assign(this.current, {
-                    method: (this.selection.method.method || '').toUpperCase(),
-                    name: this.selection.method.operation.operationId,
-                    url: `${this.selection.url}${this.selection.method.path}`,
-                    params: this.selection.method.operation.parameters.map(p => ({
-                        _action: 'create',
+                    method: (selection.method.method || '').toUpperCase(),
+                    name: selection.method.operation.operationId,
+                    url: `${selection.url}${selection.method.path}`,
+                    params: selection.method.operation.parameters.map(p => ({
                         in: p.in,
                         name: p.name,
                         required: p.required,
                         specified: true,
+                        uuid: Core.UUID.random()
                     }))
                 });
                 this.submit();
             },
-            reset: function() {
-                this.reset();
-            },
             next: function({ page, spec, url }) {
                 switch (page) {
-                    case 'spec':
-                        this.selection.spec = spec;
-                        this.selection.url = (function() {
+                case 'spec':
+                    this.selection.spec = spec;
+                    this.selection.url = (function() {
 
-                            let u = new URI(url);
+                        let u = new URI(url);
 
-                            let protocol = ('schemes' in spec && spec.schemes.length) ? spec.schemes[0] : u.protocol();
-                            let host = ('host' in spec) ? spec.host : u.host();
-                            let basePath = ('basePath' in spec) ? spec.basePath : u.directory();
+                        let protocol = ('schemes' in spec && spec.schemes.length) ? spec.schemes[0] : u.protocol();
+                        let host = ('host' in spec) ? spec.host : u.host();
+                        let basePath = ('basePath' in spec) ? spec.basePath : u.directory();
 
-                            basePath = basePath == '/' ? '' : basePath;
+                        basePath = basePath == '/' ? '' : basePath;
 
-                            return `${protocol}://${host}${basePath}`;
-                        })();
-                        this.page = 'method';
-                        break;
+                        return `${protocol}://${host}${basePath}`;
+                    })();
+                    this.page = 'method';
+                    break;
                 }
                 this.$nextTick(() => {
                     $(window).trigger('resize');
@@ -214,10 +206,10 @@
             },
             prev: function({ page }) {
                 switch (page) {
-                    case 'method':
-                        this.selection.spec = null;
-                        this.page = 'spec';
-                        break;
+                case 'method':
+                    this.selection.spec = null;
+                    this.page = 'spec';
+                    break;
                 }
                 this.$nextTick(() => {
                     $(window).trigger('resize');
@@ -226,9 +218,8 @@
         }
     });
 
-    var SourcesSetupEditor =
     Vue.component('pages-sources-setup', {
-        mixins: [Core.ActionMixin(SetupModalEditor)],
+        mixins: [Core.ActionApplyMixin('pages-sources-setup-dialog')],
     });
 
 })(Vue, jQuery, Core, Shell);

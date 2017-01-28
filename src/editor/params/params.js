@@ -1,22 +1,18 @@
 (function(Vue, $, Core, Shell) {
 
-    var ParamVariable =
     Vue.component('params-variable', {
         template: '#params-variable',
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
-    var ParamAsis =
     Vue.component('params-asis', {
         template: '#params-asis',
         props: {
             id: String,
             item: Object,
-            globals: Object,
         },
         data: function() {
             return {
@@ -53,287 +49,256 @@
                     this.error = true;
                 }
 
-                this.$set('item.param.value', pv);
+                this.item.param.value = pv;
             });
         },
     });
 
-    var ParamString =
     Vue.component('params-string', {
         template: '#params-string',
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
-    var ParamSelect =
     Vue.component('params-select', {
         template: '#params-select',
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
-    var ParamRich =
     Vue.component('params-rich', {
         template: '#params-rich',
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
-    var ParamSource =
+    Vue.component('params-action', {
+        template: '#params-action',
+        props: {
+            id: String,
+            item: Object,
+        },
+        computed: {
+            actions: function() {
+                return [
+                    'actions/execute',
+                    'modals/show',
+                    'modals/close',
+                ]
+            }
+        },
+        methods: {
+            select: function(action) {
+                this.$store.commit('designer/property/update', { parent: this.item.param, property: 'action', value: action })
+            }
+        }
+    });
+
     Vue.component('params-source', {
         template: '#params-source',
         props: {
             id: String,
             item: Object,
-            globals: Object,
         }
     });
 
-    var ParamMultiple =
     Vue.component('params-multiple', {
         template: '#params-multiple',
         props: {
             id: String,
             item: Object,
-            globals: Object,
         },
-        data: function() {
-            return {
-                items: this.item.items
-            }
-        },
+        methods: {
+
+            label: function(item, index) {
+
+                if (this.item.prop.display) {
+
+                    try {
+                        return this.item.prop.display(item, index)
+                    } catch (e) {
+                        // ignore
+                    }
+                }
+
+                return '<item>';
+            },
+
+            remove: function(index) {
+
+                this.$store.commit('designer/array/remove', { parent: this.item.param, property: 'value', index })
+                this.$forceUpdate()
+            },
+
+            create: function() {
+
+                let value = {
+                }
+
+                this.$store.commit('modals/editor/show', {
+                    name: 'params-multiple-dialog',
+                    context: { type: 'create', prop: this.item.prop },
+                    original: value,
+                    events: {
+                        submit: (current) => {
+                            this.$store.commit('designer/array/create', { parent: this.item.param, property: 'value', item: current })
+                            this.$forceUpdate()
+                        },
+                    }
+                })
+            },
+
+            update: function(current, index) {
+
+                this.$store.commit('modals/editor/show', {
+                    name: 'params-multiple-dialog',
+                    context: { type: 'update', prop: this.item.prop },
+                    original: current,
+                    events: {
+                        submit: (current) => {
+                            this.$store.commit('designer/array/update', { parent: this.item.param, property: 'value', item: current, index })
+                            this.$forceUpdate()
+                        },
+                    }
+                })
+            },
+        }
     });
 
-    var ParamObject =
     Vue.component('params-object', {
         template: '#params-object',
         props: {
             id: String,
             item: Object,
-            globals: Object,
         },
     });
 
-    var Params =
     Vue.component('params', {
         template: '#params',
         props: {
-            owner: Object,
             tab: String,
             items: Array,
-            globals: Object
         }
     });
 
-    var defaults = {
-        'multiple': [],
-        'object': {},
-    };
-
-    var ParamMultipleListViewer =
-    Vue.component('params-multiple-list', {
-        template: '#params-multiple-list',
-        mixins: [Core.ListViewerMixin],
-        props: {
-            prop: Object,
-            param: Object,
-        },
-        methods: {
-            getLabel: function(item) {
-
-                if (this.prop.display) {
-                    var vm = new Vue({
-                        item: item,
-                    });
-                    return vm.$interpolate(this.prop.display);
-                }
-                return '<item>';
-            },
-        }
-    });
-
-    var ParamBindingsModalEditor =
     Vue.component('params-bindings-dialog', {
         template: '#params-bindings-dialog',
         mixins: [ Core.ModalEditorMixin, Core.TabsMixin('binding') ],
-        data: function() {
-            return {
-                items: this.items,
-            };
+        computed: {
+            items: function() {
+                return this.context.prop.props.map(prop => ({
+                    prop,
+                    owner: this.current.value,
+                    param: this.current.value[prop.name]
+                }))
+            }
         },
+
         created: function() {
 
-            var items = [];
-
-            this.$set('current.binding', this.current.binding || {
+            this.current.binding = this.current.binding || {
                 strategy: 'interpolate',
                 expression: null,
-            })
-
-            if (this.context.prop.props) {
-
-                for (var i = 0; i < this.context.prop.props.length; i++) {
-
-                    var prop = this.context.prop.props[i];
-                    var param = this.current.value[prop.name] = this.current.value[prop.name] || { value: defaults[prop.type] || null };
-
-                    param._action = param._action == 'update'
-                        ? 'update'
-                        : 'create'
-                    ;
-
-                    var item = {
-                        prop: prop,
-                        param: param,
-                    };
-
-                    items.push(item);
-                }
             }
 
-            this.$set('items', items);
+            if (this.context.prop.props) {
+                for (let prop of this.context.prop.props) {
+                    this.current.value[prop.name] = this.current.value[prop.name] || window.Widgets.buildParam(prop, { value: null })
+                }
+            }
         },
         methods: {
             setStrategy: function(strategy) {
-                this.$set('current.binding.strategy', strategy);
+                this.current.binding.strategy = strategy;
+                this.$forceUpdate();
             },
-            getStrategy: function(strategy) {
-                return this.$get('current.binding.strategy');
+            getStrategy: function() {
+                return this.current.binding.strategy;
             },
         },
     });
 
-    var ParamBindingsEditor =
     Vue.component('params-bindings', {
-        mixins: [Core.ActionMixin(ParamBindingsModalEditor)],
+        mixins: [Core.ActionMixin('params-bindings-dialog')],
     });
 
-    var ParamProtoModalEditor =
     Vue.component('params-proto-dialog', {
         template: '#params-proto-dialog',
-        mixins: [ Core.ModalEditorMixin, Core.TabsMixin('binding') ],
-        data: function() {
-            return {
-                items: this.items,
-            };
+        mixins: [ Core.ModalEditorMixin, Core.TabsMixin('data') ],
+        computed: {
+            items: function() {
+                return this.context.prop.props.map(prop => ({
+                    prop,
+                    owner: this.current.binding.proto,
+                    param: this.current.binding.proto[prop.name]
+                }))
+            }
         },
         created: function() {
-
-            var items = [];
-
-            this.$set('current.binding', this.current.binding || {
+            this.current.binding = this.current.binding || {
                 strategy: 'interpolate',
                 expression: null,
-            })
-            
-            if (this.context.prop.props) {
-
-                for (var i = 0; i < this.context.prop.props.length; i++) {
-
-                    var prop = this.context.prop.props[i];
-                    var param = this.current.proto[prop.name] = this.current.proto[prop.name] || { value: defaults[prop.type] || null };
-
-                    param._action = param._action == 'update'
-                        ? 'update'
-                        : 'create'
-                    ;
-
-                    var item = {
-                        prop: prop,
-                        param: param,
-                    };
-
-                    items.push(item);
-                }
+                proto: {}
             }
 
-            this.$set('items', items);
+            if (this.context.prop.props) {
+                for (let prop of this.context.prop.props) {
+                    this.current.binding.proto[prop.name] = this.current.binding.proto[prop.name] || window.Widgets.buildParam(prop, { value: null })
+                }
+            }
         },
         methods: {
             setStrategy: function(strategy) {
-                this.$set('current.binding.strategy', strategy);
+                this.current.binding.strategy = strategy;
+                this.$forceUpdate();
             },
-            getStrategy: function(strategy) {
-                return this.$get('current.binding.strategy');
+            getStrategy: function() {
+                return this.current.binding.strategy;
             },
         },
     });
 
-    var ParamProtoEditor =
     Vue.component('params-proto', {
-        mixins: [Core.ActionMixin(ParamProtoModalEditor)],
+        mixins: [Core.ActionMixin('params-proto-dialog')],
     });
 
-    var ParamMultipleModalEditor =
     Vue.component('params-multiple-dialog', {
         template: '#params-multiple-dialog',
-        mixins: [Core.ModalEditorMixin, Core.TabsMixin('data')],
-        data: function() {
-            return {
-                items: this.items,
-            };
+        mixins: [ Core.ModalEditorMixin, Core.TabsMixin('data') ],
+        computed: {
+            items: function() {
+                return this.context.prop.props.map(prop => ({
+                    prop,
+                    owner: this.current,
+                    param: this.current[prop.name]
+                }))
+            },
         },
         created: function() {
 
-            var items = [];
-
-            for (var i = 0; i < this.context.prop.props.length; i++) {
-
-                var prop = this.context.prop.props[i];
-                var param = this.current[prop.name] = this.current[prop.name] || { value: defaults[prop.type] || null };
-
-                param._action = param._action == 'update'
-                    ? 'update'
-                    : 'create'
-                ;
-
-                var item = {
-                    prop: prop,
-                    param: param,
-                };
-
-                items.push(item);
+            if (this.current == null) {
+                this.current = {}
             }
 
-            this.$set('items', items);
-        },
+            if (this.context.prop.props) {
+                for (let prop of this.context.prop.props) {
+                    this.current[prop.name] = this.current[prop.name] || window.Widgets.buildParam(prop, { value: null })
+                }
+            }
+        }
     });
 
-    var ParamMultipleEditor =
-    Vue.component('params-multiple-editor', {
-        mixins: [Core.EditorMixin(ParamMultipleListViewer, ParamMultipleModalEditor)],
-        template: '#params-multiple-editor',
-        props: {
-            prop: Object,
-            param: Object,
-            items: Array,
-        },
-    });
-
-
-    var ParamsList =
     Vue.component('params-list', {
         template: '#params-list',
-        components: {
-            'params-string': ParamString,
-            'params-rich': ParamRich,
-            'params-source': ParamSource,
-            'params-multiple': ParamMultiple,
-        },
         props: {
-            owner: Object,
             tab: String,
             items: Array,
-            globals: Object
         }
     });
 

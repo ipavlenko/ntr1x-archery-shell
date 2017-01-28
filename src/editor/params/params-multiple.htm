@@ -1,8 +1,31 @@
 <template id="params-multiple">
-    <params-multiple-editor
-        :prop.sync="item.prop"
-        :param.sync="item.param"
-        :items.sync="item.param.value"
-        :globals.sync="globals"
-    ></params-multiple-editor>
+    <section>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th style="width: 70%" colspan="2">{{ item.prop.title }}</th>
+                    <th>
+                        <div class="pull-right">
+                            <a class="btn btn-xs btn-primary" @click="create()">Add</a>
+                            <params-proto :owner="item.owner" :property="item.prop.name" :context="{ type: 'update', prop: item.prop }" inline-template>
+                                <a class="btn btn-xs btn-default" @click="open()">Advanced</a>
+                            </params-proto>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(child, index) in item.param.value">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ label(child, index) }}</td>
+                    <td>
+                        <div class="pull-right">
+                            <a class="btn btn-xs btn-default" @click="update(child, index)">Edit</a>
+                            <a class="btn btn-xs btn-danger" @click="remove(index)">Remove</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 </template>

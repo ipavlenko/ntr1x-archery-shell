@@ -1,4 +1,4 @@
-(function($, Vue, Core, Shell) {
+(function($, Vue) {
 
     var PaletteItem =
     Vue.component('shell-palette-item', {
@@ -7,28 +7,22 @@
             category: Object,
             group: Object,
             item: Object,
-            globals: Object,
         },
     });
 
     Vue.component('shell-palette', {
         template: '#shell-palette',
         props: {
-            globals: Object,
             category: Object,
         },
-        data: function() {
-            return {
-                categories: this.categories
-            };
+        computed: {
+            active: function() { return this.$store.state.palette.category; },
+            items: function() { return this.$store.getters.palette.categories(); },
         },
         components: {
             'palette-item': PaletteItem
         },
-        created: function() {
-            this.categories = Widgets.Palette.categories();
-        },
-        attached: function() {
+        mounted: function() {
 
             this.sortable = $(this.$el).sortable({
                 group: 'widgets',
@@ -37,11 +31,6 @@
                 drop: false,
             });
         },
-        methods: {
-            trigger: function(event, item, context) {
-                this.$dispatch(event, { item: item, context: context });
-            },
-        },
     });
 
-})(jQuery, Vue, Core, Shell);
+})(jQuery, Vue);

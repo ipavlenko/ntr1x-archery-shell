@@ -1,9 +1,7 @@
-(function($, Vue, Core, Shell) {
+(function(Vue) {
 
     Vue.component('shell-target', {
         template: '#shell-target',
-        props: {
-        },
     });
 
-})(jQuery, Vue, Core, Shell);
+})(Vue);

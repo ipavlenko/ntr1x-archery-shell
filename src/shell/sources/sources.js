@@ -2,15 +2,10 @@
 
     Vue.component('shell-sources', {
         template: '#shell-sources',
-        props: {
-            sources: Array,
-            globals: Object,
-        },
         data: function() {
             return {
                 type: this.type,
                 types: this.types,
-                items: this.items,
             }
         },
         created: function() {
@@ -21,106 +16,48 @@
             ];
 
             this.type = this.types[0];
-
-            this.$watch('sources', () => {
-
-                var items = [];
-                for (var i = 0; i < this.sources.length; i++) {
-                    var source = this.sources[i];
-                    if (source._action != 'remove') {
-                        items.push(source);
-                    }
-                }
-                this.items = items;
-
-            }, { deep: true, immediate: true })
+        },
+        computed: {
+            active: function() { return this.$store.state.designer.source; },
+            items: function() { return this.$store.state.designer.page.sources; },
         },
         methods: {
 
-            remove: function(source) {
+            remove: function(value) {
 
-                var index = this.sources.indexOf(source);
-                if (index !== -1) {
-                    var item = this.sources[index];
-                    if (item._action == 'create') {
-                        this.sources.$remove(source);
-                    } else {
-                        item._action = 'remove';
-                    }
-                }
-
-                this.sources = this.sources.slice();
+                this.$store.commit('designer/sources/remove', value);
             },
 
             create: function() {
 
-                var source = {
-                    _action: 'create',
-                    method: 'GET',
+                let source = {
                     type: this.type.name,
+                    method: 'GET',
                     params: [],
                     url: '',
                     name: ''
                 }
 
-                new Shell.Sources.ModalEditor({
-
-                    data: {
-                        globals: this.globals,
-                        owner: this,
-                        original: source,
-                        current: JSON.parse(JSON.stringify(source)),
-                    },
-
-                    methods: {
-                        submit: function() {
-
-                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
-                            this.original._action = this.original._action ? this.original._action : 'create';
-
-                            this.owner.sources.push(this.original);
-
-                            this.$remove();
-                            this.$destroy();
-                        },
-                        reset: function() {
-                            this.$remove();
-                            this.$destroy();
-                        }
+                this.$store.commit('modals/editor/show', {
+                    name: 'pages-sources-dialog',
+                    context: { type: 'create' },
+                    original: source,
+                    events: {
+                        submit: (current) => { this.$store.commit('designer/sources/create', current) },
                     }
-                }).$mount().$appendTo($('body').get(0));
+                })
             },
+
             update: function(source) {
 
-                new Shell.Sources.ModalEditor({
-
-                    data: {
-                        globals: this.globals,
-                        owner: this,
-                        original: source,
-                        current: JSON.parse(JSON.stringify(source))
-                    },
-
-                    methods: {
-                        submit: function() {
-
-                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
-                            this.original._action = this.original._action ? this.original._action : 'update';
-
-                            this.owner.sources = this.owner.sources.slice();
-
-                            this.$remove();
-                            this.$destroy();
-                        },
-                        reset: function() {
-                            this.$remove();
-                            this.$destroy();
-                        }
+                this.$store.commit('modals/editor/show', {
+                    name: 'pages-sources-dialog',
+                    context: { type: 'update' },
+                    original: source,
+                    events: {
+                        submit: (current) => { this.$store.commit('designer/sources/update', current) },
                     }
-                }).$mount().$appendTo($('body').get(0));
-            },
-            trigger: function(event, item, context) {
-                this.$dispatch(event, { item: item, context: context });
+                })
             },
         }
     });

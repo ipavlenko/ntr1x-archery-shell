@@ -3,18 +3,13 @@
     Shell.Widget =
     Vue.component('shell-widget', {
         template: '#shell-widget',
-        mixins: [ /* Core.DecoratorMixin, Core.ContainerMixin, Core.SortableMixin, Core.BindingsMixin */ ],
         props: {
-            globals: Object,
-            settings: Object,
             page: Object,
             stack: Object,
             model: Object,
-            data: Object,
-            storage: Object,
             editable: Boolean,
         },
-        init: function() {
+        beforeCreate: function() {
             this.decorators = {
                 alternatives: {
                     'default-stack-horizontal': 'shell-decorator-horizontal',
@@ -25,9 +20,11 @@
             };
         },
         created: function() {
-
-            var palette = Vue.service('palette');
-            this.widget = palette.widget(this.model.name);
+            this.widget = this.$store.getters.palette.widget(this.model.name);
+            this.decorator = this.decorators.alternatives[this.widget.tag] || this.decorators.fallback;
+        },
+        updated: function() {
+            this.widget = this.$store.getters.palette.widget(this.model.name);
             this.decorator = this.decorators.alternatives[this.widget.tag] || this.decorators.fallback;
         },
         data: function() {

@@ -8,10 +8,13 @@
         "jQuery": false,
         "require": false,
         "Vue": false,
+        "Vuex": false,
         "Core": true,
         "Shell": true,
         "Landing": true,
+        "URI": true
     },
+    "parser": "babel-eslint",
     "extends": "eslint:recommended",
     "rules": {
         "indent": [

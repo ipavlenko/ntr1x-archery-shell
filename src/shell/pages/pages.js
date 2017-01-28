@@ -1,16 +1,11 @@
-(function($, Vue, Core, Shell) {
+(function($, Vue) {
 
     Vue.component('shell-pages', {
         template: '#shell-pages',
-        props: {
-            pages: Array,
-            globals: Object,
-        },
         data: function() {
             return {
                 type: this.type,
                 types: this.types,
-                items: this.items,
             }
         },
         created: function() {
@@ -21,120 +16,52 @@
             ];
 
             this.type = this.types[0];
-
-            this.$watch('pages', () => {
-
-                var items = [];
-                for (var i = 0; i < this.pages.length; i++) {
-                    var page = this.pages[i];
-                    if (page._action != 'remove') {
-                        items.push(page);
-                    }
-                }
-                this.items = items;
-
-            }, { deep: true, immediate: true })
+        },
+        computed: {
+            active: function() { return this.$store.state.designer.page; },
+            items: function() { return this.$store.state.designer.content.pages; },
         },
         methods: {
 
             remove: function(page) {
-
-                var index = this.pages.indexOf(page);
-                if (index !== -1) {
-                    var item = this.pages[index];
-                    if (item._action == 'create') {
-                        this.pages.$remove(item);
-                    } else {
-                        item._action = 'remove';
-                    }
-                }
-
-                this.pages = this.pages.slice();
+                this.$store.commit('designer/pages/remove', page)
             },
 
             create: function() {
 
-                var root = Vue.service('palette').item('default-container/default-container-stack/stack-canvas');
-                var widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
+                let root = this.$store.getters.palette.item('default-container/default-container-stack/stack-canvas');
+                let widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
-                var page = {
-                    _action: 'create',
+                let page = {
                     root: root,
                     type: this.type.name,
                     sources: [],
                     storages: [],
                 };
 
-                new Shell.Pages.ModalEditor({
-
-                    data: {
-                        globals: this.globals,
-                        owner: this,
-                        context: {
-                            widget: widget,
-                        },
-                        original: page,
-                        current: JSON.parse(JSON.stringify(page)),
-                    },
-
-                    methods: {
-                        submit: function() {
-
-                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
-                            this.original._action = this.original._action ? this.original._action : 'create';
-                            this.original.root._action = this.original.root._action ? this.original.root._action : 'create';
-
-                            this.owner.pages.push(this.original);
-
-                            this.$remove();
-                            this.$destroy();
-                        },
-                        reset: function() {
-                            this.$remove();
-                            this.$destroy();
-                        }
+                this.$store.commit('modals/editor/show', {
+                    name: 'pages-dialog',
+                    context: { type: 'create', widget },
+                    original: page,
+                    events: {
+                        submit: (current) => { this.$store.commit('designer/pages/create', current) },
                     }
-                }).$mount().$appendTo($('body').get(0));
+                })
             },
             update: function(page) {
 
-                var widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
+                let widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
-                new Shell.Pages.ModalEditor({
-
-                    data: {
-                        globals: this.globals,
-                        owner: this,
-                        context: {
-                            widget: widget,
-                        },
-                        original: page,
-                        current: JSON.parse(JSON.stringify(page))
-                    },
-
-                    methods: {
-                        submit: function() {
-
-                            Object.assign(this.original, JSON.parse(JSON.stringify(this.current)));
-                            this.original._action = this.original._action ? this.original._action : 'update';
-                            this.original.root._action = this.original.root._action ? this.original.root._action : 'update';
-
-                            this.owner.pages = this.owner.pages.slice();
-
-                            this.$remove();
-                            this.$destroy();
-                        },
-                        reset: function() {
-                            this.$remove();
-                            this.$destroy();
-                        }
+                this.$store.commit('modals/editor/show', {
+                    name: 'pages-dialog',
+                    context: { type: 'update', widget },
+                    original: page,
+                    events: {
+                        submit: (current) => { this.$store.commit('designer/pages/update', current) },
                     }
-                }).$mount().$appendTo($('body').get(0));
-            },
-            trigger: function(event, item, context) {
-                this.$dispatch(event, { item: item, context: context });
+                })
             },
         }
     });
 
-})(jQuery, Vue, Core, Shell);
+})(jQuery, Vue);

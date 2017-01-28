@@ -2,14 +2,12 @@
     <div class="ge ge-widget" :class="{ 'ge-widget-selected': selected }">
         <div class="ge ge-content">
             <default-stack-canvas
-                v-ref:widget
-                :globals.sync="globals"
-                :page.sync="page"
-                :data.sync="data"
-                :storage.sync="storage"
-                :bindings.sync="bindings"
-                :children.sync="children"
-                :editable.sync="editable"
+                ref="widget"
+                :page="page"
+                :stack="page.root"
+                :bindings="bindings"
+                :children="children"
+                :editable="editable"
             ></default-stack-canvas>
         </div>
     </div>

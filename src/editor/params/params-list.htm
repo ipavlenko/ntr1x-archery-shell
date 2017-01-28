@@ -1,40 +1,35 @@
 <template id="params-list">
     <div>
-        <host v-for="item in items">
+        <template v-for="(item, index) in items">
             <div v-if="item.prop.tab == tab">
-                <params-asis v-if="item.prop.type == 'asis'" :id="'pages-widgets-dialog-props-' + $index"
-                    :item.sync="item"
-                    :globals.sync="globals"
+                <params-asis v-if="item.prop.type == 'asis'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
                 ></params-asis>
-                <params-variable v-if="item.prop.type == 'var'" :id="'pages-widgets-dialog-props-' + $index"
-                    :item.sync="item"
-                    :globals.sync="globals"
+                <params-variable v-if="item.prop.type == 'var'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
                 ></params-variable>
-                <params-string v-if="item.prop.type == 'string'" :id="'pages-widgets-dialog-props-' + $index"
-                    :item.sync="item"
-                    :globals.sync="globals"
+                <params-string v-if="item.prop.type == 'string'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
                 ></params-string>
-                <params-select v-if="item.prop.type == 'select'" :id="'pages-widgets-dialog-props-' + $index"
-                    :item.sync="item"
-                    :globals.sync="globals"
+                <params-select v-if="item.prop.type == 'select'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
                 ></params-select>
-                <params-rich v-if="item.prop.type == 'rich'" :id="'pages-widgets-dialog-props-' + $index"
-                    :item.sync="item"
-                    :globals.sync="globals"
+                <params-rich v-if="item.prop.type == 'rich'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
                 ></params-rich>
-                <params-source v-if="item.prop.type == 'source'" :id="'pages-widgets-dialog-props-' + $index"
-                    :item.sync="item"
-                    :globals.sync="globals"
+                <params-source v-if="item.prop.type == 'source'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
                 ></params-source>
-                <params-multiple v-if="item.prop.type == 'multiple'" :id="'pages-widgets-dialog-props-' + $index"
-                    :item.sync="item"
-                    :globals.sync="globals"
+                <params-multiple v-if="item.prop.type == 'multiple'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
                 ></params-multiple>
-                <params-object v-if="item.prop.type == 'object'" :id="'pages-widgets-dialog-props-' + $index"
-                    :item.sync="item"
-                    :globals.sync="globals"
+                <params-object v-if="item.prop.type == 'object'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
                 ></params-object>
+                <params-action v-if="item.prop.type == 'action'" :id="'pages-widgets-dialog-props-' + index"
+                    :item="item"
+                ></params-action>
             </div>
-        </host>
+        </template>
     </div>
 </template>

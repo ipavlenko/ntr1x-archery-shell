@@ -1,11 +1,11 @@
 <template id="shell-actions">
     <section class="ge ge-actions">
         <div class="pull-left">
-            <button type="button" class="btn btn-shell" @click="trigger('push')">
+            <button type="button" class="btn btn-shell" @click="$store.dispatch('designer/push')">
                 <span class="glyphicon glyphicon-cloud-upload"></span>
                 <span>Store Changes</span>
             </button>
-            <button type="button" class="btn btn-shell" @click="trigger('pull')">
+            <button type="button" class="btn btn-shell" @click="$store.dispatch('designer/pull')">
                 <span class="glyphicon glyphicon-cloud-download"></span>
                 <span>Discard Changes</span>
             </button>
@@ -36,11 +36,14 @@
         </div>
         <div class="pull-right">
 
-            <button type="button" class="btn btn-shell" @click="trigger('zoomIn')">
+            <button type="button" class="btn btn-shell" @click="$store.dispatch('designer/zoomIn')">
                 <span class="glyphicon glyphicon-zoom-in"></span>
                 <span>Zoom in</span>
             </button>
-            <button type="button" class="btn btn-shell" @click="trigger('zoomOut')">
+            <button type="button" class="btn btn-shell" @click="$store.dispatch('designer/zoom', 1)">
+                <span>100%</span>
+            </button>
+            <button type="button" class="btn btn-shell" @click="$store.dispatch('designer/zoomOut')">
                 <span class="glyphicon glyphicon-zoom-out"></span>
                 <span>Zoom out</span>
             </button>

@@ -1,5 +1,12 @@
 <template id="shell-modal-stack">
     <section class="ge ge-modal-stack">
-        <shell-modal v-for="modal in modals" :page="modal.page"></shell-modal>
+        <template v-for="item in $store.state.modals.items">
+            <transition v-if="item.type == 'editor'" name="bounce" appear>
+                <component :is="item.modal.name" :context="item.modal.context" :original="item.modal.original" :events="item.modal.events"></component>
+            </transition>
+            <transition v-if="item.type == 'page'" name="bounce" appear>
+                <shell-modal :page="item.modal.page" :context="item.modal.context"></shell-modal>
+            </transition>
+        </template>
     </section>
 </template>

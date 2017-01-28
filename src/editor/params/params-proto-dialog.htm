@@ -12,7 +12,9 @@
                         <span v-if="original">&nbsp;Edit Param</span>
                         <span v-if="!original">New Param</span>
                         <span>&gt;</span>
-                        <span v-for="tab in context.prop.tabs" v-if="isActive(tab.name)">{{ tab.title }}</span>
+                        <template v-for="tab in context.prop.tabs">
+                            <span v-if="isActive(tab.name)">{{ tab.title }}</span>
+                        </template>
                         <span v-if="isActive('binding')">Binding</span>
                     </h4>
                 </div>
@@ -48,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div v-for="tab in context.prop.tabs" class="tab-pane" :class="{ 'active': isActive(tab.name) }">
-                                    <params :items.sync="items" :globals.sync="globals" :owner.sync="context.prop" :tab="tab.name"></params>
+                                    <params :items="items" :owner="context.prop" :tab="tab.name"></params>
                                 </div>
                             </div>
                         </div>

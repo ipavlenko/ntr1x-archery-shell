@@ -28,16 +28,16 @@
                         <div class="col-xs-9">
                             <div class="tab-content" style="overflow: auto">
                                 <div class="tab-pane" :class="{ 'active': isActive('domains') }">
-                                    <domains :items.sync="current.domains" :globals.sync="globals"></domains>
+                                    <domains :items="current.domains"></domains>
                                 </div>
                                 <div class="tab-pane" :class="{ 'active': isActive('pages') }">
-                                    <pages :items.sync="current.pages" :globals.sync="globals"></pages>
+                                    <pages :items="current.pages"></pages>
                                 </div>
                                 <div class="tab-pane" :class="{ 'active': isActive('schemes') }">
-                                    <schemes :items.sync="current.schemes" :globals.sync="globals"></schemes>
+                                    <schemes :items="current.schemes"></schemes>
                                 </div>
                                 <div class="tab-pane" :class="{ 'active': isActive('widgets') }">
-                                    <widgets :items.sync="current.widgets" :globals.sync="globals"></widgets>
+                                    <widgets :items="current.widgets"></widgets>
                                 </div>
                             </div>
                         </div>

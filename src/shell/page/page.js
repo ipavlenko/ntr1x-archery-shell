@@ -1,55 +1,53 @@
-(function($, Vue, Core, Shell) {
+(function($, Vue, Vuex, Core) {
 
     Vue.component('shell-page', {
         template: '#shell-page',
         mixins: [ /*Core.ContainerMixin, Core.SortableMixin*/ ],
         props: {
-            globals: Object,
-            settings: Object,
             page: Object,
+            style: Object,
             editable: Boolean,
         },
         data: function() {
             return {
                 decorator: this.decorator,
-                data: this.data,
-                storage: this.storage,
                 widget: this.widget,
+                context: this.context,
             };
+        },
+        beforeCreate: function() {
+            this.$page = {
+                uuid: Core.UUID.random(),
+                actions: null,
+                storage: null,
+                sources: null,
+            }
         },
         created: function() {
 
-            this.widget = Vue.service('palette').widget('default-container/default-container-stack/default-stack-canvas');
-
-            var runtime = Vue.service('runtime');
+            this.widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
             this.decorator = 'shell-decorator-canvas';
-            this.data = {};
-            this.storage = {};
 
             this.$watch('page.storages', (storages) => {
 
                 if (storages) {
 
-                    var storage = {};
+                    let data = {};
 
-                    for (var i = 0; i < storages.length; i++) {
+                    for (let st of storages) {
 
-                        var st = storages[i];
-                        storage[st.name] = {};
+                        let sdata = data[st.name] = {};
 
                         if (st.variables) {
-                            for (var j = 0; j < st.variables.length; j++) {
-
-                                var variable = st.variables[j];
-                                storage[st.name][variable.name] = {
-                                    value: runtime.evaluate(this, variable.binding, variable.value) || null
+                            for (let variable of st.variables) {
+                                sdata[variable.name] = {
+                                    value: this.$runtime.evaluate(this, variable.binding, variable.value)
                                 };
                             }
                         }
                     }
-
-                    this.$set('storage', storage);
+                    this.$page.storage = data
                 }
             }, {
                 immediate: true,
@@ -60,39 +58,48 @@
 
                 if (sources) {
 
-                    var deferred = [];
-                    for (var i = 0; i < sources.length; i++) {
-                        deferred.push(this.doRequest(sources[i]));
+                    let deferred = [];
+                    let actions = {};
+
+                    for (let source of sources) {
+                        actions[source.name] = source
+                        deferred.push(this.doRequest(source))
                     }
+
+                    this.$page.actions = actions;
 
                     if (deferred.length > 1) {
 
-                        $.when.apply(this, deferred).done(function() {
-                            var data = {};
-                            for (var i = 0; i < arguments.length; i++) {
-                                data[sources[i].name] = arguments[i][0];
-                            }
-                            this.$set('data', data);
-                        }.bind(this));
+                        $.when.apply(this, deferred)
+                            .done(function() {
+
+                                let data = {};
+                                for (let i = 0; i < arguments.length; i++) {
+                                    data[sources[i].name] = arguments[i][0];
+                                }
+
+                                this.$page.sources = data;
+
+                            }.bind(this));
 
                     } else if (deferred.length == 1) {
 
-                        deferred[0].done(function(d) {
-                            var data = {};
-                            data[sources[0].name] = d;
-                            this.$set('data', data);
-                        }.bind(this));
+                        deferred[0]
+                            .done((d) => {
+
+                                let data = {};
+                                data[sources[0].name] = d;
+                                this.$page.sources = data;
+                            })
+                            .fail((e, e1, e2) => {
+                                console.log(e, e1, e2);
+                            });
                     }
                 }
 
             };
 
             this.$watch('page.sources', (sources) => loadData(sources), {
-                immediate: true,
-                deep: true,
-            });
-
-            this.$watch('storage', (storage) => loadData(this.page.sources), {
                 immediate: true,
                 deep: true,
             });
@@ -107,7 +114,7 @@
                         var b = param.binding;
                         var v = param.value;
 
-                        var value = Vue.service('runtime').evaluate(this, b, v);
+                        var value = this.$runtime.evaluate(this, b, v);
 
                         query[param.name] = value;
                     }
@@ -116,19 +123,11 @@
                 return $.ajax({
                     method: s.method,
                     url: s.url,
-                    dataType: "json",
+                    dataType: 'json',
                     data: query,
                 });
             }
         },
-        events: {
-            // modal: function(name, config) {
-            //     window.Modal.show(this.page, config);
-            // },
-            action: function(expression) {
-                eval(expression);
-            },
-        }
     });
 
-})(jQuery, Vue, Core, Shell);
+})(jQuery, Vue, Vuex, Core);

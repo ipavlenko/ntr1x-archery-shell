@@ -1,55 +1,33 @@
 <template id="shell-private">
     <div class="ge ge-shell ge-shell-private">
         <div class="ge ge-head">
-            <shell-brand
-                :model.sync="model"
-                :globals.sync="globals"
-            ></shell-brand>
+            <shell-brand></shell-brand>
         </div>
         <div class="ge ge-body">
             <div class="ge ge-body-table">
-                <div class="ge ge-left" :class="{ 'ge-left-open' : leftOpen }" v-scrollable>
+                <div class="ge ge-left" :class="{ 'ge-left-open' : $store.state.designer.leftOpen }" v-scrollable>
                     <div class="ge ge-hover">
-                        <a class="ge ge-hover-button" @click = "leftOpen = !leftOpen">
+                        <a class="ge ge-hover-button" @click = "$store.commit('designer/leftToggle')">
                             <span class="glyphicon glyphicon-th"></span>
                             Palette
                         </a>
                     </div>
                     <div class="ge ge-subnav">
-                        <shell-palette
-                            :category.sync="globals.selection.category"
-                            :globals.sync="globals"
-                        ></shell-palette>
+                        <shell-palette></shell-palette>
                     </div>
                 </div>
                 <div class="ge ge-editor">
-                    <shell-actions
-                        :model.sync="model"
-                        :globals.sync="globals"
-                    ></shell-actions>
-                    <shell-container
-                        :globals.sync="globals"
-                        :settings.sync="settings"
-                        :page.sync="globals.selection.page"
-                    ></shell-container>
+                    <shell-actions></shell-actions>
+                    <shell-container :page="page"></shell-container>
                 </div>
-                <div class="ge ge-right" :class="{ 'ge-right-open' : rightOpen }"  v-scrollable>
+                <div class="ge ge-right" :class="{ 'ge-right-open' : $store.state.designer.rightOpen }"  v-scrollable>
                     <div class="ge ge-subnav">
-                        <shell-pages
-                            :pages.sync="model.pages"
-                            :globals.sync="globals"
-                        ></shell-pages>
-                        <shell-sources
-                            :sources.sync="globals.selection.page.sources"
-                            :globals.sync="globals"
-                        ></shell-sources>
-                        <shell-storages
-                            :storages.sync="globals.selection.page.storages"
-                            :globals.sync="globals"
-                        ></shell-storages>
+                        <shell-pages></shell-pages>
+                        <shell-sources></shell-sources>
+                        <shell-storages></shell-storages>
                     </div>
                     <div class="ge ge-hover">
-                        <a class="ge ge-hover-button" @click = "rightOpen = !rightOpen">
+                        <a class="ge ge-hover-button" @click = "$store.commit('designer/rightToggle')">
                             <span class="glyphicon glyphicon-th"></span>
                             Stucture
                         </a>
@@ -57,8 +35,6 @@
                 </div>
             </div>
         </div>
-        <shell-modal-stack
-            :pages.sync="model.pages"
-        ></shell-modal-stack>
+        <shell-modal-stack></shell-modal-stack>
     </div>
 </template>

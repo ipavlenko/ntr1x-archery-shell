@@ -1,15 +1,10 @@
 <template id="shell-page">
-    <div class="ge ge-page">
+    <div class="ge ge-page" :style="style">
         <div
             :is="decorator"
-            :globals.sync="globals"
-            :settings.sync="settings"
-            :page.sync="page"
-            :data.sync="data"
-            :storage.sync="storage"
-            :model.sync="page.root"
-            :widget.sync="widget"
-            :items.sync="page.root.widgets"
+            :page="page"
+            :model="page.root"
+            :widget="widget"
             :editable="editable"
         ></div>
     </div>

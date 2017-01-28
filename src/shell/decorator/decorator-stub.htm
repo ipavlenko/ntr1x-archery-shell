@@ -3,12 +3,10 @@
         <div class="ge ge-content">
             <div
                 :is="widget.tag"
-                v-ref:widget
-                :page.sync="page"
-                :data.sync="data"
-                :storage.sync="storage"
-                :bindings.sync="bindings"
-                :children.sync="children"
+                ref="widget"
+                :page="page"
+                :stack="stack"
+                :bindings="bindings"
             ></div>
         </div>
     </div>

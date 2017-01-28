@@ -1,11 +1,11 @@
 window.Shell =
-(function($, Vue, Core) {
+(function() {
 
-    var Shell = {
+    let Shell = {
         Widgets: {},
         Pages: {},
     };
 
     return Shell;
 
-})(jQuery, Vue, Core);
+})();

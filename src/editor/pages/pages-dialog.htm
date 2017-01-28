@@ -1,4 +1,4 @@
-<template id="shell-pages-dialog">
+<template id="pages-dialog">
     <div class="ge ge-modal modal modal-center" role="dialog">
         <div class="modal-dialog modal-lg">
             <form class="modal-content"
@@ -8,9 +8,9 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h4 class="modal-title">
-                        <span v-if="original" class="label label-primary">{{ original.name }}</span>
-                        <span v-if="original">&nbsp;Настройки страницы</span>
-                        <span v-if="!original">Новая страница</span>
+                        <span v-if="context.type == 'update'" class="label label-primary">Edit Page</span>
+                        <span v-if="context.type == 'create'" class="label label-primary">New Page</span>
+                        <span v-if="original.name">&nbsp;{{ original.name || 'default' }}</span>
                         <span>&gt;</span>
                         <span v-if="isActive('main')">Основное</span>
                         <span v-for="tab in context.widget.tabs" v-if="tab && isActive(tab.name)">{{ tab.title }}</span>
@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                                 <div v-for="tab in context.widget.tabs" class="tab-pane" :class="{ 'active': isActive(tab.name) }">
-                                    <params :items.sync="items" :globals.sync="globals" :owner.sync="context.widget" :tab="tab.name"></params>
+                                    <params :items="items" :tab="tab.name"></params>
                                 </div>
                             </div>
                         </div>

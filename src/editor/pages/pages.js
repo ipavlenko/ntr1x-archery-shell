@@ -1,42 +1,23 @@
 (function($, Vue, Core, Shell) {
 
-    Shell.Pages = Shell.Pages || {};
-
-    var PagesModalEditor = Shell.Pages.ModalEditor =
-    Vue.component('shell-pages-dialog', {
-        template: '#shell-pages-dialog',
+    Shell.Pages.ModalEditor =
+    Vue.component('pages-dialog', {
+        template: '#pages-dialog',
         mixins: [ Core.ModalEditorMixin, Core.TabsMixin('main') ],
-        created: function() {
-
-            var items = [];
-
-            for (var i = 0; i < this.context.widget.props.length; i++) {
-
-                var prop = this.context.widget.props[i];
-                var param = this.current.root.params[prop.name];
-
-                var item = {
-                    prop: prop,
-                    param: param,
-                };
-
-                items.push(item);
+        computed: {
+            items: function() {
+                return this.context.widget.props.map(prop => ({
+                    prop,
+                    owner: this.current.root.params,
+                    param: this.current.root.params[prop.name]
+                }))
             }
-
-            this.items = items;
-        },
-        data: function() {
-            return {
-                context: this.context,
-                items: this.items,
-            };
         },
         methods: {
 
             hasProps: function(tab) {
                 if (this.context.widget && this.context.widget.props) {
-                    for (var i = 0; i < this.context.widget.props.length; i++) {
-                        var prop = this.context.widget.props[i];
+                    for (let prop of this.context.widget.props) {
                         if (prop.tab == tab) return true;
                     }
                 }

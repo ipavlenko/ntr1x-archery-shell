@@ -11,15 +11,15 @@
                     </ul>
                 </div>
                 <div class="btn-group pull-right">
-                    <button class="btn btn-shell" @click="create({ type: 'storage', variables: [] })"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    <button class="btn btn-shell" @click="create()"><span class="glyphicon glyphicon-plus-sign"></span></button>
                 </div>
             </div>
         </div>
         <div class="ge ge-block-content">
             <ul class="nav nav-pills nav-stacked">
-                <host v-for="item in items">
-                    <li v-if="item.type == type.name" :class="{ 'active': item == globals.selection.storage }">
-                        <a href="#" @click="trigger('selectStorage', item)">
+                <template v-for="item in items">
+                    <li :key="item.uuid" v-if="item.type == type.name" :class="{ 'active': item == active }">
+                        <a href="#" @click="$store.commit('designer/storages/select', item)">
                             <span>{{ item.name }}</span>
                             <span class="ge ge-overlays">
                                 <span class="ge ge-overlay" @click.stop="remove(item)"><span class="glyphicon glyphicon-trash"></span></span>
@@ -27,7 +27,7 @@
                             </span>
                         </a>
                     </li>
-                </host>
+                </template>
             </ul>
         </div>
     </section>

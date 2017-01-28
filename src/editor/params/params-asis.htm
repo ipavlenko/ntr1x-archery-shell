@@ -1,14 +1,14 @@
 <template id="params-asis">
     <div class="ge ge-param form-group" :class="{ 'has-error': this.error }">
         <div class="ge ge-param-label">
-            <label class="pull-left" for="{{ id }}">{{ item.prop.title }}</label>
+            <label class="pull-left" :for="id">{{ item.prop.title }}</label>
             <div class="pull-right">
-                <params-bindings :model.sync="item.param" :context="{ prop: item.prop }" inline-template>
+                <params-bindings :owner="item.owner" :property="item.prop.name" :context="{ type: 'update', prop: item.prop }" inline-template>
                     <button type="button" class="btn btn-xs btn-default" @click="open()">Advanced</button>
                 </params-bindings>
             </div>
         </div>
-        <textarea class="form-control" id="{{ id }}" v-model="value"></textarea>
+        <textarea class="form-control" :id="id" v-model="value"></textarea>
         <div class="help-block" v-if="error"><b>Error: Cannot parse as JSON</b></div>
     </div>
 </template>
