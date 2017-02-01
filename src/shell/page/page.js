@@ -21,6 +21,14 @@
                 actions: null,
                 storage: null,
                 sources: null,
+                dispatch: ({ action, payload }) => {
+                    this.$store.dispatch(action, {
+                        $data: payload,
+                        $page: this.$page,
+                        $store: this.$store,
+                        $eval: this.$eval
+                    })
+                }
             }
         },
         created: function() {
