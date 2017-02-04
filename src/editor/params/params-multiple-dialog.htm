@@ -8,7 +8,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h4 class="modal-title">
-                        <span v-if="original" class="label label-primary">{{ original.name }}</span>
+                        <span class="label label-primary">{{ context.prop.title }}</span>
                         <span v-if="original">&nbsp;Редактирование параметра</span>
                         <span v-if="!original">Новый параметр</span>
                         <span>&gt;</span>

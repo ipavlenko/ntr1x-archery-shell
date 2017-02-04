@@ -25,7 +25,7 @@
             try {
                 this.value = this.item.param.value == null
                     ? null
-                    : JSON.stringify(this.item.param.value)
+                    : JSON.stringify(this.item.param.value, null, 4)
                 ;
                 this.error = false;
             } catch (e) {
@@ -138,8 +138,7 @@
 
             create: function() {
 
-                let value = {
-                }
+                let value = null
 
                 this.$store.commit('modals/editor/show', {
                     name: 'params-multiple-dialog',

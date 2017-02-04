@@ -21,9 +21,17 @@
                 actions: null,
                 storage: null,
                 sources: null,
-                dispatch: ({ action, payload }) => {
-                    this.$store.dispatch(action, {
-                        $data: payload,
+                eval: (data, { $item }) => {
+                    return this.$eval(data, {
+                        $item,
+                        $store: this.$store,
+                        $page: this.$page
+                    })
+                },
+                dispatch: (data) => {
+
+                    return this.$store.dispatch('actions/execute', {
+                        $data: data,
                         $page: this.$page,
                         $store: this.$store,
                         $eval: this.$eval

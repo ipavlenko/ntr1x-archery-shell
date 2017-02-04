@@ -3,12 +3,6 @@
         <div class="ge ge-param-label">
             <label class="pull-left" :for="id">{{ item.prop.title }}</label>
             <div class="pull-right">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">{{ item.param.action }} <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li v-for="a in actions"><a @click="select(a)">{{ a }}</a></li>
-                    </ul>
-                </div>
                 <params-bindings :owner="item.owner" :property="item.prop.name" :context="{ type: 'update', prop: item.prop }" inline-template>
                     <button type="button" class="btn btn-xs btn-default" @click="open()">Advanced</button>
                 </params-bindings>
