@@ -10,6 +10,8 @@
                                 'label-default': item.in == 'path',
                                 'label-success': item.in == 'query',
                                 'label-primary': item.in == 'formData',
+                                'label-warning': item.in == 'header',
+                                'label-danger': item.in == 'body',
                             }">{{ item.in }}</span>
                             <span>&nbsp;{{item.name }}</span>
                         </div>

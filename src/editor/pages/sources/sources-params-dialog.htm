@@ -12,6 +12,8 @@
                             'label-default': original.in == 'path',
                             'label-success': original.in == 'query',
                             'label-primary': original.in == 'formData',
+                            'label-warning': original.in == 'header',
+                            'label-danger': original.in == 'body',
                         }">{{ original.in }}</span>
                         <span v-if="original">{{ original.name }}</span>
                         <span v-if="original">&nbsp;&gt;&nbsp;Редактирование параметра</span>
@@ -28,6 +30,8 @@
                                         'label-default': current.in == 'path',
                                         'label-success': current.in == 'query',
                                         'label-primary': current.in == 'formData',
+                                        'label-warning': current.in == 'header',
+                                        'label-danger': current.in == 'body',
                                     }">{{ current.in }}</span>
                                     &nbsp;
                                     <span class="caret"></span>
@@ -36,6 +40,8 @@
                                     <li><a href="#" @click="current.in = 'path'"><span class="label label-default">path</span></a></li>
                                     <li><a href="#" @click="current.in = 'query'"><span class="label label-success">query</span></a></li>
                                     <li><a href="#" @click="current.in = 'formData'"><span class="label label-primary">formData</span></a></li>
+                                    <li><a href="#" @click="current.in = 'header'"><span class="label label-primary">header</span></a></li>
+                                    <li><a href="#" @click="current.in = 'body'"><span class="label label-success">body</span></a></li>
                                 </ul>
                             </div>
                             <input class="form-control" type="text" id="dialog-pages-sources-params-name" required="true" v-model="current.name" />

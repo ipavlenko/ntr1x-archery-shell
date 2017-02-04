@@ -22,10 +22,11 @@
                 storage: null,
                 sources: null,
                 eval: (data, { $item }) => {
+
                     return this.$eval(data, {
                         $item,
+                        $page: this.$page,
                         $store: this.$store,
-                        $page: this.$page
                     })
                 },
                 dispatch: (data) => {
@@ -74,43 +75,65 @@
 
                 if (sources) {
 
-                    let deferred = [];
-                    let actions = {};
+                    let data = {};
 
-                    for (let source of sources) {
-                        actions[source.name] = source
-                        deferred.push(this.doRequest(source))
-                    }
+                    for (let sr of sources) {
 
-                    this.$page.actions = actions;
+                        data[sr.name] = (d) => {
 
-                    if (deferred.length > 1) {
-
-                        $.when.apply(this, deferred)
-                            .done(function() {
-
-                                let data = {};
-                                for (let i = 0; i < arguments.length; i++) {
-                                    data[sources[i].name] = arguments[i][0];
-                                }
-
-                                this.$page.sources = data;
-
-                            }.bind(this));
-
-                    } else if (deferred.length == 1) {
-
-                        deferred[0]
-                            .done((d) => {
-
-                                let data = {};
-                                data[sources[0].name] = d;
-                                this.$page.sources = data;
+                            return this.$store.dispatch('actions/ajax', {
+                                $context: d,
+                                $method: sr,
+                                $page: this.$page,
+                                $store: this.$store,
+                                $eval: this.$eval,
+                                $runtime: this.$runtime,
                             })
-                            .fail((e, e1, e2) => {
-                                console.log(e, e1, e2);
-                            });
+                        }
                     }
+                    this.$page.sources = data
+
+                    // let deferred = [];
+                    // let actions = {};
+                    //
+                    // for (let source of sources) {
+                    //     actions[source.name] = source
+                    //     deferred.push(
+                    //         source.type == 'source'
+                    //             ? this.doRequest(source)
+                    //             : Promise.resolve(null)
+                    //     )
+                    // }
+                    //
+                    // this.$page.actions = actions;
+                    //
+                    // if (deferred.length > 1) {
+                    //
+                    //     $.when.apply(this, deferred)
+                    //         .done(function() {
+                    //
+                    //             let data = {};
+                    //             for (let i = 0; i < arguments.length; i++) {
+                    //                 data[sources[i].name] = arguments[i][0];
+                    //             }
+                    //
+                    //             this.$page.sources = data;
+                    //
+                    //         }.bind(this));
+                    //
+                    // } else if (deferred.length == 1) {
+                    //
+                    //     deferred[0]
+                    //         .done((d) => {
+                    //
+                    //             let data = {};
+                    //             data[sources[0].name] = d;
+                    //             this.$page.sources = data;
+                    //         })
+                    //         .fail((e, e1, e2) => {
+                    //             console.log(e, e1, e2);
+                    //         });
+                    // }
                 }
 
             };
@@ -120,30 +143,30 @@
                 deep: true,
             });
         },
-        methods: {
-            doRequest: function(s) {
-                var query = {};
-                for (var i = 0; i < s.params.length; i++) {
-                    var param = s.params[i];
-                    if (param.in == 'query' && param.specified) {
-
-                        var b = param.binding;
-                        var v = param.value;
-
-                        var value = this.$runtime.evaluate(this, b, v);
-
-                        query[param.name] = value;
-                    }
-                }
-
-                return $.ajax({
-                    method: s.method,
-                    url: s.url,
-                    dataType: 'json',
-                    data: query,
-                });
-            }
-        },
+        // methods: {
+        //     doRequest: function(s) {
+        //         var query = {};
+        //         for (var i = 0; i < s.params.length; i++) {
+        //             var param = s.params[i];
+        //             if (param.in == 'query' && param.specified) {
+        //
+        //                 var b = param.binding;
+        //                 var v = param.value;
+        //
+        //                 var value = this.$runtime.evaluate(this, b, v);
+        //
+        //                 query[param.name] = value;
+        //             }
+        //         }
+        //
+        //         return $.ajax({
+        //             method: s.method,
+        //             url: s.url,
+        //             dataType: 'json',
+        //             data: query,
+        //         });
+        //     }
+        // },
     });
 
 })(jQuery, Vue, Vuex, Core);
