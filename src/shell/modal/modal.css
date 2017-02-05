@@ -19,3 +19,8 @@
   background-color: #416177;
   color: #FFFFFF;
 }
+.ge.ge-modal .modal-content .navbar.navbar-default {
+  background-color: #F5F5F5;
+  background-image: none;
+  box-shadow: none;
+}

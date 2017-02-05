@@ -1,0 +1,72 @@
+<template id="images-dialog">
+    <section class="ge ge-modal modal modal-large" role="dialog">
+        <div class="modal-dialog">
+            <form class="modal-content"
+                @submit.prevent="create()"
+                @reset.prevent="reset()"
+            >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">
+                        <span>Images</span>
+                    </h4>
+                </div>
+                <div class="modal-body" style="height: 500px">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <ul class="nav nav-pills nav-stacked">
+                                <template v-for="collection in collections">
+                                    <li :class="{ 'active': collection == active }"><a href="#" @click.prevent="activate(collection)">{{ collection.title }}</a></li>
+                                </template>
+                            </ul>
+                        </div>
+                        <div class="col-xs-9">
+                            <div class="tab-content" style="min-height: 450px; max-height: 450px; overflow: auto;">
+                                <div class="tab-pane active">
+                                    <div class="container-fluid"style="margin: 1px 0px 0px -10px;">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="navbar navbar-default">
+                                                    <div class="container-fluid">
+                                                        <button type="button" class="btn btn-xs btn-success navbar-btn" style="margin-left: 5px;" @click.prevent="createCollection()">New Collection</button>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-xs btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">
+                                                                Current Collection <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#" @click.prevent="updateCollection(active)">Edit</a></li>
+                                                                <li><a href="#" @click.prevent="removeCollection(active)">Remove</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-md-3">
+                                                <button class="thumbnail" autofocus>
+                                                    <div style="width: 120px; height: 60px; background-color: #F5F5F5">
+                                                        <span class="glyphicon glyphicon-upload"
+                                                            style="font-size: 24px; line-height: 60px; color: #C0C0C5"></span>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <div class="col-xs-6 col-md-3" v-for="image in images">
+                                                <button class="thumbnail">
+                                                    <img :src="image.url" style="width: 120px; height: 60px;" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default">Close</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</template>
