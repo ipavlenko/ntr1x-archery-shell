@@ -34,15 +34,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in current.settings.items">
+                                <tr v-for="(item, index) in current.items">
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ item.name }}.{{ item.format }}</td>
                                     <td>
                                         <span>{{ item.type }}</span>
                                         [
-                                            <span>{{ item.width < 0 ? 'auto' : item.width}}</span>
+                                            <span>{{ item.width == null ? 'auto' : item.width}}</span>
                                             <span>x</span>
-                                            <span>{{ item.height < 0 ? 'auto' : item.height}}</span>
+                                            <span>{{ item.height == null ? 'auto' : item.height}}</span>
                                         ]
                                     </td>
                                     <td>

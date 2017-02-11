@@ -1,0 +1,50 @@
+<template id="images-converter-dialog">
+    <section class="ge ge-modal modal modal-medium">
+        <div class="modal-dialog">
+            <form class="modal-content"
+                @submit.prevent="validation.valid && submit()"
+                @reset.prevent="reset()"
+            >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">
+                        <span v-if="context.type == 'update'" class="label label-primary">Edit Converter</span>
+                        <span v-if="context.type == 'create'" class="label label-primary">New Converter</span>
+                        <span v-if="original.name">&nbsp;{{ original.name }}</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="images-converter-dialog-name">Name</label>
+                        <input class="form-control" type="text" id="images-converter-dialog-name" required="true" v-model="current.name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="images-converter-dialog-format">Format</label>
+                        <input class="form-control" type="text" id="images-converter-dialog-format" required="true" v-model="current.format" />
+                    </div>
+                    <div class="form-group">
+                        <label for="images-converter-dialog-type">Type</label>
+                        <select class="form-control" id="images-converter-dialog-type" required="true" v-model="current.type">
+                            <option>LIMIT</option>
+                            <option>SCALE</option>
+                            <option>COVER</option>
+                            <option>CONTAIN</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="images-converter-dialog-width">Width</label>
+                        <input class="form-control" type="text" id="images-converter-dialog-width" v-model="width" />
+                    </div>
+                    <div class="form-group">
+                        <label for="images-converter-dialog-height">Height</label>
+                        <input class="form-control" type="text" id="images-converter-dialog-height" v-model="height" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary" :disabled="!validation.valid">Save</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</template>

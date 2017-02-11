@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <ul class="nav nav-pills nav-stacked">
-                                <template v-for="collection in collections">
+                                <template v-for="collection in $store.state.designer.content.images">
                                     <li :class="{ 'active': collection == active }"><a href="#" @click.prevent="activate(collection)">{{ collection.title }}</a></li>
                                 </template>
                             </ul>
@@ -29,8 +29,8 @@
                                                 <div class="navbar navbar-default">
                                                     <div class="container-fluid">
                                                         <button type="button" class="btn btn-xs btn-success navbar-btn" style="margin-left: 5px;" @click.prevent="createCollection()">New Collection</button>
-                                                        <div class="btn-group">
-                                                            <button type="button" class="btn btn-xs btn-default dropdown-toggle navbar-btn" data-toggle="dropdown">
+                                                        <div class="btn-group navbar-btn" v-if="active">
+                                                            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
                                                                 Current Collection <span class="caret"></span>
                                                             </button>
                                                             <ul class="dropdown-menu">
@@ -38,11 +38,17 @@
                                                                 <li><a href="#" @click.prevent="removeCollection(active)">Remove</a></li>
                                                             </ul>
                                                         </div>
+                                                        <template v-if="active">
+                                                            <span class="btn btn-xs btn-link navbar-btn pull-right" v-for="item in active.items">
+                                                                {{ item.type }}
+                                                                [{{ item.width != null ? item.width : 'auto' }}, {{ item.height != null ? item.height : 'auto' }}]
+                                                            </span>
+                                                        </template>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" v-if="active">
                                             <div class="col-xs-6 col-md-3">
                                                 <button class="thumbnail" autofocus>
                                                     <div style="width: 120px; height: 60px; background-color: #F5F5F5">
