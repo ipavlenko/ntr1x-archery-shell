@@ -24,35 +24,32 @@
             activate(collection) {
 
                 this.active = collection
-                this.images = [
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                    { url: 'http://placehold.it/120x60' },
-                ]
+                this.images = []
+                if (this.active) {
+                    this.$store
+                        .dispatch('upload/image/list', { aspect: this.active.name })
+                        .then(d => { this.images = d.data.content; })
+                }
             },
 
-            createCollection() {
+            upload(e) {
+
+                let file = e.target.files && e.target.files.length && e.target.files[0]
+
+                this.$store
+                    .dispatch('upload/image', {
+                        file,
+                        settings: {
+                            aspects: [ this.active.name ],
+                            items: this.active.items,
+                        }
+                    })
+                    .then(
+                        (d) => { this.images.unshift(d.data) }
+                    )
+            },
+
+            create() {
 
                 let collection = {
                     name: '',
@@ -64,7 +61,7 @@
                 }
 
                 this.$store.commit('modals/editor/show', {
-                    name: 'images-set-dialog',
+                    name: 'images-collection-dialog',
                     context: { type: 'create' },
                     original: collection,
                     events: {
@@ -81,10 +78,10 @@
                 })
             },
 
-            updateCollection(collection) {
+            update(collection) {
 
                 this.$store.commit('modals/editor/show', {
-                    name: 'images-set-dialog',
+                    name: 'images-collection-dialog',
                     context: { type: 'edit' },
                     original: collection,
                     events: {
@@ -99,7 +96,7 @@
                 })
             },
 
-            removeCollection(collection) {
+            remove(collection) {
 
                 this.$store.commit('designer/items/remove', {
                     parent: this.$store.state.designer.content,
@@ -115,15 +112,33 @@
                 )
             },
 
+            details(item) {
+
+                this.$store.commit('modals/editor/show', {
+                    name: 'images-details-dialog',
+                    context: { type: 'edit', collection: this.active },
+                    original: item,
+                    events: {
+                        submit: (current) => {
+                            // this.$store.commit('designer/items/update', {
+                            //     parent: this.$store.state.designer.content,
+                            //     property: 'images',
+                            //     item: current
+                            // })
+                        },
+                    }
+                })
+            },
+
             reset() {
                 this.$destroy()
                 this.$store.commit('modals/dialog/close')
-            }
+            },
         },
     });
 
-    Vue.component('images-set-dialog', {
-        template: '#images-set-dialog',
+    Vue.component('images-collection-dialog', {
+        template: '#images-collection-dialog',
         mixins: [ Core.ModalEditorMixin ],
         methods: {
 
@@ -214,5 +229,17 @@
             }
         }
     });
+
+    Vue.component('images-details-dialog', {
+        template: '#images-details-dialog',
+        mixins: [ Core.ModalEditorMixin ],
+        methods: {
+            copy(e) {
+                console.log($(e.target).closest('.input-group'))
+                $('input', $(e.target).closest('.input-group')).select()
+                document.execCommand('copy')
+            }
+        }
+    })
 
 })(jQuery, Vue, Core);

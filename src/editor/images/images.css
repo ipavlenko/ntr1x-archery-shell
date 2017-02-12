@@ -1,0 +1,8 @@
+.modal-images .thumbnail {
+  text-align: center;
+}
+.modal-images .thumbnail .thumbnail-content {
+  width: 120px;
+  height: 60px;
+  background-color: #F5F5F5;
+}

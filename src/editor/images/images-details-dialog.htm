@@ -1,0 +1,73 @@
+<template id="images-details-dialog">
+    <section class="ge ge-modal modal modal-medium">
+        <div class="modal-dialog">
+            <form class="modal-content"
+                @reset.prevent="reset()"
+            >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">
+                        <span class="label label-primary">Image Details</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="images-converter-dialog-name">Image</label>
+                        <button class="thumbnail">
+                            <img :src="$store.state.settings.endpoint + '/uploads/images/u/' + current.uuid + '/thumbnail.png'" class="thumbnail-content" />
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="images-set-dialog-width">Variants</label>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th style="width: 30%">Name</th>
+                                    <th style="width: 30%">Converter</th>
+                                    <th style="width: 40%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in context.collection.items">
+                                    <td>{{ index + 1 }}</td>
+                                    <td>
+                                        <a :href="$store.state.settings.endpoint + '/uploads/images/u/' + current.uuid + '/' + item.name + '.' + item.format">
+                                            {{ item.name }}.{{ item.format }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span>{{ item.type }}</span>
+                                        [
+                                            <span>{{ item.width == null ? 'auto' : item.width}}</span>
+                                            <span>x</span>
+                                            <span>{{ item.height == null ? 'auto' : item.height}}</span>
+                                        ]
+                                    </td>
+                                    <td>
+                                        <div class="input-group input-group-xs">
+                                            <input type="text" class="form-control"
+                                                @click.prevent="copy($event)"
+                                                :value="$store.state.settings.endpoint + '/uploads/images/u/' + current.uuid + '/' + item.name + '.' + item.format" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-xs btn-default"
+                                                    @click.prevent="copy($event)"
+                                                >
+                                                    <span class="glyphicon glyphicon-copy"></span>
+                                                    <span>Copy</span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default">Close</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</template>

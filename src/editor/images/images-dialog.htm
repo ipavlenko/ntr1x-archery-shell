@@ -1,6 +1,6 @@
 <template id="images-dialog">
     <section class="ge ge-modal modal modal-large" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-images">
             <form class="modal-content"
                 @submit.prevent="create()"
                 @reset.prevent="reset()"
@@ -28,14 +28,14 @@
                                             <div class="col-xs-12">
                                                 <div class="navbar navbar-default">
                                                     <div class="container-fluid">
-                                                        <button type="button" class="btn btn-xs btn-success navbar-btn" style="margin-left: 5px;" @click.prevent="createCollection()">New Collection</button>
+                                                        <button type="button" class="btn btn-xs btn-success navbar-btn" style="margin-left: 5px;" @click.prevent="create()">New Collection</button>
                                                         <div class="btn-group navbar-btn" v-if="active">
                                                             <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
                                                                 Current Collection <span class="caret"></span>
                                                             </button>
                                                             <ul class="dropdown-menu">
-                                                                <li><a href="#" @click.prevent="updateCollection(active)">Edit</a></li>
-                                                                <li><a href="#" @click.prevent="removeCollection(active)">Remove</a></li>
+                                                                <li><a href="#" @click.prevent="update(active)">Edit</a></li>
+                                                                <li><a href="#" @click.prevent="remove(active)">Remove</a></li>
                                                             </ul>
                                                         </div>
                                                         <template v-if="active">
@@ -50,16 +50,16 @@
                                         </div>
                                         <div class="row" v-if="active">
                                             <div class="col-xs-6 col-md-3">
-                                                <button class="thumbnail" autofocus>
-                                                    <div style="width: 120px; height: 60px; background-color: #F5F5F5">
+                                                <fileupload class="thumbnail" @input="upload($event)">
+                                                    <div class="thumbnail-content">
                                                         <span class="glyphicon glyphicon-upload"
                                                             style="font-size: 24px; line-height: 60px; color: #C0C0C5"></span>
                                                     </div>
-                                                </button>
+                                                </fileupload>
                                             </div>
                                             <div class="col-xs-6 col-md-3" v-for="image in images">
-                                                <button class="thumbnail">
-                                                    <img :src="image.url" style="width: 120px; height: 60px;" />
+                                                <button class="thumbnail" @click.prevent="details(image)">
+                                                    <img :src="$store.state.settings.endpoint + '/uploads/images/u/' + image.uuid + '/thumbnail.png'" class="thumbnail-content" />
                                                 </button>
                                             </div>
                                         </div>
