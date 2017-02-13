@@ -119,12 +119,18 @@
                     context: { type: 'edit', collection: this.active },
                     original: item,
                     events: {
-                        submit: (current) => {
-                            // this.$store.commit('designer/items/update', {
-                            //     parent: this.$store.state.designer.content,
-                            //     property: 'images',
-                            //     item: current
-                            // })
+                        remove: (current) => {
+                            this.$store
+                                .dispatch('upload/id/remove', { id: current.id })
+                                .then(
+                                    () => {
+                                        this.$store.commit('designer/items/remove', {
+                                            parent: this,
+                                            property: 'images',
+                                            item: current
+                                        })
+                                    }
+                                )
                         },
                     }
                 })
@@ -235,9 +241,13 @@
         mixins: [ Core.ModalEditorMixin ],
         methods: {
             copy(e) {
-                console.log($(e.target).closest('.input-group'))
                 $('input', $(e.target).closest('.input-group')).select()
                 document.execCommand('copy')
+                this.$destroy()
+            },
+            remove() {
+                this.events && this.events.remove && this.events.remove(this.current);
+                this.$destroy()
             }
         }
     })
