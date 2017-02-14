@@ -218,7 +218,6 @@
 
             this.sortable = $(this.$el).sortable({
 
-                vertical: true,
                 drop: true,
                 offset: 'position',
 
@@ -263,11 +262,26 @@
 
                         let newItem = self.$store.getters.palette.item(w);
 
-                        self.$store.commit('designer/widgets/insert', {
-                            parent: newStack.model,
-                            widget: newItem,
-                            index: newIndex
-                        });
+                        if (newStack.model.name.indexOf('default-container/default-container-repeater/') == 0) {
+
+                            self.$store.commit('designer/widgets/clear', {
+                                parent: newStack.model
+                            });
+
+                            self.$store.commit('designer/widgets/insert', {
+                                parent: newStack.model,
+                                widget: newItem,
+                                index: 0
+                            });
+
+                        } else {
+
+                            self.$store.commit('designer/widgets/insert', {
+                                parent: newStack.model,
+                                widget: newItem,
+                                index: newIndex
+                            });
+                        }
 
                     } else if (dragged) {
 
@@ -284,11 +298,26 @@
                                 widget: oldItem
                             });
 
-                            self.$store.commit('designer/widgets/insert', {
-                                parent: newStack.model,
-                                widget: newItem,
-                                index: newIndex
-                            });
+                            if (newStack.model.name.indexOf('default-container/default-container-repeater/') == 0) {
+
+                                self.$store.commit('designer/widgets/clear', {
+                                    parent: newStack.model
+                                });
+
+                                self.$store.commit('designer/widgets/insert', {
+                                    parent: newStack.model,
+                                    widget: newItem,
+                                    index: 0
+                                });
+
+                            } else {
+
+                                self.$store.commit('designer/widgets/insert', {
+                                    parent: newStack.model,
+                                    widget: newItem,
+                                    index: newIndex
+                                });
+                            }
 
                         } else if (newIndex != oldIndex && newIndex != oldIndex + 1) {
 
@@ -329,6 +358,68 @@
             placeholder: function() {
                 return this.$store.getters.palette.placeholder(`
                     <small>Vertical Stack</small>
+                    <div>Drop Here</div>
+                `);
+            }
+        },
+    });
+
+    Vue.component('shell-decorator-repeater-vertical', {
+        template: '#shell-decorator-repeater',
+        mixins: [ DecoratorMixin, CompositeMixin, SortableMixin, BindingsMixin ],
+        props: {
+            stack: Object,
+            page: Object,
+            model: Object,
+            widget: Object,
+            editable: Boolean
+        },
+        computed: {
+            items: function() {
+                return this.model.widgets
+            },
+            children: function() {
+
+                return this.items.length > 0
+                    ? [ ...this.items ]
+                    : [ JSON.parse(JSON.stringify(this.placeholder())) ]
+            },
+        },
+        methods: {
+            placeholder: function() {
+                return this.$store.getters.palette.placeholder(`
+                    <small>Vertical Repeater</small>
+                    <div>Drop Here</div>
+                `);
+            }
+        },
+    });
+
+    Vue.component('shell-decorator-repeater-horizontal', {
+        template: '#shell-decorator-repeater',
+        mixins: [ DecoratorMixin, CompositeMixin, SortableMixin, BindingsMixin ],
+        props: {
+            stack: Object,
+            page: Object,
+            model: Object,
+            widget: Object,
+            editable: Boolean
+        },
+        computed: {
+            items: function() {
+                return this.model.widgets
+            },
+            children: function() {
+
+                return this.items.length > 0
+                    ? [ ...this.items ]
+                    : [ JSON.parse(JSON.stringify(this.placeholder())) ]
+            },
+        },
+        methods: {
+            placeholder: function() {
+                return this.$store.getters.palette.placeholder(`
+                    <small>Horizontal Repeater</small>
                     <div>Drop Here</div>
                 `);
             }

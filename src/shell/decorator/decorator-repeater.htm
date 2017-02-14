@@ -1,0 +1,27 @@
+<template id="shell-decorator-repeater">
+    <div class="ge ge-widget"
+        :class="{ 'ge-widget-selected': selected, 'ignore-elements': editable }"
+        :style="{ 'padding-top': selected ? '25px' : '0px' }">
+        <div class="ge ge-content">
+            <div
+                :is="widget.tag"
+                ref="widget"
+                :page="page"
+                :stack="model"
+                :bindings="bindings"
+                :children="children"
+                :editable="selected"
+            ></div>
+        </div>
+        <div class="ge ge-overlay" v-if="$route && $route.meta.private && editable">
+            <div class="ge ge-overlay-left">
+                <a href="#" v-if="!selected" @click.stop.prevent="selectTarget()" class="label label-success">Unlock</a>
+                <a href="#" v-if="selected" @click.stop.prevent="unselectTarget()" class="label label-success">Lock</a>
+            </div>
+            <div class="ge ge-overlay-right">
+                <a href="#" v-if="!selected" @click.stop.prevent="showSettings()" class="label label-primary">Edit</a>
+                <a href="#" v-if="!selected" @click.stop.prevent="removeWidget()" class="label label-danger">Del</a>
+            </div>
+        </div>
+    </div>
+</template>

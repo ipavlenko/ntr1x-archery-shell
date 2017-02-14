@@ -14,6 +14,8 @@
                 alternatives: {
                     'default-stack-horizontal': 'shell-decorator-horizontal',
                     'default-stack-vertical': 'shell-decorator-vertical',
+                    'default-repeater-horizontal': 'shell-decorator-repeater-horizontal',
+                    'default-repeater-vertical': 'shell-decorator-repeater-vertical',
                     'default-stub': 'shell-decorator-stub',
                 },
                 fallback: 'shell-decorator-widget',
