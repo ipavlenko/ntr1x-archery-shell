@@ -18,7 +18,7 @@
                 </div>
                 <div class="ge ge-editor">
                     <shell-actions></shell-actions>
-                    <shell-container :page="page"></shell-container>
+                    <shell-container :page="page" :key="page.uuid"></shell-container>
                 </div>
                 <div class="ge ge-right" :class="{ 'ge-right-open' : $store.state.designer.rightOpen }"  v-scrollable>
                     <div class="ge ge-subnav">

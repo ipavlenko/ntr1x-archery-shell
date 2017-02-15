@@ -5,6 +5,10 @@
         props: {
             page: Object,
             context: Object,
+            events: Object,
+        },
+        created: function() {
+            this.$context = this.context
         },
         mounted: function() {
 

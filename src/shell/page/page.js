@@ -16,6 +16,7 @@
             };
         },
         beforeCreate: function() {
+
             this.$page = {
                 uuid: Core.UUID.random(),
                 actions: null,
@@ -29,10 +30,11 @@
                         $store: this.$store,
                     })
                 },
-                dispatch: (data) => {
+                dispatch: (script, context) => {
 
                     return this.$store.dispatch('actions/execute', {
-                        $data: data,
+                        $script: script,
+                        $context: context,
                         $page: this.$page,
                         $store: this.$store,
                         $eval: this.$eval
@@ -70,7 +72,7 @@
                 immediate: true,
                 deep: true,
             });
-            
+
             this.$watch('page.sources', (sources) => {
 
                 if (sources) {
