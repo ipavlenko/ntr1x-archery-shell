@@ -74,23 +74,6 @@
                     : [ JSON.parse(JSON.stringify(this.placeholder())) ]
             }
         },
-
-        events: {
-
-            removeChildWidget: function(data) {
-
-                let item = data.item;
-
-                if (item._action == 'create') {
-                    let index = this.items.indexOf(item);
-                    this.items.splice(index, 1);
-                } else {
-                    item._action = 'remove';
-                }
-
-                // this.items = this.items.slice();
-            },
-        },
     };
 
     let SortableMixin = {

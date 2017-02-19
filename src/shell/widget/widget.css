@@ -29,11 +29,12 @@
   left: 4px;
 }
 .ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-left > a {
-  display: inline-block;
+  display: block;
+  float: left;
   pointer-events: auto;
   font-size: 12px;
   padding: 2px 4px;
-  margin: 0px 0px;
+  margin: 0px 2px 0px 0px;
 }
 .ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-right {
   display: block;
@@ -44,11 +45,12 @@
   text-align: right;
 }
 .ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-right > a {
-  display: inline-block;
+  display: block;
+  float: right;
   pointer-events: auto;
   font-size: 12px;
   padding: 2px 4px;
-  margin: 0px 0px;
+  margin: 0px 0px 0px 2px;
 }
 .ge.ge-widget:hover > .ge.ge-overlay {
   opacity: 1;
