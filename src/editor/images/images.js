@@ -55,8 +55,8 @@
                     name: '',
                     title: '',
                     items: [
-                        { name: 'thumb', format: 'png', type: 'COVER', width: 120, height: 60 },
-                        { name: 'image', format: 'jpg', type: 'LIMIT', width: 1920, height: 1024 },
+                        { uuid: Core.UUID.random(), name: 'thumbnail', format: 'png', type: 'COVER', width: 120, height: 60 },
+                        { uuid: Core.UUID.random(), name: 'image', format: 'jpg', type: 'LIMIT', width: 1920, height: 1024 },
                     ]
                 }
 
