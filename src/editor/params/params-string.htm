@@ -2,7 +2,7 @@
     <div class="ge ge-param form-group">
         <div class="ge ge-param-label">
             <label class="pull-left" :for="id">{{ item.prop.title }}</label>
-            <div class="pull-right">
+            <div class="pull-right" v-if="!item.prop.persistent">
                 <params-bindings :owner="item.owner" :property="item.prop.name" :context="{ type: 'update', prop: item.prop }" inline-template>
                     <button type="button" class="btn btn-xs btn-default" @click="open()">Advanced</button>
                 </params-bindings>
