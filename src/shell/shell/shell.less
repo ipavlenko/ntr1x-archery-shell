@@ -22,10 +22,12 @@
             }
 
             .btn.btn-shell {
+
                 background: #262633;
-                border-radius: 4px;
+                border: 1px solid #161623;
+                font-weight: normal;
+                text-shadow: none;
                 color: #EEEEEE;
-                display: inline-block;
 
                 &:hover {
                     background-color: #323242;
@@ -178,18 +180,27 @@
             z-index: 20;
             background: #262633;
 
-            .ge.ge-hover-button {
+            .ge.ge-hover-group {
                 position: absolute;
+                top: 60px;
+                left: -80px;
+                width: 200px;
+                transform: rotate(-90deg);
+                white-space: nowrap;
+            }
+
+            .ge.ge-hover-button {
+
+                // position: relative;
+                margin: 0px 2px;
+                display: inline-block;
+                // float: left;
                 cursor: pointer;
                 text-decoration: none;
-                top: 30px;
-                left: -20px;
-                transform: rotate(-90deg);
                 background: #141422;
                 color: #EEEEEE;
                 border-radius: 4px;
                 padding: 4px 6px;
-                white-space: nowrap;
                 width: 80px;
                 text-align: center;
 

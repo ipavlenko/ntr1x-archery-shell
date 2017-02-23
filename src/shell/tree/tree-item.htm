@@ -1,0 +1,15 @@
+<template id="shell-tree-item">
+    <section class="ge ge-tree-item">
+        <div>
+            <small>
+                <a v-if="widget.widgets && widget.widgets.length && open" class="fa fa-minus-square-o" href="#" @click.prevent="open = !open"></a>
+                <a v-else-if="widget.widgets && widget.widgets.length && !open" class="fa fa-plus-square-o" href="#" @click.prevent="open = !open"></a>
+                <i v-else class="fa fa-cube"></i>
+            </small>
+            <span>&lt;{{ widget.tag }} /&gt;</span>
+        </div>
+        <div class="ge ge-tree-children" v-if="open">
+            <shell-tree-item v-for="widget in widget.widgets" :key="widget.uuid" :widget="widget"></shell-tree-item>
+        </div>
+    </section>
+</template>

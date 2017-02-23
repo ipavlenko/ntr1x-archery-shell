@@ -1,0 +1,24 @@
+<template id="shell-tree">
+    <section class="ge ge-panel ge-shell-block ge-tree">
+        <div class="ge ge-block-selector">
+            <div class="btn-group">
+                <button class="btn btn-default btn-shell dropdown-toggle" type="button" data-toggle="dropdown" style="width: 250px">
+                    <span v-if="$store.state.designer.page.name != ''">{{ $store.state.designer.page.name }}</span>
+                    <span v-if="$store.state.designer.page.name == ''"><i>default</i></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li v-for="item in $store.state.designer.content.pages" :class="{ 'active': $store.state.designer.page == item }">
+                        <a  @click="$store.commit('designer/pages/select', item)">
+                            <span v-if="item.name != ''">{{ item.name }}</span>
+                            <span v-if="item.name == ''"><i>default</i></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="ge ge-tree-content">
+            <shell-tree-item v-for="widget in $store.state.designer.page.root.widgets" :widget="widget" :key="widget.uuid"></shell-tree-item>
+        </div>
+    </section>
+</template>

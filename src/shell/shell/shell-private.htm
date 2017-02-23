@@ -20,17 +20,26 @@
                     <shell-actions></shell-actions>
                     <shell-container :page="page" :key="page.uuid"></shell-container>
                 </div>
-                <div class="ge ge-right" :class="{ 'ge-right-open' : $store.state.designer.rightOpen }"  v-scrollable>
+                <div class="ge ge-right" :class="{ 'ge-right-open' : $store.state.designer.right.open }"  v-scrollable>
                     <div class="ge ge-subnav">
-                        <shell-pages></shell-pages>
-                        <shell-sources></shell-sources>
-                        <shell-storages></shell-storages>
+                        <template v-if="$store.state.designer.right.panel == 'structure'">
+                            <shell-pages></shell-pages>
+                            <shell-sources></shell-sources>
+                            <shell-storages></shell-storages>
+                        </template>
+                        <shell-tree v-if="$store.state.designer.right.panel == 'tree'"></shell-tree>
                     </div>
                     <div class="ge ge-hover">
-                        <a class="ge ge-hover-button" @click = "$store.commit('designer/rightToggle')">
-                            <span class="glyphicon glyphicon-th"></span>
-                            Stucture
-                        </a>
+                        <div class="ge ge-hover-group">
+                            <a class="ge ge-hover-button" @click = "$store.commit('designer/rightToggle', 'tree')">
+                                <span class="fa fa-sitemap"></span>
+                                Tree
+                            </a>
+                            <a class="ge ge-hover-button" @click = "$store.commit('designer/rightToggle', 'structure')">
+                                <span class="fa fa-bars"></span>
+                                Stucture
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
