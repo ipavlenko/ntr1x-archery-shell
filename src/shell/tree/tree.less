@@ -5,14 +5,56 @@
     color: #AAAABB;
 
     .ge.ge-tree-content {
-        margin: 10px 20px;
+
+        position: absolute;
+        top: 60px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        padding: 0px 15px 0px 15px;
+        box-sizing: border-box;
+    }
+
+    .ge.ge-tree-caption {
+
+        position: relative;
+        float: left;
+        width: 100%;
+        display: table;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 4px 0px;
+        box-sizing: border-box;
+
+        .ge.ge-overlays {
+
+            position: absolute;
+            padding: 0px 0px 0px 2px;
+            top: 2px;
+            right: 0px;
+            display: none;
+            background-color: #141422;
+        }
+
+        &:hover {
+            color: #FFFFFF;
+
+            .ge.ge-overlays {
+                display: block;
+            }
+        }
     }
 
     .ge.ge-tree-item {
 
+        position: relative;
+        display: table;
+        width: 100%;
         margin: 0px 0px;
-        padding: 1px 2px;
+        padding: 3px 3px;
         font-size: 15px;
+        cursor: pointer;
+        box-sizing: border-box;
 
         a {
             text-decoration: none;
@@ -25,8 +67,13 @@
     }
 
     .ge-tree-children {
-        margin-left: 5px;
-        padding-left: 5px;
+
+        position: relative;
+        display: table;
+        width: 100%;
+        margin-left: 6px;
+        padding-left: 6px;
         border-left: 1px solid #333333;
+        box-sizing: border-box;
     }
 }
