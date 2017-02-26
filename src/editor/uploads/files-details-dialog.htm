@@ -1,0 +1,38 @@
+<template id="files-details-dialog">
+    <section class="ge ge-modal modal modal-medium">
+        <div class="modal-dialog">
+            <form class="modal-content"
+                @reset.prevent="reset()"
+            >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">
+                        <span class="label label-primary">File Details</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>File</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                @click.prevent="copy($event)"
+                                :value="$store.state.settings.endpoint + '/uploads/files/u/' + current.uuid + '/file'" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default"
+                                    @click.prevent="copy($event)"
+                                >
+                                    <span class="glyphicon glyphicon-copy"></span>
+                                    <span>Copy</span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" @click.prevent="remove()">Remove</button>
+                    <button type="reset" class="btn btn-default">Close</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</template>

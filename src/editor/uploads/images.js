@@ -121,7 +121,7 @@
                     events: {
                         remove: (current) => {
                             this.$store
-                                .dispatch('upload/id/remove', { id: current.id })
+                                .dispatch('upload/image/id/remove', { id: current.id })
                                 .then(
                                     () => {
                                         this.$store.commit('designer/items/remove', {

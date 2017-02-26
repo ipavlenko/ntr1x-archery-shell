@@ -1,0 +1,7 @@
+.modal-files .navbar {
+  min-height: auto;
+  margin-bottom: 10px;
+}
+.modal-files .navbar .navbar-btn.btn-xs {
+  margin: 4px 4px 4px 0px;
+}

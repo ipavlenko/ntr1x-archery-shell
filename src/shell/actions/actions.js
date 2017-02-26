@@ -7,6 +7,11 @@
                 this.$store.commit('modals/dialog/show', {
                     name: 'images-dialog',
                 })
+            },
+            showFiles() {
+                this.$store.commit('modals/dialog/show', {
+                    name: 'files-dialog',
+                })
             }
         }
     });

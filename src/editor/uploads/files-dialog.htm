@@ -1,0 +1,77 @@
+<template id="files-dialog">
+    <section class="ge ge-modal modal modal-large" role="dialog">
+        <div class="modal-dialog modal-files">
+            <form class="modal-content"
+                @submit.prevent="create()"
+                @reset.prevent="reset()"
+            >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">
+                        <span>Files</span>
+                    </h4>
+                </div>
+                <div class="modal-body" style="height: 500px">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <ul class="nav nav-pills nav-stacked">
+                                <template v-for="collection in $store.state.designer.content.files">
+                                    <li :class="{ 'active': collection == active }"><a href="#" @click.prevent="activate(collection)">{{ collection.title }}</a></li>
+                                </template>
+                            </ul>
+                        </div>
+                        <div class="col-xs-9">
+                            <div class="tab-content" style="min-height: 450px; max-height: 450px; overflow: auto;">
+                                <div class="tab-pane active">
+                                    <div class="container-fluid" style="margin: 1px 0px 0px -10px;">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="navbar pull-left">
+                                                    <button type="button" class="btn btn-xs btn-success navbar-btn" @click.prevent="create()">New Collection</button>
+                                                    <div class="btn-group navbar-btn" v-if="active">
+                                                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            Current Collection <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#" @click.prevent="update(active)">Edit</a></li>
+                                                            <li><a href="#" @click.prevent="remove(active)">Remove</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="navbar pull-right">
+                                                    <fileupload class="navbar-btn" @input="upload($event)">
+                                                        <button class="btn btn-xs btn-success">Upload</button>
+                                                    </fileupload>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" v-if="active">
+                                            <div class="col-xs-12">
+                                                <table class="table table-striped">
+                                                    <tr v-for="file in files">
+                                                        <td>
+                                                            <i class="fa" :class="icon(file.original)"></i>
+                                                            <a class="btn btn-sm btn-link"
+                                                                :href="$store.state.settings.endpoint + '/uploads/files/u/' + file.uuid + '/file'"
+                                                            >{{ file.original }}</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-sm btn-default pull-right" @click.prevent="details(file)">Details</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default">Close</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</template>
