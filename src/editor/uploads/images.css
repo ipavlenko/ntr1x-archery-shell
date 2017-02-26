@@ -2,8 +2,8 @@
   min-height: auto;
   margin-bottom: 10px;
 }
-.modal-images .navbar .navbar-btn.btn-xs {
-  margin: 4px 4px 4px 0px;
+.modal-images .navbar .navbar-btn.btn-sm {
+  margin: 4px 6px 4px 0px;
 }
 .modal-images .thumbnail {
   text-align: center;
