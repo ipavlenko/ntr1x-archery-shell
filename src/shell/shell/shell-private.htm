@@ -5,9 +5,9 @@
         </div>
         <div class="ge ge-body">
             <div class="ge ge-body-table">
-                <div class="ge ge-left" :class="{ 'ge-left-open' : $store.state.designer.leftOpen }" v-scrollable>
+                <div class="ge ge-left" :class="{ 'ge-left-open' : $store.state.designer.left.open }" v-scrollable>
                     <div class="ge ge-hover">
-                        <a class="ge ge-hover-button" @click = "$store.commit('designer/leftToggle')">
+                        <a class="ge ge-hover-button" @click = "$store.commit('designer/leftToggle', 'palette')">
                             <span class="glyphicon glyphicon-th"></span>
                             Palette
                         </a>
@@ -19,6 +19,7 @@
                 <div class="ge ge-editor">
                     <shell-actions></shell-actions>
                     <shell-container :page="page" :key="page.uuid"></shell-container>
+                    <shell-bottom></shell-bottom>
                 </div>
                 <div class="ge ge-right" :class="{ 'ge-right-open' : $store.state.designer.right.open }"  v-scrollable>
                     <div class="ge ge-subnav">

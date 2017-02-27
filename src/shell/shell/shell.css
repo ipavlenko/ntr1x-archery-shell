@@ -10,6 +10,7 @@
   bottom: 0px;
   overflow: hidden;
   background: #262633;
+  display: flex;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-shell-block > .ge.ge-block-selector {
   position: relative;
@@ -74,10 +75,12 @@
   background: #F3F7F7 url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UwZTBlMCIgb3BhY2l0eT0iMC4yIiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTBlMGUwIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=") repeat;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-left {
+  position: relative;
   flex: 0 1 40px;
   vertical-align: top;
   width: 40px;
   transition: 0.5s;
+  background: #262633;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-left .ge.ge-hover {
   position: absolute;
@@ -112,7 +115,7 @@
   transition: 0.5s;
   top: 0px;
   left: -240px;
-  bottom: 0px;
+  bottom: 40px;
   width: 280px;
   z-index: 10;
 }
@@ -126,10 +129,12 @@
   left: 40px;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-right {
+  position: relative;
   flex: 0 1 40px;
   vertical-align: top;
   width: 40px;
   transition: 0.5s;
+  background: #262633;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-right .ge.ge-hover {
   position: absolute;
@@ -169,7 +174,7 @@
   transition: 0.5s;
   top: 0px;
   right: -240px;
-  bottom: 0px;
+  bottom: 40px;
   width: 280px;
   z-index: 10;
 }
@@ -185,6 +190,8 @@
 .ge.ge-shell.ge-shell-private .ge.ge-editor {
   flex: 1 1 100px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-panel {
   margin-bottom: 15px;

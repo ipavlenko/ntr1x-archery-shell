@@ -12,6 +12,11 @@
                 this.$store.commit('modals/dialog/show', {
                     name: 'files-dialog',
                 })
+            },
+            importPage() {
+                this.$store.commit('modals/dialog/show', {
+                    name: 'import-dialog',
+                })
             }
         }
     });

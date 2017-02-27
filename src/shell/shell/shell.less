@@ -42,7 +42,6 @@
         }
     }
 
-
     .ps-container {
 
         > .ps-scrollbar-y-rail {
@@ -68,6 +67,7 @@
     bottom: 0px;
     overflow: hidden;
     background: #262633;
+    display: flex;
 
     .ge.ge-head {
 
@@ -107,10 +107,12 @@
     }
 
     .ge.ge-left {
+        position: relative;
         flex: 0 1 40px;
         vertical-align: top;
         width: 40px;
         transition: 0.5s;
+        background: #262633;
 
         .ge.ge-hover {
             position: absolute;
@@ -148,11 +150,10 @@
             transition: 0.5s;
             top: 0px;
             left: -240px;
-            bottom: 0px;
+            bottom: 40px;
             width: 280px;
             z-index: 10;
         }
-
 
         &.ge-left-open {
             transition: 0.5s;
@@ -166,10 +167,12 @@
     }
 
     .ge.ge-right {
+        position: relative;
         flex: 0 1 40px;
         vertical-align: top;
         width: 40px;
         transition: 0.5s;
+        background: #262633;
 
         .ge.ge-hover {
             position: absolute;
@@ -216,7 +219,7 @@
             transition: 0.5s;
             top: 0px;
             right: -240px;
-            bottom: 0px;
+            bottom: 40px;
             width: 280px;
             z-index: 10;
         }
@@ -235,6 +238,8 @@
     .ge.ge-editor {
         flex: 1 1 100px;
         position: relative;
+        display: flex;
+        flex-direction: column;
     }
 
     .ge.ge-panel {

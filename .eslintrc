@@ -9,10 +9,11 @@
         "require": false,
         "Vue": false,
         "Vuex": false,
+        "pluralize": false,
         "Core": true,
         "Shell": true,
         "Landing": true,
-        "URI": true
+        "URI": true,
     },
     "parser": "babel-eslint",
     "extends": "eslint:recommended",

@@ -1,0 +1,103 @@
+.ge.ge-bottom {
+  position: relative;
+  flex: 0 1 40px;
+  background-color: #262633;
+  transition: 0.2s;
+  width: 100%;
+  overflow: hidden;
+}
+.ge.ge-bottom .ge.ge-hover {
+  position: absolute;
+  height: 40px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 20;
+  background: #262633;
+  padding: 10px 0px;
+}
+.ge.ge-bottom .ge.ge-hover .ge.ge-hover-button {
+  cursor: pointer;
+  text-decoration: none;
+  background: #141422;
+  color: #EEEEEE;
+  border-radius: 4px;
+  padding: 4px 6px;
+  white-space: nowrap;
+  width: 80px;
+  text-align: center;
+}
+.ge.ge-bottom .ge.ge-hover .ge.ge-hover-button:hover {
+  background-color: #323242;
+  color: #FFFFFF;
+}
+.ge.ge-bottom .ge.ge-hover .ge.ge-hover-status {
+  margin-left: 5px;
+}
+.ge.ge-bottom .ge.ge-hover .ge.ge-hover-status .label {
+  font-weight: normal;
+}
+.ge.ge-bottom .ge.ge-subnav {
+  position: absolute;
+  transition: 0.2s;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  height: 103px;
+  z-index: 10;
+  background: #141422;
+  overflow-y: auto;
+}
+.ge.ge-bottom.ge-bottom-open {
+  transition: 0.2s;
+  flex: 0 1 143px;
+}
+.ge.ge-bottom.ge-bottom-open .ge.ge-subnav {
+  transform: translate3d(0, 0, 0);
+  transition: 0.2s;
+}
+.ge.ge-bottom .ge.ge-bottom-console {
+  padding: 0px 0px 3px 0px;
+  overflow-y: auto;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages .ge.ge-console-message {
+  display: table;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages .ge.ge-console-message .ge.ge-message-group {
+  display: table-cell;
+  width: 1px;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages .ge.ge-console-message .ge.ge-message-group > .label {
+  background-color: #34495E;
+  font-weight: normal;
+  white-space: nowrap;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages .ge.ge-console-message .ge.ge-message-type {
+  display: table-cell;
+  width: 1px;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages .ge.ge-console-message .ge.ge-message-type > .label {
+  font-weight: normal;
+  white-space: nowrap;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages .ge.ge-console-message .ge.ge-message-message {
+  color: #AAAABB;
+  font-weight: normal;
+  display: inline-block;
+  display: table-cell;
+  width: auto;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages .ge.ge-console-message .ge.ge-message-time {
+  display: table-cell;
+  width: 1px;
+}
+.ge.ge-bottom .ge.ge-bottom-console .ge.ge-console-messages .ge.ge-console-message .ge.ge-message-time > .label {
+  color: #DDDDEE;
+  font-weight: normal;
+  white-space: nowrap;
+}

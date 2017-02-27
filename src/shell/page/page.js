@@ -44,6 +44,12 @@
         },
         created: function() {
 
+            this.$store.commit('console/clear')
+            this.$store.commit('console/log', {
+                type: 'success',
+                message: 'Page created'
+            })
+
             this.widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
             this.decorator = 'shell-decorator-canvas';
@@ -100,6 +106,13 @@
                 deep: true,
             });
         },
+
+        mounted() {
+            this.$store.commit('console/log', {
+                type: 'success',
+                message: 'Page mounted'
+            })
+        }
     });
 
 })(jQuery, Vue, Vuex, Core);

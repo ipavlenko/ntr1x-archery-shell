@@ -1,0 +1,39 @@
+<template id="shell-bottom">
+    <section class="ge ge-bottom" :class="{ 'ge-bottom-open' : $store.state.designer.bottom.open }">
+        <div ref="scrollable" class="ge ge-subnav ge-bottom-console" v-if="$store.state.designer.bottom.panel == 'console'" v-scrollable>
+            <div class="ge ge-console-messages">
+                <div v-for="m in $store.state.designer.log.messages" :key="m" class="ge ge-console-message">
+                    <span class="ge ge-message-group">
+                        <span class="label label-default">{{ m.group }}</span>
+                    </span>
+                    <span class="ge ge-message-type">
+                        <span class="label label-default" :class="{
+                            'label-danger': m.type == 'danger' || m.type == 'error' ,
+                            'label-warning': m.type == 'warning',
+                            'label-primary': m.type == 'primary',
+                            'label-info': m.type == 'info',
+                            'label-success': m.type == 'success',
+                        }">{{ m.type }}</span>
+                    </span>
+                    <span class="ge ge-message-time">
+                        <span class="label label-link">{{ m.time }}</span>
+                    </span>
+                    <span class="ge ge-message-message">{{ m.message }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="ge ge-hover">
+            <div class="ge ge-hover-group">
+                <a class="ge ge-hover-button" @click = "$store.commit('designer/bottomToggle', 'console')">
+                    <span class="fa fa-terminal"></span>
+                    Console
+                </a>
+                <span class="ge ge-hover-status">
+                    <span class="label label-danger" v-if="counts.errors">{{ pluralize('error', counts.errors) }}</span>
+                    <span class="label label-warning" v-if="counts.warnings">{{ pluralize('warning', counts.warnings) }}</span>
+                    <span class="label label-success" v-if="counts.warnings + counts.errors == 0">No issues</span>
+                </span>
+            </div>
+        </div>
+    </section>
+</template>

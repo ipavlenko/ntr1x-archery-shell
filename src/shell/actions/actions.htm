@@ -1,7 +1,6 @@
 <template id="shell-actions">
     <section class="ge ge-actions">
         <div class="pull-left">
-            <section class="ge ge-actions">
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-shell" @click="$store.dispatch('designer/push')">
                     <span class="glyphicon glyphicon-cloud-upload"></span>
@@ -51,6 +50,10 @@
                 <button type="button" class="btn btn-default btn-shell" @click.prevent="importPage()">
                     <span class="glyphicon glyphicon-import"></span>
                     <span>Import Page</span>
+                </button>
+                <button type="button" class="btn btn-default btn-shell" @click.prevent="clonePage()">
+                    <span class="fa fa-clone"></span>
+                    <span>Clone Page</span>
                 </button>
             </div>
         </div>

@@ -1,0 +1,53 @@
+<template id="import-dialog">
+    <section class="ge ge-modal ge-import modal modal-large" role="dialog">
+        <div class="modal-dialog modal-files">
+            <form class="modal-content"
+                @submit.prevent
+                @reset.prevent="reset()"
+            >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">
+                        <span>Import Page</span>
+                    </h4>
+                </div>
+                <div class="modal-body" style="height: 500px; overflow-y: scroll;">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li v-for="portal in portals" :class="{ 'active': active && active.portal && (active.portal.id == portal.id) }">
+                                    <a href="#" class="portal-item" @click.stop.prevent="activate(portal)">
+                                        <span class="portal-name">{{ portal.title || 'Untitled' }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-9">
+                            <table class="table table-stripped" v-if="active">
+                                <tr v-for="page in active.content.pages">
+                                    <td style="width: 1%">
+                                        <span class="label label-default" :class="{
+                                            'label-primary': page.type == 'page',
+                                            'label-success': page.type == 'modal',
+                                        }">{{ page.type }}</span>
+                                    </td>
+                                    <td>
+                                        <div v-if="page.name == null || page.name == ''"><i>default</i></div>
+                                        <div v-else>{{ page.name }}</div>
+                                    </td>
+                                    <td>
+                                        <div>{{ page.title }}</div>
+                                    </td>
+                                    <td style="width: 1%"><a class="btn btn-default btn-xs" @click.stop.prevent="submit(method)">Choose</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default">Close</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</template>
