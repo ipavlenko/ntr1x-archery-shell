@@ -7,7 +7,7 @@
                         {{ type.title }} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li v-for="t in types" :class="{ 'active': type == t }"><a @click="type = t">{{ t.title }}</a></li>
+                        <li v-for="t in types"><a @click="type = t">{{ t.title }}</a></li>
                     </ul>
                 </div>
                 <div class="btn-group pull-right">

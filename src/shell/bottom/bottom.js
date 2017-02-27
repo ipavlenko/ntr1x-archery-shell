@@ -30,13 +30,16 @@
                     }
                 }
 
-                if (this.$refs.scrollable) {
-                    let s = $(this.$refs.scrollable)
-                    if ($.fn.perfectScrollbar) {
-                        s.perfectScrollbar('update')
-                        s.scrollTop(s.prop('scrollHeight'))
+                this.$nextTick(() => {
+
+                    if (this.$refs.scrollable) {
+                        let s = $(this.$refs.scrollable)
+                        if ($.fn.perfectScrollbar) {
+                            s.scrollTop(s.prop('scrollHeight'))
+                        }
                     }
-                }
+                })
+                
             }, { deep: true, immediate: true })
         },
         methods: {

@@ -236,6 +236,7 @@
   display: block;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-panel ul.nav > li.active > a {
+  color: #FFFFFF;
   background-color: #141422;
   font-weight: bold;
 }

@@ -35,16 +35,30 @@
                         .dispatch('portals/shared/id/pull', { id: portal.id })
                         .then((d) => {
                             this.active = d.data
-                            console.log(d.data)
-                            // this.portals = d.data
-                            // this.activate(this.portals.length ? this.portals[0] : null)
                         })
                         .catch((e) => {
                             console.log(e)
-                            // this.portals = []
-                            // this.activate(null)
                         })
                 }
+            },
+
+            submit(p) {
+
+                let page = JSON.parse(JSON.stringify(p))
+                let widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
+
+                if (page.uuid) {
+                    delete page.uuid
+                }
+
+                this.$store.commit('modals/editor/show', {
+                    name: 'pages-dialog',
+                    context: { type: 'create', widget },
+                    original: page,
+                    events: {
+                        submit: (current) => { this.$store.commit('designer/pages/create', current) },
+                    }
+                })
             },
 
             reset() {
