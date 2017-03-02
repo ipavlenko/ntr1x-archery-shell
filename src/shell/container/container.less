@@ -3,18 +3,26 @@
 .ge.ge-container {
 
     position: relative;
-    flex: 1 1 auto;
+    flex: 1 1 100%;
     width: 100%;
     box-sizing: border-box;
     overflow: visible;
+    display: flex;
+    flex-direction: column;
 
     .ge.ge-container-scrollable {
         position: absolute;
-        padding: 5px 5px;
+        // padding: 5px 5px;
         top: 25px;
         left: 25px;
         bottom: 25px;
         right: 25px;
-        overflow: visible;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 1 1 auto;
     }
 }

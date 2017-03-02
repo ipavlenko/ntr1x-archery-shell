@@ -2,12 +2,17 @@
 
 .ge.ge-page {
     margin: 0px auto 0px auto;
-    // background-color: #FFFFFF;
     box-sizing: border-box;
-    // border: 1px dashed #E5E5E5;
     overflow: visible;
     transform-origin: top center;
-    
 
-    // box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.2);
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+
+    >.ge.ge-widget {
+        .ge.ge-content {
+            flex-direction: column;
+        }
+    }
 }

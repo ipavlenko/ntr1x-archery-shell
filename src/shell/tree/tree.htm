@@ -18,7 +18,11 @@
             </div>
         </div>
         <div class="ge ge-tree-content" v-scrollable>
-            <shell-tree-item v-for="w in widget.widgets" :parent="widget" :widget="w" :level="1" :key="widget.uuid"></shell-tree-item>
+            <shell-tree-item v-for="w in $store.state.designer.page.root.widgets"
+                :key="$store.state.designer.page.root.uuid"
+                :parent="$store.state.designer.page.root"
+                :widget="w" :level="1"
+            ></shell-tree-item>
         </div>
     </section>
 </template>

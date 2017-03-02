@@ -1,6 +1,6 @@
 .ge.ge-bottom {
   position: relative;
-  flex: 0 1 40px;
+  flex: 0 0 40px;
   background-color: #262633;
   transition: 0.2s;
   width: 100%;

@@ -6,11 +6,15 @@
                 <i v-else-if="widget.widgets && widget.widgets.length && !open" class="fa fa-plus-square-o" href="#"></i>
                 <i v-else class="fa fa-cube"></i>
                 <span class="ge ge-overlays">
+                    <span class="ge ge-overlay" @click.stop="toggle()">
+                        <span class="glyphicon glyphicon-eye-close" v-if="widget.designer.hidden"></span>
+                        <span class="glyphicon glyphicon-eye-open" v-if="!widget.designer.hidden"></span>
+                    </span>
                     <span class="ge ge-overlay" @click.stop="remove()"><span class="glyphicon glyphicon-trash"></span></span>
                     <span class="ge ge-overlay" @click.stop="update()"><span class="glyphicon glyphicon-edit"></span></span>
                 </span>
             </span>
-            <span>{{ widget.tag }}</span>
+            <span :style="{ 'opacity': widget.designer.hidden ? '0.5' : '1' }">{{ widget.tag }}</span>
         </div>
         <div class="ge ge-tree-children" v-if="open">
             <shell-tree-item v-for="w in widget.widgets" :key="w.uuid" :level="1 + level" :parent="widget" :widget="w"></shell-tree-item>

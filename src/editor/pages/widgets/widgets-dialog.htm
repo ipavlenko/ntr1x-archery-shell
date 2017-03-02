@@ -10,10 +10,6 @@
                     <h4 class="modal-title">
                         <span v-if="context.type == 'update'" class="label label-primary">Edit Widget</span>
                         <span v-if="context.type == 'create'" class="label label-primary">New Widget</span>
-                        <!--
-                            <span v-if="original.name">&nbsp;{{ original.name }}</span>
-                            <span>&gt;</span>
-                         -->
                         <template v-for="tab in context.widget.tabs">
                             <span  v-if="tab && isActive(tab.name)">{{ tab.title }}</span>
                         </template>
@@ -24,14 +20,22 @@
                         <div class="col-xs-3">
                             <ul class="nav nav-pills nav-stacked">
                                 <template v-for="tab in context.widget.tabs">
-                                    <li v-if="tab && hasProps(tab.name)" :class="{ 'active': tab && isActive(tab.name) }"><a href="#" @click="activate(tab.name)">{{ tab.title }}</a></li>
+                                    <li v-if="tab && hasProps(tab.name)" :class="{ 'active': tab && isActive(tab.name) }">
+                                        <a href="#" @click="activate(tab.name)">{{ tab.title }}</a>
+                                    </li>
                                 </template>
+                                <li :class="{ 'active': isActive('widgets') }" v-if="options.length">
+                                    <a href="#" @click="activate('widgets')">Children</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xs-9">
                             <div class="tab-content" style="min-height: 450px; max-height: 450px; overflow: auto;">
                                 <div v-for="tab in context.widget.tabs" class="tab-pane" :class="{ 'active': isActive(tab.name) }">
                                     <params :items="items" :owner="context.widget" :tab="tab.name"></params>
+                                </div>
+                                <div class="tab-pane" :class="{ 'active': isActive('widgets') }" v-if="options.length">
+                                    <widgets :widgets="current.widgets" :owner="current" :options="options"></widgets>
                                 </div>
                             </div>
                         </div>

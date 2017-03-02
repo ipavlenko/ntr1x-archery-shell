@@ -1,0 +1,17 @@
+<template id="shell-decorator-layers-item">
+    <div class="ge ge-widget"
+        :class="{ 'ge-widget-selected': model.designer.unlocked, 'ignore-elements': editable }"
+    >
+        <div class="ge ge-content">
+            <div
+                :is="widget.tag"
+                ref="widget"
+                :page="page"
+                :stack="model"
+                :bindings="bindings"
+                :children="children"
+                :editable="editable"
+            ></div>
+        </div>
+    </div>
+</template>

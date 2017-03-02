@@ -1,5 +1,38 @@
 .ge.ge-shell.ge-shell-public {
   font-family: 'Roboto', sans-serif;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+}
+.ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-x-rail {
+  height: 10px;
+}
+.ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+  height: 6px;
+  background: #c8c8c8;
+}
+.ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-x-rail:hover {
+  background: rgba(200, 200, 200, 0.3);
+}
+.ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-x-rail:hover > .ps-scrollbar-x {
+  background-color: #2196f3;
+}
+.ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-y-rail {
+  width: 10px;
+}
+.ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+  width: 6px;
+  background: #c8c8c8;
+}
+.ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-y-rail:hover {
+  background: rgba(200, 200, 200, 0.3);
+}
+.ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y {
+  background-color: #2196f3;
 }
 .ge.ge-shell.ge-shell-private {
   font-family: 'Roboto', sans-serif;
@@ -38,14 +71,31 @@
   position: relative;
   width: 100%;
 }
+.ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-x-rail {
+  height: 10px;
+}
+.ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+  height: 6px;
+  background: #c8c8c8;
+}
+.ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-x-rail:hover {
+  background: rgba(200, 200, 200, 0.3);
+}
+.ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-x-rail:hover > .ps-scrollbar-x {
+  background-color: #2196f3;
+}
 .ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-y-rail {
   width: 10px;
 }
 .ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
   width: 6px;
+  background: #c8c8c8;
 }
 .ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-y-rail:hover {
   background: rgba(200, 200, 200, 0.3);
+}
+.ge.ge-shell.ge-shell-private .ps-container > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y {
+  background-color: #2196f3;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-head {
   position: absolute;
@@ -76,7 +126,7 @@
 }
 .ge.ge-shell.ge-shell-private .ge.ge-left {
   position: relative;
-  flex: 0 1 40px;
+  flex: 0 0 40px;
   vertical-align: top;
   width: 40px;
   transition: 0.5s;
@@ -121,7 +171,7 @@
 }
 .ge.ge-shell.ge-shell-private .ge.ge-left.ge-left-open {
   transition: 0.5s;
-  flex: 0 1 320px;
+  flex: 0 0 320px;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-left.ge-left-open .ge.ge-subnav {
   transform: translate3d(0, 0, 0);
@@ -130,7 +180,7 @@
 }
 .ge.ge-shell.ge-shell-private .ge.ge-right {
   position: relative;
-  flex: 0 1 40px;
+  flex: 0 0 40px;
   vertical-align: top;
   width: 40px;
   transition: 0.5s;
@@ -180,7 +230,7 @@
 }
 .ge.ge-shell.ge-shell-private .ge.ge-right.ge-right-open {
   transition: 0.5s;
-  flex: 0 1 320px;
+  flex: 0 0 320px;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-right.ge-right-open .ge.ge-subnav {
   transform: translate3d(0, 0, 0);
@@ -188,7 +238,7 @@
   right: 40px;
 }
 .ge.ge-shell.ge-shell-private .ge.ge-editor {
-  flex: 1 1 100px;
+  flex: 1 1 auto;
   position: relative;
   display: flex;
   flex-direction: column;

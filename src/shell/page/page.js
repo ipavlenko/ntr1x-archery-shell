@@ -2,7 +2,6 @@
 
     Vue.component('shell-page', {
         template: '#shell-page',
-        mixins: [ /*Core.ContainerMixin, Core.SortableMixin*/ ],
         props: {
             page: Object,
             style: Object,

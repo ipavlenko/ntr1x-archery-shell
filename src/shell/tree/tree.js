@@ -2,14 +2,6 @@
 
     Vue.component('shell-tree', {
         template: '#shell-tree',
-        data: function() {
-            return {
-                widget: this.widget
-            }
-        },
-        created() {
-            this.widget = this.$store.state.designer.page.root
-        }
     });
 
     Vue.component('shell-tree-item', {
@@ -21,13 +13,23 @@
         },
         data: function() {
             return {
-                open: this.open
+                open: false,
+                layer: false,
+                visible: true,
             }
         },
         created() {
             this.open = this.level < 3
+            this.layer = this.widget.name == 'default-container/default-container-layers/default-layers-item'
         },
         methods: {
+            toggle() {
+                this.$store.commit('designer/property/update', {
+                    parent: this.widget.designer,
+                    property: 'hidden',
+                    value: !this.widget.designer.hidden
+                })
+            },
             remove() {
                 this.$store.commit('designer/widgets/remove', { parent: this.parent, widget: this.widget });
             },

@@ -2,6 +2,54 @@
 
 .ge.ge-shell.ge-shell-public {
     font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+    flex-direction: column;
+
+    .ps-container {
+
+        > .ps-scrollbar-x-rail {
+
+            height: 10px;
+
+            >.ps-scrollbar-x {
+                height: 6px;
+                background: rgba(200, 200, 200, 1);
+            }
+
+            &:hover {
+
+                background: rgba(200, 200, 200, 0.3);
+
+                >.ps-scrollbar-x {
+                    background-color: #2196f3;
+                }
+            }
+        }
+
+        > .ps-scrollbar-y-rail {
+
+            width: 10px;
+
+            >.ps-scrollbar-y {
+                width: 6px;
+                background: rgba(200, 200, 200, 1);
+            }
+
+            &:hover {
+
+                background: rgba(200, 200, 200, 0.3);
+
+                >.ps-scrollbar-y {
+                    background-color: #2196f3;
+                }
+            }
+        }
+    }
 }
 
 .ge.ge-shell.ge-shell-private {
@@ -44,16 +92,41 @@
 
     .ps-container {
 
+        > .ps-scrollbar-x-rail {
+
+            height: 10px;
+
+            >.ps-scrollbar-x {
+                height: 6px;
+                background: rgba(200, 200, 200, 1);
+            }
+
+            &:hover {
+
+                background: rgba(200, 200, 200, 0.3);
+
+                >.ps-scrollbar-x {
+                    background-color: #2196f3;
+                }
+            }
+        }
+
         > .ps-scrollbar-y-rail {
 
             width: 10px;
 
             >.ps-scrollbar-y {
                 width: 6px;
+                background: rgba(200, 200, 200, 1);
             }
 
             &:hover {
+
                 background: rgba(200, 200, 200, 0.3);
+
+                >.ps-scrollbar-y {
+                    background-color: #2196f3;
+                }
             }
         }
     }
@@ -108,7 +181,7 @@
 
     .ge.ge-left {
         position: relative;
-        flex: 0 1 40px;
+        flex: 0 0 40px;
         vertical-align: top;
         width: 40px;
         transition: 0.5s;
@@ -157,7 +230,7 @@
 
         &.ge-left-open {
             transition: 0.5s;
-            flex: 0 1 320px;
+            flex: 0 0 320px;
             .ge.ge-subnav {
                 transform: translate3d(0,0,0);
                 transition: 0.5s;
@@ -168,7 +241,7 @@
 
     .ge.ge-right {
         position: relative;
-        flex: 0 1 40px;
+        flex: 0 0 40px;
         vertical-align: top;
         width: 40px;
         transition: 0.5s;
@@ -226,7 +299,7 @@
 
         &.ge-right-open  {
             transition: 0.5s;
-            flex: 0 1 320px;
+            flex: 0 0 320px;
             .ge.ge-subnav {
                 transform: translate3d(0,0,0);
                 transition: 0.5s;
@@ -236,7 +309,7 @@
     }
 
     .ge.ge-editor {
-        flex: 1 1 100px;
+        flex: 1 1 auto;
         position: relative;
         display: flex;
         flex-direction: column;

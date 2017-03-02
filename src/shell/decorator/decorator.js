@@ -78,21 +78,21 @@
 
     let SortableMixin = {
 
-        data: function() {
-            return {
-                selected: this.selected
-            }
-        },
-        created: function() {
-            this.selected = false;
-        },
         methods: {
             selectTarget: function() {
-                this.selected = true;
+                this.$store.commit('designer/property/update', {
+                    parent: this.model.designer,
+                    property: 'unlocked',
+                    value: true
+                })
             },
 
             unselectTarget: function() {
-                this.selected = false;
+                this.$store.commit('designer/property/update', {
+                    parent: this.model.designer,
+                    property: 'unlocked',
+                    value: false
+                })
             },
         }
     };
@@ -181,9 +181,6 @@
             widget: Object,
             editable: Boolean,
         },
-        created: function() {
-            this.selected = true;
-        },
         computed: {
             items: function() {
                 return this.page.root.widgets
@@ -206,7 +203,7 @@
 
                 containerSelector: '.wg.wg-sortable-container.wg-sortable-editable',
                 itemSelector: '.wg.wg-sortable-item.wg-sortable-editable',
-                excludeSelector: '.ge.ge-overlay, .dropdown-menu',
+                excludeSelector: '.ge.ge-overlay, .dropdown-menu, .wg.wg-default-stub',
 
                 verticalClass: 'wg-sortable-vertical',
                 horizontalClass: 'wg-sortable-horizontal',
@@ -245,7 +242,7 @@
 
                         let newItem = self.$store.getters.palette.item(w);
 
-                        if (newStack.model.name.indexOf('default-container/default-container-repeater/') == 0) {
+                        if (newStack.model.designer.fill) {
 
                             self.$store.commit('designer/widgets/clear', {
                                 parent: newStack.model
@@ -281,7 +278,7 @@
                                 widget: oldItem
                             });
 
-                            if (newStack.model.name.indexOf('default-container/default-container-repeater/') == 0) {
+                            if (newStack.model.designer.fill == 0) {
 
                                 self.$store.commit('designer/widgets/clear', {
                                     parent: newStack.model
@@ -403,6 +400,70 @@
             placeholder: function() {
                 return this.$store.getters.palette.placeholder(`
                     <small>Horizontal Repeater</small>
+                    <div>Drop Here</div>
+                `);
+            }
+        },
+    });
+
+    Vue.component('shell-decorator-layers', {
+        template: '#shell-decorator-layers',
+        mixins: [ DecoratorMixin, CompositeMixin, SortableMixin, BindingsMixin ],
+        props: {
+            stack: Object,
+            page: Object,
+            model: Object,
+            widget: Object,
+            editable: Boolean
+        },
+        computed: {
+            items: function() {
+                return this.model.widgets
+            },
+            children: function() {
+                return this.items
+            },
+        },
+    });
+
+    Vue.component('shell-decorator-layers-item', {
+        template: '#shell-decorator-layers-item',
+        mixins: [ DecoratorMixin, CompositeMixin, SortableMixin, BindingsMixin ],
+        props: {
+            stack: Object,
+            page: Object,
+            model: Object,
+            widget: Object,
+            editable: Boolean
+        },
+        computed: {
+            items: function() {
+                return this.model.widgets
+            },
+            children: function() {
+
+                if (!(this.stack.widgets && this.stack.widgets.length)) {
+                    return [ ...this.stack.widgets ]
+                }
+
+                let last = null
+                for (let i = this.stack.widgets.length - 1; i >= 0; i--) {
+                    let w = this.stack.widgets[i]
+                    if (!(w.designer && w.designer.hidden)) {
+                        last = w
+                        break
+                    }
+                }
+
+                return (this.items.length > 0 || last != this.model)
+                    ? [ ...this.items ]
+                    : [ JSON.parse(JSON.stringify(this.placeholder())) ]
+            },
+        },
+        methods: {
+            placeholder: function() {
+                return this.$store.getters.palette.placeholder(`
+                    <small>Front Layer</small>
                     <div>Drop Here</div>
                 `);
             }
