@@ -9,4 +9,5 @@
 }
 .ge.ge-page > .ge.ge-widget .ge.ge-content {
   flex-direction: column;
+  overflow: auto;
 }
