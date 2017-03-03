@@ -3,7 +3,6 @@
   box-sizing: border-box;
   overflow: hidden;
   transform-origin: top center;
-  padding: 5px 5px;
   flex: 1 1 auto;
   width: 100%;
   display: flex;

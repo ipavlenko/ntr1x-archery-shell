@@ -9,10 +9,10 @@
 }
 .ge.ge-container .ge.ge-container-scrollable {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  bottom: 20px;
-  right: 20px;
+  top: 15px;
+  left: 15px;
+  bottom: 15px;
+  right: 15px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
