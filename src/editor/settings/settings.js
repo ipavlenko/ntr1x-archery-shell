@@ -1,41 +1,49 @@
-(function(Vue, $, Core, Shell) {
+(function($, Vue) {
 
-    var ModalEditor =
-    Vue.component('settings-dialog', {
-        template: '#settings-dialog',
-        mixins: [Core.ModalEditorMixin, Core.TabsMixin('domains')],
-    });
-
-    var Editor =
     Vue.component('settings', {
-        mixins: [Core.ActionMixin(ModalEditor)],
+        template: '#settings',
         props: {
-            globals: Object
+            widget: Object,
         },
-        methods: {
-            push: function() {
-                $.ajax({
-                    url: '/settings/do-update',
-                    method: 'POST',
-                    dataType: "json",
-                    data: JSON.stringify(this.model),
-                    contentType: "application/json",
-                })
-                .done((d) => {
-                    Object.assign(this.model, d);
-                })
-            },
-            pull: function() {
-                $.ajax({
-                    url: '/settings',
-                    method: 'GET',
-                    dataType: "json"
-                })
-                .done((d) => {
-                    Object.assign(this.model, d);
-                })
+        data() {
+            return {
+                frame: null,
+                items: null
             }
+        },
+        created() {
+
+            for (let p of this.$store.getters.content.pages) {
+                if (p.name == this.widget.setup.page) {
+                    this.frame = p
+                    break
+                }
+            }
+
+            let items = []
+            for (let storage of this.frame.storages) {
+                for (let variable of storage.variables) {
+
+                    let override = JSON.parse(JSON.stringify(variable))
+                    override.uuid = Core.UUID.random()
+
+                    items.push({
+                        storage,
+                        variable,
+                        override
+                    })
+                }
+            }
+
+            this.items = items
         }
     });
 
-})(Vue, jQuery, Core, Shell);
+    Vue.component('settings-string', {
+        template: '#settings-string',
+        props: {
+            item: Object,
+        }
+    });
+
+})(jQuery, Vue);

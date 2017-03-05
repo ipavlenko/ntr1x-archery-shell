@@ -9,6 +9,16 @@
     Vue.component('shell-widgets-dialog', {
         template: '#shell-widgets-dialog',
         mixins: [Core.ModalEditorMixin, Core.TabsMixin('data')],
+        data() {
+            return {
+                isContainer: false,
+                isFrame: false,
+            }
+        },
+        created() {
+            this.isContainer = this.current.name == 'default-container/default-container-layers/default-layers-stack'
+            this.isFrame = this.current.name == 'default-container/default-container-embedded/default-frame'
+        },
         computed: {
             items() {
                 return this.context.widget.props.map(prop => ({

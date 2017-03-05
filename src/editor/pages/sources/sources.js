@@ -2,11 +2,11 @@
 
     Shell.Sources = Shell.Sources || {};
 
-    var SourcesListViewer =
-    Vue.component('pages-sources-list', {
-        template: '#pages-sources-list',
-        mixins: [Core.ListViewerMixin],
-    });
+    // var SourcesListViewer =
+    // Vue.component('pages-sources-list', {
+    //     template: '#pages-sources-list',
+    //     mixins: [Core.ListViewerMixin],
+    // });
 
     var SourcesModalEditor = Shell.Sources.ModalEditor =
     Vue.component('pages-sources-dialog', {
@@ -22,10 +22,10 @@
         }
     });
 
-    Vue.component('pages-sources', {
-        mixins: [Core.EditorMixin('pages-sources-dialog')],
-        template: '#pages-sources',
-    });
+    // Vue.component('pages-sources', {
+    //     mixins: [Core.EditorMixin('pages-sources-dialog')],
+    //     template: '#pages-sources',
+    // });
 
     Vue.component('pages-sources-params-list', {
         template: '#pages-sources-params-list',

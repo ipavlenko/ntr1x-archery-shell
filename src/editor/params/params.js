@@ -114,6 +114,82 @@
             id: String,
             item: Object,
         },
+        data() {
+            return {
+                items: null
+            }
+        },
+        created() {
+            this.$watch('item.param.value', () => {
+                this.items = (this.item.param.value || []).map(v => ({
+                    uuid: Core.UUID.random(),
+                    value: v
+                }))
+            }, { immediate: true })
+        },
+        mounted() {
+
+            let self = this
+
+            this.sortable = $(this.$el).sortable({
+
+                drop: true,
+                offset: 'position',
+
+                containerSelector: 'tbody',
+                itemSelector: 'tr',
+                excludeSelector: '.btn',
+
+                placeholder: `
+                    <tr class="ge ge-sortable-placeholder">
+                        <td class="ge ge-placeholder-container" colspan="4">
+                            <div class="ge ge-placeholder-inner"></div>
+                        </td>
+                    </tr>
+                `,
+
+                onDrop: function(context, event, _super) {
+                    _super(context, event)
+
+                    let source = context.$item.data('uuid')
+                    let target = context.location.$item.data('uuid')
+
+                    let sourceIndex = 0
+                    let targetIndex = 0
+
+                    let array = [ ...self.items ]
+
+                    for (let i = 0; i < array.length; i++) {
+
+                        let w = array[i]
+
+                        if (w.uuid == source) sourceIndex = i
+                        if (w.uuid == target) targetIndex = i
+                    }
+
+                    targetIndex = context.location.after ? (targetIndex + 1) : targetIndex
+                    // targetIndex = context.location.before ? (targetIndex - 1) : targetIndex
+
+                    let w = array[sourceIndex]
+
+                    if (targetIndex < sourceIndex) {
+                        array.splice(sourceIndex, 1)
+                        array.splice(targetIndex, 0, w)
+                    } else if (targetIndex > sourceIndex) {
+                        array.splice(targetIndex, 0, w)
+                        array.splice(sourceIndex, 1)
+                    }
+
+                    context.$item.remove()
+
+                    self.$store.commit('designer/property/update', {
+                        parent: self.item.param,
+                        property: 'value',
+                        value: array.map(e => e.value)
+                    })
+                }
+            })
+        },
         methods: {
 
             label: function(item, index) {

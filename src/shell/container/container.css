@@ -6,6 +6,7 @@
   overflow: visible;
   display: flex;
   flex-direction: column;
+  border: 1px solid #181a1f;
 }
 .ge.ge-container .ge.ge-container-scrollable {
   position: absolute;

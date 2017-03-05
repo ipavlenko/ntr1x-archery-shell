@@ -1,0 +1,14 @@
+<template id="settings-string">
+    <div class="ge ge-setting form-group">
+        <div class="ge ge-param-label">
+            <label class="pull-left">
+                <span class="label label-success">{{ item.storage.name }}.{{ item.variable.name }}</span>
+                <span></span>
+            </label>
+            <div class="pull-right">
+                <button type="button" class="btn btn-xs btn-default">Advanced</button>
+            </div>
+        </div>
+        <input class="form-control" type="text" :id="id" v-model="item.override.value" />
+    </div>
+</template>

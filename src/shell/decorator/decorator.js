@@ -203,7 +203,7 @@
 
                 containerSelector: '.wg.wg-sortable-container.wg-sortable-editable',
                 itemSelector: '.wg.wg-sortable-item.wg-sortable-editable',
-                excludeSelector: '.ge.ge-overlay, .dropdown-menu, .wg.wg-default-stub',
+                excludeSelector: '.ge.ge-overlay, .dropdown-menu',
 
                 verticalClass: 'wg-sortable-vertical',
                 horizontalClass: 'wg-sortable-horizontal',
@@ -278,7 +278,7 @@
                                 widget: oldItem
                             });
 
-                            if (newStack.model.designer.fill == 0) {
+                            if (newStack.model.designer.fill) {
 
                                 self.$store.commit('designer/widgets/clear', {
                                     parent: newStack.model

@@ -7,7 +7,7 @@
   width: 100%;
   display: flex;
 }
-.ge.ge-page > .ge.ge-widget .ge.ge-content {
+.ge.ge-page > .ge.ge-widget > .ge.ge-content {
   flex-direction: column;
   overflow: auto;
 }

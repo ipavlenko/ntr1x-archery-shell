@@ -13,6 +13,7 @@
             this.types = [
                 { name: 'page', title: 'Pages' },
                 { name: 'modal', title: 'Modals' },
+                { name: 'composite', title: 'Composites' },
             ];
 
             this.type = this.types[0];

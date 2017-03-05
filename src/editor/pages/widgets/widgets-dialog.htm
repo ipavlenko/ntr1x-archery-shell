@@ -11,7 +11,7 @@
                         <span v-if="context.type == 'update'" class="label label-primary">Edit Widget</span>
                         <span v-if="context.type == 'create'" class="label label-primary">New Widget</span>
                         <template v-for="tab in context.widget.tabs">
-                            <span  v-if="tab && isActive(tab.name)">{{ tab.title }}</span>
+                            <span v-if="tab && isActive(tab.name)">{{ tab.title }}</span>
                         </template>
                     </h4>
                 </div>
@@ -24,8 +24,11 @@
                                         <a href="#" @click="activate(tab.name)">{{ tab.title }}</a>
                                     </li>
                                 </template>
-                                <li :class="{ 'active': isActive('widgets') }" v-if="options.length">
+                                <li :class="{ 'active': isActive('widgets') }" v-if="isContainer">
                                     <a href="#" @click="activate('widgets')">Children</a>
+                                </li>
+                                <li :class="{ 'active': isActive('proxy') }" v-if="isFrame">
+                                    <a href="#" @click="activate('proxy')">Proxy</a>
                                 </li>
                             </ul>
                         </div>
@@ -34,8 +37,11 @@
                                 <div v-for="tab in context.widget.tabs" class="tab-pane" :class="{ 'active': isActive(tab.name) }">
                                     <params :items="items" :owner="context.widget" :tab="tab.name"></params>
                                 </div>
-                                <div class="tab-pane" :class="{ 'active': isActive('widgets') }" v-if="options.length">
+                                <div class="tab-pane" :class="{ 'active': isActive('widgets') }" v-if="isContainer">
                                     <widgets :widgets="current.widgets" :owner="current" :options="options"></widgets>
+                                </div>
+                                <div class="tab-pane" :class="{ 'active': isActive('proxy') }" v-if="isFrame">
+                                    <settings :widget="current"></settings>
                                 </div>
                             </div>
                         </div>

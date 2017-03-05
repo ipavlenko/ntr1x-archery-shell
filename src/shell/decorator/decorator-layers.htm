@@ -1,5 +1,6 @@
 <template id="shell-decorator-layers">
     <div class="ge ge-widget"
+        :data-unlocked="model.designer.unlocked"
         :class="{ 'ge-widget-selected': model.designer.unlocked, 'ignore-elements': editable }"
         :style="{ 'padding-top': (model.designer.unlocked && $route && $route.meta.private) ? '25px' : '0px' }">
         <div class="ge ge-content">

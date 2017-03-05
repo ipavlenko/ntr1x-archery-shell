@@ -1,0 +1,9 @@
+<template id="settings">
+    <section class="ge ge-settings">
+        <div v-if="frame && frame.storages">
+            <template v-for="(item, i) in items">
+                <settings-string :item="item"></settings-string>
+            </template>
+        </div>
+    </section>
+</template>

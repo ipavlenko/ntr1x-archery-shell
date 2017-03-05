@@ -1,9 +1,9 @@
 <template id="params-multiple">
-    <section>
-        <table class="table table-condensed">
+    <section class="ge ge-params-multiple">
+        <table class="table table-striped table-condensed">
             <thead>
                 <tr>
-                    <th style="width: 70%" colspan="2">{{ item.prop.title }}</th>
+                    <th style="width: 75%" colspan="3">{{ item.prop.title }}</th>
                     <th>
                         <div class="pull-right">
                             <a class="btn btn-xs btn-primary" @click="create()">Add</a>
@@ -14,13 +14,14 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="(child, index) in item.param.value">
+            <tbody class="vertical">
+                <tr v-for="(child, index) in items" :data-uuid="child.uuid" :key="child.uuid">
+                    <td><span class="ge ge-drag-handle"></span></td>
                     <td>{{ index + 1 }}</td>
-                    <td>{{ label(child, index) }}</td>
+                    <td>{{ label(child.value, index) }}</td>
                     <td>
                         <div class="pull-right">
-                            <a class="btn btn-xs btn-default" @click="update(child, index)">Edit</a>
+                            <a class="btn btn-xs btn-default" @click="update(child.value, index)">Edit</a>
                             <a class="btn btn-xs btn-danger" @click="remove(index)">Remove</a>
                         </div>
                     </td>

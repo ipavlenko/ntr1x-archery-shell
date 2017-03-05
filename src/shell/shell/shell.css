@@ -48,6 +48,10 @@
   background: #262633;
   display: flex;
 }
+.ge.ge-shell.ge-shell-private .ge.ge-widget:hover {
+  outline: 1px dashed grey;
+  outline-offset: 0px;
+}
 .ge.ge-shell.ge-shell-private .ge.ge-shell-block > .ge.ge-block-selector {
   position: relative;
   height: 65px;

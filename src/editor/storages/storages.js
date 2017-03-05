@@ -2,20 +2,10 @@
 
     Shell.Storages = Shell.Storages || {};
 
-    Vue.component('storages-list', {
-        template: '#storages-list',
-        mixins: [Core.ListViewerMixin],
-    });
-
     Shell.Storages.ModalEditor =
     Vue.component('storages-dialog', {
         template: '#storages-dialog',
         mixins: [Core.ModalEditorMixin],
-    });
-
-    Vue.component('storages', {
-        mixins: [Core.EditorMixin('storages-dialog')],
-        template: '#storages',
     });
 
     Vue.component('storages-variables-list', {

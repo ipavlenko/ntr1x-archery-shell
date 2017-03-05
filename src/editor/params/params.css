@@ -1,3 +1,8 @@
+.ge.ge-param {
+  position: relative;
+  display: table;
+  width: 100%;
+}
 .ge.ge-param > .ge.ge-param-label {
   position: relative;
   display: table;
@@ -5,4 +10,45 @@
 }
 .ge.ge-param > .ge.ge-param-input {
   display: table;
+}
+.ge.ge-params-multiple {
+  position: relative;
+  display: table;
+  width: 100%;
+  overflow: hidden;
+}
+.ge.ge-params-multiple .ge.ge-sortable-placeholder {
+  padding: 0;
+  margin: 0;
+}
+.ge.ge-params-multiple .ge.ge-sortable-placeholder > .ge.ge-placeholder-container {
+  padding: 0;
+  margin: 0;
+}
+.ge.ge-params-multiple .ge.ge-sortable-placeholder > .ge.ge-placeholder-container > .ge.ge-placeholder-inner {
+  height: 1px;
+  padding: 0px;
+  margin: 0px;
+  background-color: red;
+}
+.ge.ge-params-multiple .dragged {
+  opacity: 0.3;
+}
+.ge.ge-params-multiple .ge.ge-btn-inset {
+  background-color: #E0E0E0;
+  border: 1px solid #A0A0A0;
+  box-shadow: inset 0px 0px 2px #C0C0C0;
+  border-radius: 0px;
+}
+.ge.ge-params-multiple .ge.ge-drag-handle {
+  display: inline-block;
+  background-image: -webkit-repeating-radial-gradient(center center, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) 1px, transparent 1px, transparent 100%);
+  background-image: -moz-repeating-radial-gradient(center center, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) 1px, transparent 1px, transparent 100%);
+  background-image: -ms-repeating-radial-gradient(center center, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) 1px, transparent 1px, transparent 100%);
+  background-image: repeating-radial-gradient(center center, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) 1px, transparent 1px, transparent 100%);
+  -webkit-background-size: 3px 3px;
+  -moz-background-size: 3px 3px;
+  background-size: 3px 3px;
+  width: 12px;
+  height: 100%;
 }

@@ -17,6 +17,7 @@
                     'default-repeater-horizontal': 'shell-decorator-repeater-horizontal',
                     'default-repeater-vertical': 'shell-decorator-repeater-vertical',
                     'default-layers-stack': 'shell-decorator-layers',
+                    'default-layers-repeater': 'shell-decorator-layers',
                     'default-layers-item': 'shell-decorator-layers-item',
                     'default-stub': 'shell-decorator-stub',
                 },
