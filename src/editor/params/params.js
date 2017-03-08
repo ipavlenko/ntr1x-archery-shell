@@ -1,4 +1,4 @@
-(function(Vue, $, Core, Shell) {
+(function(Vue, $, Core) {
 
     Vue.component('params-variable', {
         template: '#params-variable',
@@ -377,4 +377,4 @@
         }
     });
 
-})(Vue, jQuery, Core, Shell);
+})(Vue, jQuery, Core);

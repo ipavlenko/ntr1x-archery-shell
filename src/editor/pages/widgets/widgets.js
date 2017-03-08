@@ -11,22 +11,25 @@
         mixins: [Core.ModalEditorMixin, Core.TabsMixin('data')],
         data() {
             return {
+                items: null,
                 isContainer: false,
                 isFrame: false,
             }
         },
         created() {
+
             this.isContainer = this.current.name == 'default-container/default-container-layers/default-layers-stack'
             this.isFrame = this.current.name == 'default-container/default-container-embedded/default-frame'
+
+            let cp = this.current.params
+
+            this.items = this.context.widget.props.map(prop => ({
+                prop,
+                owner: cp,
+                param: cp[prop.name] = cp[prop.name] || { value: defaults[prop.type] || null }
+            }))
         },
         computed: {
-            items() {
-                return this.context.widget.props.map(prop => ({
-                    prop,
-                    owner: this.current.params,
-                    param: this.current.params[prop.name] || { value: defaults[prop.type] || null }
-                }))
-            },
             options() {
                 switch (this.current.name) {
                 case 'default-container/default-container-layers/default-layers-stack':

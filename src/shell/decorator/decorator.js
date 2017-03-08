@@ -240,28 +240,32 @@
 
                     if (w) {
 
-                        let newItem = self.$store.getters.palette.item(w);
+                        self.$store.getters
+                            .produce(w)
+                            .then(newItem => {
 
-                        if (newStack.model.designer.fill) {
+                                if (newStack.model.designer.fill) {
 
-                            self.$store.commit('designer/widgets/clear', {
-                                parent: newStack.model
-                            });
+                                    self.$store.commit('designer/widgets/clear', {
+                                        parent: newStack.model
+                                    });
 
-                            self.$store.commit('designer/widgets/insert', {
-                                parent: newStack.model,
-                                widget: newItem,
-                                index: 0
-                            });
+                                    self.$store.commit('designer/widgets/insert', {
+                                        parent: newStack.model,
+                                        widget: newItem,
+                                        index: 0
+                                    });
 
-                        } else {
+                                } else {
 
-                            self.$store.commit('designer/widgets/insert', {
-                                parent: newStack.model,
-                                widget: newItem,
-                                index: newIndex
-                            });
-                        }
+                                    self.$store.commit('designer/widgets/insert', {
+                                        parent: newStack.model,
+                                        widget: newItem,
+                                        index: newIndex
+                                    });
+                                }
+                            })
+                            .catch(() => {})
 
                     } else if (dragged) {
 

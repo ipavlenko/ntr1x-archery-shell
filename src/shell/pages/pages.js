@@ -30,24 +30,29 @@
 
             create: function() {
 
-                let root = this.$store.getters.palette.item('default-container/default-container-stack/stack-canvas');
                 let widget = this.$store.getters.palette.widget('default-container/default-container-stack/default-stack-canvas');
 
-                let page = {
-                    root: root,
-                    type: this.type.name,
-                    sources: [],
-                    storages: [],
-                };
+                this.$store.getters
+                    .produce('default-container/default-container-stack/stack-canvas')
+                    .then(root => {
 
-                this.$store.commit('modals/editor/show', {
-                    name: 'pages-dialog',
-                    context: { type: 'create', widget },
-                    original: page,
-                    events: {
-                        submit: (current) => { this.$store.commit('designer/pages/create', current) },
-                    }
-                })
+                        let page = {
+                            root: root,
+                            type: this.type.name,
+                            sources: [],
+                            storages: [],
+                        };
+
+                        this.$store.commit('modals/editor/show', {
+                            name: 'pages-dialog',
+                            context: { type: 'create', widget },
+                            original: page,
+                            events: {
+                                submit: (current) => { this.$store.commit('designer/pages/create', current) },
+                            }
+                        })
+                    })
+                    .catch(() => {})
             },
             update: function(page) {
 

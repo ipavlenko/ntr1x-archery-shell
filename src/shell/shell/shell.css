@@ -37,6 +37,13 @@
 .ge.ge-shell.ge-shell-public .ps-container > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y {
   background-color: #2196f3;
 }
+.ge.ge-shell.ge-shell-frame {
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
 .ge.ge-shell.ge-shell-private {
   font-family: 'Roboto', sans-serif;
   position: absolute;

@@ -72,10 +72,15 @@
         },
         methods: {
             create(option) {
-                this.$store.commit('designer/widgets/create', {
-                    parent: this.owner,
-                    widget: this.$store.getters.palette.item(option.name)
-                });
+                this.$store.getters
+                    .produce(option.name)
+                    .then(d => {
+                        this.$store.commit('designer/widgets/create', {
+                            parent: this.owner,
+                            widget: d
+                        })
+                    })
+                    .catch(() => {})
             },
             toggle(widget) {
                 this.$store.commit('designer/property/update', {
