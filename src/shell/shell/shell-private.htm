@@ -1,11 +1,11 @@
 <template id="shell-private">
     <div class="ge ge-shell ge-shell-private">
-        <div class="ge ge-head">
+        <div class="ge ge-head ge-no-select">
             <shell-brand></shell-brand>
         </div>
         <div class="ge ge-body">
             <div class="ge ge-body-table">
-                <div class="ge ge-left" :class="{ 'ge-left-open' : $store.state.designer.left.open }" v-scrollable>
+                <div class="ge ge-left ge-no-select" :class="{ 'ge-left-open' : $store.state.designer.left.open }" v-scrollable>
                     <div class="ge ge-hover">
                         <a class="ge ge-hover-button" @click = "$store.commit('designer/leftToggle', 'palette')">
                             <span class="glyphicon glyphicon-th"></span>
@@ -17,11 +17,11 @@
                     </div>
                 </div>
                 <div class="ge ge-editor">
-                    <shell-actions></shell-actions>
+                    <shell-actions class="ge ge-no-select"></shell-actions>
                     <shell-container :page="page" :key="page.uuid"></shell-container>
-                    <shell-bottom></shell-bottom>
+                    <shell-bottom class="ge ge-no-select"></shell-bottom>
                 </div>
-                <div class="ge ge-right" :class="{ 'ge-right-open' : $store.state.designer.right.open }"  v-scrollable>
+                <div class="ge ge-right ge-no-select" :class="{ 'ge-right-open' : $store.state.designer.right.open }"  v-scrollable>
                     <div class="ge ge-subnav">
                         <template v-if="$store.state.designer.right.panel == 'structure'">
                             <shell-pages></shell-pages>
