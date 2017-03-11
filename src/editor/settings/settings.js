@@ -3,7 +3,7 @@
     Vue.component('settings', {
         template: '#settings',
         props: {
-            widget: Object,
+            model: Object,
         },
         data() {
             return {
@@ -14,18 +14,27 @@
         created() {
 
             for (let p of this.$store.getters.content.pages) {
-                if (p.name == this.widget.setup.page) {
+                if (p.name == this.model.setup.page) {
                     this.frame = p
                     break
                 }
             }
 
             let items = []
+
+            let mo = {}
             for (let storage of this.frame.storages) {
+
+                let so = mo[storage.name] = {}
                 for (let variable of storage.variables) {
 
-                    let override = JSON.parse(JSON.stringify(variable))
-                    override.uuid = Core.UUID.random()
+                    let original = _.get(this.model.overrides, `${storage.name}.${variable.name}`, null)
+
+                    let vo = so[variable.name] = {
+                        value: variable.value
+                    }
+
+                    let override = Object.assign(vo, original)
 
                     items.push({
                         storage,
@@ -35,6 +44,7 @@
                 }
             }
 
+            Object.assign(this.model.overrides, mo)
             this.items = items
         }
     });

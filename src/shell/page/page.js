@@ -4,8 +4,10 @@
         template: '#shell-page',
         props: {
             page: Object,
+            settings: Object,
             style: Object,
             editable: Boolean,
+            scalable: Boolean,
         },
         data: function() {
             return {
@@ -19,6 +21,7 @@
             this.$page = {
                 uuid: Core.UUID.random(),
                 actions: null,
+                settings: null,
                 storage: null,
                 sources: null,
                 eval: (data, { $item }) => {
@@ -36,7 +39,7 @@
                         $context: context,
                         $page: this.$page,
                         $store: this.$store,
-                        $eval: this.$eval
+                        $eval: this.$eval.bind(this)
                     })
                 }
             }
@@ -53,11 +56,54 @@
 
             this.decorator = 'shell-decorator-canvas';
 
+            this.$watch('settings', (settings) => {
+
+                this.updateSettings(settings)
+                this.updateStorages(this.page.storages)
+            }, {
+                deep: true,
+            })
+
             this.$watch('page.storages', (storages) => {
 
-                if (storages) {
 
-                    let data = {};
+                this.updateStorages(storages)
+                this.updateSources(this.page.sources)
+            }, {
+                deep: true,
+            });
+
+            this.$watch('page.sources', (sources) => {
+
+                this.updateSources(sources)
+            }, {
+                deep: true,
+            });
+
+            this.updateSettings(this.page.settings)
+            this.updateStorages(this.page.storages)
+            this.updateSources(this.page.sources)
+        },
+
+        mounted() {
+            this.$store.commit('console/log', {
+                type: 'success',
+                message: 'Page mounted'
+            })
+        },
+
+        methods: {
+
+            updateSettings(settings) {
+
+                this.$page.settings = settings
+            },
+
+            updateStorages(storages) {
+
+                let data = {};
+
+                if (storages) {
 
                     for (let st of storages) {
 
@@ -65,24 +111,28 @@
 
                         if (st.variables) {
                             for (let variable of st.variables) {
+
+                                let v = variable.value
+                                if (this.settings && (st.name in this.settings) && (variable.name in this.settings[st.name])) {
+                                    v =  this.settings[st.name][variable.name]
+                                }
+
                                 sdata[variable.name] = {
-                                    value: this.$runtime.evaluate(this, variable.binding, variable.value)
+                                    value: this.$runtime.evaluate(this, variable.binding, v)
                                 };
                             }
                         }
                     }
-                    this.$page.storage = data
                 }
-            }, {
-                immediate: true,
-                deep: true,
-            });
 
-            this.$watch('page.sources', (sources) => {
+                this.$page.storage = data
+            },
+
+            updateSources(sources) {
+
+                let data = {};
 
                 if (sources) {
-
-                    let data = {};
 
                     for (let sr of sources) {
 
@@ -98,19 +148,10 @@
                             })
                         }
                     }
-                    this.$page.sources = data
                 }
-            }, {
-                immediate: true,
-                deep: true,
-            });
-        },
 
-        mounted() {
-            this.$store.commit('console/log', {
-                type: 'success',
-                message: 'Page mounted'
-            })
+                this.$page.sources = data
+            }
         }
     });
 

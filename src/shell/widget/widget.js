@@ -19,6 +19,7 @@
                     'default-layers-stack': 'shell-decorator-layers',
                     'default-layers-repeater': 'shell-decorator-layers',
                     'default-layers-item': 'shell-decorator-layers-item',
+                    'default-frame': 'shell-decorator-frame',
                     'default-stub': 'shell-decorator-stub',
                 },
                 fallback: 'shell-decorator-widget',

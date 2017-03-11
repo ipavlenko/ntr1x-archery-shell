@@ -3,8 +3,8 @@
         <div class="modal-dialog">
             <div class="modal-content" style="max-height: 700px; overflow-y: auto" v-scrollable>
                 <shell-page
-                    :page.sync="page"
-                    :items.sync="page.widgets"
+                    :page="page"
+                    :scalable="false"
                 ></shell-page>
             </div>
         </div>

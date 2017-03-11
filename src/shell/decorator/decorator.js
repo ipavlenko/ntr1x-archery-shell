@@ -63,6 +63,42 @@
         }
     };
 
+    var SettingsMixin = {
+
+        data: function() {
+            return {
+                settings: null
+            };
+        },
+
+        created: function() {
+
+            this.$watch('$page', () => {
+                try {
+                    var settings = this.$runtime.evaluateOverrides(this, this.model, this.model.overrides);
+                    this.settings = settings;
+                } catch (e) {
+                    console.log(e, e.stack);
+                }
+            }, {
+                deep: true,
+                immediate: true,
+            });
+
+            this.$watch('model', (model) => {
+                try {
+                    var settings = this.$runtime.evaluateOverrides(this, model, model.overrides)
+                    this.settings = settings;
+                } catch (e) {
+                    console.log(e, e.stack);
+                }
+            }, {
+                deep: true,
+                immediate: true,
+            });
+        }
+    };
+
     let CompositeMixin = {
 
         computed: {
@@ -112,6 +148,18 @@
     Vue.component('shell-decorator-widget', {
         template: '#shell-decorator-widget',
         mixins: [ DecoratorMixin, BindingsMixin ],
+        props: {
+            stack: Object,
+            page: Object,
+            model: Object,
+            widget: Object,
+            editable: Boolean,
+        },
+    });
+
+    Vue.component('shell-decorator-frame', {
+        template: '#shell-decorator-frame',
+        mixins: [ DecoratorMixin, BindingsMixin, SettingsMixin ],
         props: {
             stack: Object,
             page: Object,
@@ -180,6 +228,7 @@
             model: Object,
             widget: Object,
             editable: Boolean,
+            scalable: Boolean,
         },
         computed: {
             items: function() {

@@ -38,12 +38,6 @@
                     <span>Images</span>
                 </button>
             </div>
-            <!--
-            <button type="button" class="btn btn-shell" @click="$store.dispatch('designer/images')">
-                <span class="glyphicon glyphicon-file"></span>
-                <span>Files</span>
-            </button>
-            -->
         </div>
         <div class="pull-right" style="margin-right: 25px">
             <div class="btn-group">
@@ -55,6 +49,18 @@
                     <span class="fa fa-clone"></span>
                     <span>Clone</span>
                 </button>
+            </div>
+        </div>
+        <div class="pull-right" style="margin-right: 25px">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-shell" @click.prevent="mode('mobile')">
+                    <span class="fa fa-desktop"></span>
+                    &nbsp;<span>Full Size</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li v-for="t in [{ title: '1', title: '2' }]"><a @click="type = t">{{ t.title }}</a></li>
+                </ul>
             </div>
         </div>
     </section>

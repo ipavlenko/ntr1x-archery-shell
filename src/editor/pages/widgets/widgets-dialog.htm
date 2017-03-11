@@ -41,7 +41,7 @@
                                     <widgets :widgets="current.widgets" :owner="current" :options="options"></widgets>
                                 </div>
                                 <div class="tab-pane" :class="{ 'active': isActive('proxy') }" v-if="isFrame">
-                                    <settings :widget="current"></settings>
+                                    <settings :model="current"></settings>
                                 </div>
                             </div>
                         </div>
