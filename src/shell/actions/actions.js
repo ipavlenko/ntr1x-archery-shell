@@ -2,6 +2,21 @@
 
     Vue.component('shell-actions', {
         template: '#shell-actions',
+        computed: {
+            viewports() {
+                return [
+                    [
+                        { title: 'iPhone 6,7 Plus', width: 414, height: 736, landscape: false },
+                        { title: 'iPhone 6,7', width: 375, height: 667, landscape: false },
+                        { title: 'iPhone 5', width: 320, height: 568, landscape: false },
+                    ],
+                    [
+                        { title: 'iPad Pro',  width: 1024, height: 1366, landscape: false },
+                        { title: 'iPad 1,2,3,4', width: 768, height: 1024, landscape: false },
+                    ],
+                ]
+            }
+        },
         methods: {
             showImages() {
                 this.$store.commit('modals/dialog/show', {

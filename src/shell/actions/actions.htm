@@ -52,15 +52,34 @@
             </div>
         </div>
         <div class="pull-right" style="margin-right: 25px">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default btn-shell" @click.prevent="mode('mobile')">
-                    <span class="fa fa-desktop"></span>
-                    &nbsp;<span>Full Size</span>
+            <div class="btn-group-viewport" :class="{
+                'btn-group': $store.state.designer.viewport != null,
+                'dropdown': $store.state.designer.viewport == null
+            }">
+                <button type="button" data-toggle="dropdown" class="btn btn-default btn-shell">
+                    <span class="fa fa-desktop" :class="{
+                        'fa-desktop': $store.state.designer.viewport == null,
+                        'fa-tablet': $store.state.designer.viewport != null && $store.state.designer.viewport.type == 'tablet',
+                        'fa-mobile': $store.state.designer.viewport != null && $store.state.designer.viewport.type == 'mobile'
+                    }"></span>
+                    &nbsp;<span>{{ $store.state.designer.viewport != null ? $store.state.designer.viewport.title : 'Full Size' }}</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li v-for="t in [{ title: '1', title: '2' }]"><a @click="type = t">{{ t.title }}</a></li>
+                    <li>
+                        <a @click="$store.commit('designer/viewport', null)">Full Size</a>
+                    </li>
+                    <template v-for="group in viewports">
+                        <li role="separator" class="divider"></li>
+                        <li v-for="viewport in group">
+                            <a @click="$store.commit('designer/viewport', viewport)"
+                            >{{ viewport.title }} <span class="badge pull-right">{{ viewport.width }}x{{ viewport.height }}</span></a>
+                        </li>
+                    </template>
                 </ul>
+                <button v-if="$store.state.designer.viewport != null" type="button" class="btn btn-default btn-shell" @click="$store.commit('designer/viewport/rotate')">
+                    <span class="fa fa-retweet"></span>
+                </button>
             </div>
         </div>
     </section>

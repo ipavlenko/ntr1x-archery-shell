@@ -3,6 +3,9 @@
   background-color: #141422;
   padding: 15px 15px;
 }
+.ge.ge-actions .btn-group-viewport .dropdown-menu {
+  width: 250px;
+}
 .ge.ge-actions .ge.ge-pages-selector {
   display: table;
 }

@@ -1,11 +1,22 @@
 <template id="shell-container">
-    <section class="ge ge-container">
+    <section class="ge ge-container"
+        :class="{
+            'ge-container-relative': settings.fixed
+        }"
+    >
         <div class="ge ge-container-scrollable">
-            <shell-page v-if="page != null"
-                :page="page"
-                :editable="true"
-                :scalable="true"
-            ></shell-page>
+            <div class="ge ge-container-viewport"
+                :style="{
+                    'width': settings.width,
+                    'height': settings.height,
+                }"
+            >
+                <shell-page v-if="page != null"
+                    :page="page"
+                    :editable="true"
+                    :scalable="true"
+                ></shell-page>
+            </div>
         </div>
     </section>
 </template>
