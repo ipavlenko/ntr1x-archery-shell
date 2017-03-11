@@ -52,10 +52,7 @@
             </div>
         </div>
         <div class="pull-right" style="margin-right: 25px">
-            <div class="btn-group-viewport" :class="{
-                'btn-group': $store.state.designer.viewport != null,
-                'dropdown': $store.state.designer.viewport == null
-            }">
+            <div class="btn-group btn-group-viewport">
                 <button type="button" data-toggle="dropdown" class="btn btn-default btn-shell">
                     <span class="fa fa-desktop" :class="{
                         'fa-desktop': $store.state.designer.viewport == null,
@@ -80,6 +77,10 @@
                 <button v-if="$store.state.designer.viewport != null" type="button" class="btn btn-default btn-shell" @click="$store.commit('designer/viewport/rotate')">
                     <span class="fa fa-retweet"></span>
                 </button>
+                <a type="button" class="btn btn-default btn-shell" :href="'/view/' + $store.state.designer.portal.id + '/'" target="_blank">
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                    <span>View</span>
+                </a>
             </div>
         </div>
     </section>

@@ -1,5 +1,7 @@
 <template id="shell-loader-private">
     <div class="ge ge-shell-loader">
-        <shell-private v-if="$store.state.designer.content"></shell-private>
+        <div v-if="$store.state.designer.content">$store.state.designer.content</div>
+        <div v-if="$store.state.designer.page">$store.state.designer.page</div>
+        <shell-private v-if="$store.state.designer.content && $store.state.designer.page"></shell-private>
     </div>
 </template>
