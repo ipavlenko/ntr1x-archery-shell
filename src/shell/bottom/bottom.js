@@ -34,12 +34,10 @@
 
                     if (this.$refs.scrollable) {
                         let s = $(this.$refs.scrollable)
-                        if ($.fn.perfectScrollbar) {
-                            s.scrollTop(s.prop('scrollHeight'))
-                        }
+                        s.scrollTop(s.prop('scrollHeight'))
                     }
                 })
-                
+
             }, { deep: true, immediate: true })
         },
         methods: {

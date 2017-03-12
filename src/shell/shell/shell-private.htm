@@ -5,7 +5,7 @@
         </div>
         <div class="ge ge-body">
             <div class="ge ge-body-table">
-                <div class="ge ge-left ge-no-select" :class="{ 'ge-left-open' : $store.state.designer.left.open }" v-scrollable>
+                <div class="ge ge-left ge-no-select" :class="{ 'ge-left-open' : $store.state.designer.left.open }">
                     <div class="ge ge-hover">
                         <a class="ge ge-hover-button" @click = "$store.commit('designer/leftToggle', 'palette')">
                             <span class="glyphicon glyphicon-th"></span>
@@ -21,13 +21,9 @@
                     <shell-container :viewport="$store.state.designer.viewport" :page="page" :key="page.uuid"></shell-container>
                     <shell-bottom class="ge ge-no-select"></shell-bottom>
                 </div>
-                <div class="ge ge-right ge-no-select" :class="{ 'ge-right-open' : $store.state.designer.right.open }"  v-scrollable>
+                <div class="ge ge-right ge-no-select" :class="{ 'ge-right-open' : $store.state.designer.right.open }">
                     <div class="ge ge-subnav">
-                        <template v-if="$store.state.designer.right.panel == 'structure'">
-                            <shell-pages></shell-pages>
-                            <shell-sources></shell-sources>
-                            <shell-storages></shell-storages>
-                        </template>
+                        <shell-structure v-if="$store.state.designer.right.panel == 'structure'"></shell-structure>
                         <shell-tree v-if="$store.state.designer.right.panel == 'tree'"></shell-tree>
                     </div>
                     <div class="ge ge-hover">

@@ -27,31 +27,27 @@
                 </button>
             </div>
         </div>
-        <div class="pull-right" style="margin-right: 25px">
+        <div class="pull-right" style="margin-right: 5px">
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-shell" @click.prevent="showFiles()">
+                <button type="button" class="btn btn-default btn-shell" @click.prevent="showFiles()" title="File Uploads">
                     <span class="fa fa-paperclip"></span>
-                    <span>Files</span>
                 </button>
-                <button type="button" class="btn btn-default btn-shell" @click.prevent="showImages()">
+                <button type="button" class="btn btn-default btn-shell" @click.prevent="showImages()" title="Image Uploads">
                     <span class="glyphicon glyphicon-picture"></span>
-                    <span>Images</span>
                 </button>
             </div>
         </div>
-        <div class="pull-right" style="margin-right: 25px">
+        <div class="pull-right" style="margin-right: 5px">
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-shell" @click.prevent="importPage()">
+                <button type="button" class="btn btn-default btn-shell" @click.prevent="importPage()" title="Import Page">
                     <span class="glyphicon glyphicon-import"></span>
-                    <span>Import</span>
                 </button>
-                <button type="button" class="btn btn-default btn-shell" @click.prevent="clonePage()">
+                <button type="button" class="btn btn-default btn-shell" @click.prevent="clonePage()" title="Clone Page">
                     <span class="fa fa-clone"></span>
-                    <span>Clone</span>
                 </button>
             </div>
         </div>
-        <div class="pull-right" style="margin-right: 25px">
+        <div class="pull-right" style="margin-right: 5px">
             <div class="btn-group btn-group-viewport">
                 <button type="button" data-toggle="dropdown" class="btn btn-default btn-shell">
                     <span class="fa fa-desktop" :class="{
@@ -77,9 +73,8 @@
                 <button v-if="$store.state.designer.viewport != null" type="button" class="btn btn-default btn-shell" @click="$store.commit('designer/viewport/rotate')">
                     <span class="fa fa-retweet"></span>
                 </button>
-                <a type="button" class="btn btn-default btn-shell" :href="'/view/' + $store.state.designer.portal.id + '/'" target="_blank">
+                <a type="button" class="btn btn-default btn-shell" :href="'/view/' + $store.state.designer.portal.id + '/'" target="_blank" title="View">
                     <span class="glyphicon glyphicon-share-alt"></span>
-                    <span>View</span>
                 </a>
             </div>
         </div>

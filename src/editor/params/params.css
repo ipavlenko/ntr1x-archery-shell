@@ -32,7 +32,7 @@
   background-color: red;
 }
 .ge.ge-params-multiple .dragged {
-  opacity: 0.3;
+  display: none;
 }
 .ge.ge-params-multiple .ge.ge-btn-inset {
   background-color: #E0E0E0;

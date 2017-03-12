@@ -19,7 +19,7 @@
   background-color: red;
 }
 .ge.ge-widgets .dragged {
-  opacity: 0.3;
+  display: none;
 }
 .ge.ge-widgets .ge.ge-btn-inset {
   background-color: #E0E0E0;

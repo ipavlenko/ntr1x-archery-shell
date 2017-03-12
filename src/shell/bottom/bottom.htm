@@ -1,6 +1,6 @@
 <template id="shell-bottom">
     <section class="ge ge-bottom" :class="{ 'ge-bottom-open' : $store.state.designer.bottom.open }">
-        <div ref="scrollable" class="ge ge-subnav ge-bottom-console" v-if="$store.state.designer.bottom.panel == 'console'" v-scrollable>
+        <div ref="scrollable" class="ge ge-subnav ge-bottom-console" v-if="$store.state.designer.bottom.panel == 'console'">
             <div class="ge ge-console-messages">
                 <div v-for="m in $store.state.designer.log.messages" :key="m" class="ge ge-console-message">
                     <span class="ge ge-message-group">
