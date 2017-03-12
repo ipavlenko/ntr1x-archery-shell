@@ -387,6 +387,10 @@
                 }
             });
         },
+        beforeDestroy() {
+            this.sortable.sortable('destroy')
+            this.sortable = null
+        },
         methods: {
             placeholder: function() {
                 return this.$store.getters.palette.placeholder(`
