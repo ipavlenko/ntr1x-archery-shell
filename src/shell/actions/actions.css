@@ -27,6 +27,7 @@
   font-weight: normal;
   text-shadow: none;
   color: #EEEEEE;
+  letter-spacing: 0;
 }
 .ge.ge-actions .btn.btn-shell:hover {
   background-color: #323242;

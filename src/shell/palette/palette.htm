@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="ge ge-palette-categories wg-sortable-container" v-scrollable>
+        <div class="ge ge-palette-categories wg-sortable-container">
             <template v-for="group in $store.state.palette.category.groups()">
                 <div v-if="!group.ignore" class="ge ge-palette-category">
                     <div class="ge ge-category-title">{{ group.title }}</div>
