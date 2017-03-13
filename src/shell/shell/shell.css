@@ -52,6 +52,18 @@
   flex: 1 1 auto;
   flex-direction: column;
 }
+.ge.ge-shell.ge-shell-frame > .ge.ge-page {
+  overflow: visible;
+}
+.ge.ge-shell.ge-shell-frame > .ge.ge-page > .ge.ge-widget {
+  overflow: visible;
+}
+.ge.ge-shell.ge-shell-frame > .ge.ge-page > .ge.ge-widget > .ge.ge-content {
+  overflow: visible;
+}
+.ge.ge-shell.ge-shell-frame > .ge.ge-page > .ge.ge-widget > .ge.ge-content > .wg.wg-default-stack-canvas {
+  overflow: visible;
+}
 .ge.ge-shell.ge-shell-private {
   font-family: Arial;
   position: absolute;

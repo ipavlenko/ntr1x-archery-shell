@@ -72,6 +72,19 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
+
+    >.ge.ge-page {
+        overflow: visible;
+        >.ge.ge-widget {
+            overflow: visible;
+            >.ge.ge-content {
+                overflow: visible;
+                >.wg.wg-default-stack-canvas {
+                    overflow: visible;
+                }
+            }
+        }
+    }
 }
 
 .ge.ge-shell.ge-shell-private {
