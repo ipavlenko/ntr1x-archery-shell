@@ -30,7 +30,12 @@
                             <div class="tab-content" style="min-height: 450px; max-height: 450px; overflow: auto;">
                                 <div class="tab-pane" :class="{ 'active': isActive('binding') }">
                                     <div class="form-group">
-                                        <label for="bindings-dialog-binding">Биндинг</label>
+                                        <div class="clearfix">
+                                            <label for="bindings-dialog-binding" class="pull-left">Биндинг</label>
+                                            <div class="pull-right">
+                                                <button type="button" class="btn btn-xs btn-default" @click="showContext()">Context</button>
+                                            </div>
+                                        </div>
                                         <div class="input-group">
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

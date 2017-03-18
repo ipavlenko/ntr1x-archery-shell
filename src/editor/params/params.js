@@ -289,13 +289,18 @@
             }
         },
         methods: {
-            setStrategy: function(strategy) {
+            setStrategy(strategy) {
                 this.current.binding.strategy = strategy;
                 this.$forceUpdate();
             },
-            getStrategy: function() {
+            getStrategy() {
                 return this.current.binding.strategy;
             },
+            showContext() {
+                this.$store.commit('modals/dialog/show', {
+                    name: 'context-dialog',
+                })
+            }
         },
     });
 
@@ -336,6 +341,11 @@
             getStrategy: function() {
                 return this.current.binding.strategy;
             },
+            showContext() {
+                this.$store.commit('modals/dialog/show', {
+                    name: 'context-dialog',
+                })
+            }
         },
     });
 
