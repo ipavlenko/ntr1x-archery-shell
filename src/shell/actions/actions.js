@@ -18,6 +18,11 @@
             }
         },
         methods: {
+            showContext() {
+                this.$store.commit('modals/dialog/show', {
+                    name: 'context-dialog',
+                })
+            },
             showImages() {
                 this.$store.commit('modals/dialog/show', {
                     name: 'images-dialog',

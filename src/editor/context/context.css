@@ -1,0 +1,36 @@
+.ge.ge-context .ge.ge-context-item {
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.ge.ge-context .ge.ge-context-item .ge.ge-context-name {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  padding: 4px 5px;
+}
+.ge.ge-context .ge.ge-context-item .ge.ge-context-name .ge.ge-context-name-actions {
+  float: right;
+  margin-left: 5px;
+  opacity: 0.3;
+  margin-top: -1px;
+}
+.ge.ge-context .ge.ge-context-item .ge.ge-context-name .ge.ge-context-name-long {
+  float: right;
+  width: 300px;
+  color: #666666;
+  font-size: small;
+  text-align: right;
+  font-weight: 100;
+}
+.ge.ge-context .ge.ge-context-item .ge.ge-context-name:hover {
+  background-color: #E5E5E5;
+}
+.ge.ge-context .ge.ge-context-item .ge.ge-context-name:hover .ge.ge-context-name-actions {
+  opacity: 1;
+}
+.ge.ge-context .ge.ge-context-item .ge.ge-context-children {
+  margin-left: 10px;
+  padding-left: 3px;
+  border-left: 1px solid #CCCCCC;
+  box-sizing: border-box;
+}

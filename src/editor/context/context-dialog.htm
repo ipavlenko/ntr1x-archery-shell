@@ -12,7 +12,12 @@
                     </h4>
                 </div>
                 <div class="modal-body" style="height: 300px; overflow-y: scroll;">
-
+                    <div class="ge ge-context-children">
+                        <context-item v-for="child in children"
+                            :item="child"
+                            :level="1"
+                        ></context-item>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-default">Close</button>

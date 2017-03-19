@@ -27,7 +27,7 @@
                 </button>
             </div>
         </div>
-        <div class="pull-right" style="margin-right: 5px">
+        <div class="pull-right" style="margin-right: 10px">
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-shell" @click.prevent="showFiles()" title="File Uploads">
                     <span class="fa fa-paperclip"></span>
@@ -35,9 +35,12 @@
                 <button type="button" class="btn btn-default btn-shell" @click.prevent="showImages()" title="Image Uploads">
                     <span class="glyphicon glyphicon-picture"></span>
                 </button>
+                <button type="button" class="btn btn-default btn-shell" @click.prevent="showContext()" title="Page Context">
+                    <span class="fa fa-hashtag"></span>
+                </button>
             </div>
         </div>
-        <div class="pull-right" style="margin-right: 5px">
+        <div class="pull-right" style="margin-right: 10px">
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-shell" @click.prevent="importPage()" title="Import Page">
                     <span class="glyphicon glyphicon-import"></span>
@@ -47,7 +50,7 @@
                 </button>
             </div>
         </div>
-        <div class="pull-right" style="margin-right: 5px">
+        <div class="pull-right" style="margin-right: 10px">
             <div class="btn-group btn-group-viewport">
                 <button type="button" data-toggle="dropdown" class="btn btn-default btn-shell">
                     <span class="fa fa-desktop" :class="{

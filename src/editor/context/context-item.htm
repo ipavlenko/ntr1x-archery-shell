@@ -1,3 +1,21 @@
-<template id="context-dialog">
-    <div>Item</div>
+<template id="context-item">
+    <div class="ge ge-context-item">
+        <div class="ge ge-context-name" @click.prevent="open = !open">
+            <i v-if="item.children && item.children.length && open" class="fa fa-minus-square-o" href="#"></i>
+            <i v-else-if="item.children && item.children.length && !open" class="fa fa-plus-square-o" href="#"></i>
+            <i v-else class="fa fa-square-o"></i>
+            <a class="ge ge-context-name-short">{{ item.name }}</a>
+            <span class="ge ge-context-name-actions">
+                <a class="btn btn-default btn-xs" title="Copy"><i class="fa fa-clipboard"></i></a>
+            </span>
+            <span class="ge ge-context-name-long">{{ path }}</span>
+        </div>
+        <div class="ge ge-context-children" v-if="item.children && item.children.length && open">
+            <context-item v-for="child in item.children"
+                :parent="path"
+                :item="child"
+                :level="level + 1"
+            ></context-item>
+        </div>
+    </div>
 </template>
