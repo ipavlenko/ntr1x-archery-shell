@@ -2,7 +2,7 @@
     <section class="ge ge-modal-stack">
         <template v-for="item in $store.state.modals.items">
             <transition v-if="item.type == 'dialog'" name="bounce" appear>
-                <component :is="item.modal.name"></component>
+                <component :is="item.modal.name" :context="item.modal.context"></component>
             </transition>
             <transition v-if="item.type == 'editor'" name="bounce" appear>
                 <component :is="item.modal.name" :context="item.modal.context" :original="item.modal.original" :events="item.modal.events"></component>

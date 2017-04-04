@@ -3,12 +3,18 @@
     Vue.component('context-dialog', {
         template: '#context-dialog',
         mixins: [ Core.ModalDialog ],
+        props: {
+            context: Object,
+        },
         data() {
             return {
                 children: this.children
             }
         },
         created() {
+
+
+
             this.children = [
                 {
                     name: '$page',
@@ -29,17 +35,30 @@
                     ]
                 },
                 {
-                    name: '$context',
+                    name: '$store',
                     children: [
-                        { name: 'Child 1' },
-                        { name: 'Child 2' },
-                        { name: 'Child 3' },
-                        { name: 'Child 4' },
-                        { name: 'Child 5' },
-                        { name: 'Child 6' },
-                        { name: 'Child 7' },
-                        { name: 'Child 8' },
+                        {
+                            name: 'commit',
+                            type: 'method',
+                        },
+                        {
+                            name: 'dispatch',
+                            type: 'method',
+                        },
                     ]
+                },
+                {
+                    name: '$context',
+                    // children: this.context.$context.map[
+                    //     { name: 'Child 1' },
+                    //     { name: 'Child 2' },
+                    //     { name: 'Child 3' },
+                    //     { name: 'Child 4' },
+                    //     { name: 'Child 5' },
+                    //     { name: 'Child 6' },
+                    //     { name: 'Child 7' },
+                    //     { name: 'Child 8' },
+                    // ]
                 },
             ]
         },

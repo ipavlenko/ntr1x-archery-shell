@@ -1,17 +1,28 @@
 (function($, Vue, Core, Shell) {
 
+    let defaults = {
+        'multiple': [],
+        'object': {},
+    };
+
     Shell.Pages.ModalEditor =
     Vue.component('pages-dialog', {
         template: '#pages-dialog',
         mixins: [ Core.ModalEditorMixin, Core.TabsMixin('main') ],
-        computed: {
-            items: function() {
-                return this.context.widget.props.map(prop => ({
-                    prop,
-                    owner: this.current.root.params,
-                    param: this.current.root.params[prop.name]
-                }))
+        data() {
+            return {
+                items: null,
             }
+        },
+        created() {
+
+            let cp = this.current.root.params
+
+            this.items = this.context.widget.props.map(prop => ({
+                prop,
+                owner: cp,
+                param: cp[prop.name] = cp[prop.name] || { value: defaults[prop.type] || null }
+            }))
         },
         methods: {
 

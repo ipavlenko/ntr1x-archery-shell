@@ -14,6 +14,7 @@
             <div class="ge ge-overlay-right">
                 <a href="#" v-if="editable" @click.stop.prevent="showSettings()" class="label label-primary">Edit</a>
                 <a href="#" v-if="editable" @click.stop.prevent="removeWidget()" class="label label-danger">Del</a>
+                <a href="#" v-if="editable" @click.stop.prevent="showContext()" class="label label-success">Context</a>
             </div>
         </div>
     </div>

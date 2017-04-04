@@ -296,11 +296,6 @@
             getStrategy() {
                 return this.current.binding.strategy;
             },
-            showContext() {
-                this.$store.commit('modals/dialog/show', {
-                    name: 'context-dialog',
-                })
-            }
         },
     });
 
@@ -341,11 +336,6 @@
             getStrategy: function() {
                 return this.current.binding.strategy;
             },
-            showContext() {
-                this.$store.commit('modals/dialog/show', {
-                    name: 'context-dialog',
-                })
-            }
         },
     });
 

@@ -3,17 +3,17 @@
     var DecoratorMixin = {
 
         computed: {
-            children: function() {
+            children() {
                 return this.model.widgets;
             }
         },
         methods: {
 
-            removeWidget: function() {
+            removeWidget() {
                 this.$store.commit('designer/widgets/remove', { parent: this.stack, widget: this.model });
             },
 
-            showSettings: function() {
+            showSettings() {
 
                 this.$store.commit('modals/editor/show', {
                     name: 'shell-widgets-dialog',
@@ -24,18 +24,30 @@
                     }
                 })
             },
+
+            showContext() {
+                this.$store.commit('modals/dialog/show', {
+                    name: 'context-dialog',
+                    context: {
+                        // one: 1
+                        $page: this.$page,
+                        $context: this.$context,
+                        // $store: this.$store
+                    }
+                })
+            }
         },
     };
 
     var BindingsMixin = {
 
-        data: function() {
+        data() {
             return {
                 bindings: this.bindings
             };
         },
 
-        created: function() {
+        created() {
 
             this.$watch('$page', () => {
                 try {
@@ -65,13 +77,13 @@
 
     var SettingsMixin = {
 
-        data: function() {
+        data() {
             return {
                 settings: null
             };
         },
 
-        created: function() {
+        created() {
 
             this.$watch('$page', () => {
                 try {
@@ -103,7 +115,7 @@
 
         computed: {
 
-            children: function() {
+            children() {
 
                 return this.items.length > 0
                     ? [ ...this.items ]
@@ -115,7 +127,7 @@
     let SortableMixin = {
 
         methods: {
-            selectTarget: function() {
+            selectTarget() {
                 this.$store.commit('designer/property/update', {
                     parent: this.model.designer,
                     property: 'unlocked',
@@ -123,7 +135,7 @@
                 })
             },
 
-            unselectTarget: function() {
+            unselectTarget() {
                 this.$store.commit('designer/property/update', {
                     parent: this.model.designer,
                     property: 'unlocked',
