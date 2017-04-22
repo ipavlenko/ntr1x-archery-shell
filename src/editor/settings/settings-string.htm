@@ -6,7 +6,9 @@
                 <span class="label label-default">{{ item.variable.name }}</span>
             </label>
             <div class="pull-right">
-                <button type="button" class="btn btn-xs btn-default">Advanced</button>
+                <bindings :owner="item.override" property="binding" inline-template>
+                    <button type="button" class="btn btn-xs btn-default" @click="open()">Advanced</button>
+                </bindings>
             </div>
         </div>
         <input class="form-control" type="text" ref="control" v-model="item.override.value" />
