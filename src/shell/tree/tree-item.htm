@@ -14,7 +14,7 @@
                     <span class="ge ge-overlay" @click.stop="update()"><span class="glyphicon glyphicon-edit"></span></span>
                 </span>
             </span>
-            <span :style="{ 'opacity': widget.designer.hidden ? '0.5' : '1' }">{{ widget.tag }}</span>
+            <span :style="{ 'opacity': widget.designer.hidden ? '0.5' : '1' }" class="ge ge-tree-label">{{ title }}</span>
         </div>
         <div class="ge ge-tree-children" v-if="open">
             <shell-tree-item v-for="w in widget.widgets" :key="w.uuid" :level="1 + level" :parent="widget" :widget="w"></shell-tree-item>

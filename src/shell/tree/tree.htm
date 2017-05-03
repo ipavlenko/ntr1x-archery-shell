@@ -19,7 +19,7 @@
         </div>
         <div class="ge ge-tree-content">
             <shell-tree-item v-for="w in $store.state.designer.page.root.widgets"
-                :key="$store.state.designer.page.root.uuid"
+                :key="w.uuid"
                 :parent="$store.state.designer.page.root"
                 :widget="w" :level="1"
             ></shell-tree-item>
