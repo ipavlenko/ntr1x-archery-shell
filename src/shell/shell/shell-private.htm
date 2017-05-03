@@ -18,7 +18,7 @@
                 </div>
                 <div class="ge ge-editor">
                     <shell-actions class="ge ge-no-select"></shell-actions>
-                    <shell-container :viewport="$store.state.designer.viewport" :page="page" :key="page.uuid"></shell-container>
+                    <shell-container :viewport="$store.state.designer.viewport" :page="page" :key="$store.state.designer.container.uuid"></shell-container>
                     <shell-bottom class="ge ge-no-select"></shell-bottom>
                 </div>
                 <div class="ge ge-right ge-no-select" :class="{ 'ge-right-open' : $store.state.designer.right.open }">

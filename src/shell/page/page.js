@@ -3,6 +3,7 @@
     Vue.component('shell-page', {
         template: '#shell-page',
         props: {
+            id: String,
             page: Object,
             settings: Object,
             style: Object,
@@ -24,6 +25,7 @@
                 settings: null,
                 storage: null,
                 sources: null,
+                refs: {},
                 eval: (data, { $item }) => {
 
                     return this.$eval(data, {
@@ -32,11 +34,12 @@
                         $store: this.$store,
                     })
                 },
-                dispatch: (script, context) => {
+                dispatch: (script, context, event) => {
 
                     return this.$store.dispatch('actions/execute', {
                         $script: script,
                         $context: context,
+                        $event: event,
                         $page: this.$page,
                         $store: this.$store,
                         $eval: this.$eval.bind(this)
@@ -86,13 +89,53 @@
         },
 
         mounted() {
+
+            this.createChildRef()
+
             this.$store.commit('console/log', {
                 type: 'success',
                 message: 'Page mounted'
             })
         },
 
+        destroyed() {
+            this.removeChildRef()
+        },
+
         methods: {
+
+            createChildRef() {
+
+                if (this.$parent && this.$parent.$page && this.id) {
+
+                    console.log('c1')
+                    let registry = this.$parent.$page.refs[this.id];
+                    if (!registry) {
+                        console.log('c2')
+                        let array = []
+                        registry = this.$parent.$page.refs[this.id] = (() => array)
+                    }
+                    registry().push(this.$page)
+                    console.log(registry())
+                }
+            },
+
+            removeChildRef() {
+
+                if (this.$parent && this.$parent.$page && this.id) {
+
+                    let registry = this.$parent.$page.refs[this.id];
+                    if (registry) {
+                        let array = registry()
+                        if (array) {
+                            array.splice(array.indexOf(this.$page), 1)
+                        }
+                        if (!array.length) {
+                            delete this.$parent.$page.refs[this.id]
+                        }
+                    }
+                }
+            },
 
             updateSettings(settings) {
 

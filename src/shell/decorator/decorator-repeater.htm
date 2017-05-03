@@ -18,9 +18,9 @@
                 <a href="#" v-if="!model.designer.unlocked" @click.stop.prevent="selectTarget()" class="label label-success">Unlock</a>
                 <a href="#" v-if="model.designer.unlocked" @click.stop.prevent="unselectTarget()" class="label label-success">Lock</a>
             </div>
-            <div class="ge ge-overlay-right">
-                <a href="#" v-if="!model.designer.unlocked" @click.stop.prevent="showSettings()" class="label label-primary">Edit</a>
-                <a href="#" v-if="!model.designer.unlocked" @click.stop.prevent="removeWidget()" class="label label-danger">Del</a>
+            <div class="ge ge-overlay-right" v-if="!model.designer.unlocked">
+                <a href="#" @click.stop.prevent="showSettings()" class="label label-primary">Edit</a>
+                <a href="#" @click.stop.prevent="removeWidget()" class="label label-danger">Del</a>
             </div>
         </div>
     </div>

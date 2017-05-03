@@ -50,8 +50,6 @@
                     targetIndex = context.location.after ? (targetIndex + 1) : targetIndex
                     // targetIndex = context.location.before ? (targetIndex - 1) : targetIndex
 
-                    console.log(targetIndex)
-
                     let w = array[sourceIndex]
 
                     if (targetIndex < sourceIndex) {

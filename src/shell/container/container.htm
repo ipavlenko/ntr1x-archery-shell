@@ -12,6 +12,7 @@
                 }"
             >
                 <shell-page v-if="page != null"
+                    :key="page.uuid"
                     :page="page"
                     :editable="true"
                     :scalable="true"

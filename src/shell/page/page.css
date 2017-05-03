@@ -1,7 +1,6 @@
 .ge.ge-page {
   margin: 0px auto 0px auto;
   box-sizing: border-box;
-  overflow: hidden;
   transform-origin: top center;
   flex: 1 1 auto;
   width: 100%;

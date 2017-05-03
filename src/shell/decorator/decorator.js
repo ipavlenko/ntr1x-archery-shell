@@ -43,7 +43,7 @@
 
         data() {
             return {
-                bindings: this.bindings
+                bindings: null
             };
         },
 
@@ -51,7 +51,7 @@
 
             this.$watch('$page', () => {
                 try {
-                    var bindings = this.$runtime.evaluateParams(this, this.widget.props, this.model.params);
+                    let bindings = this.$runtime.evaluateParams(this, this.widget.props, this.model.params);
                     this.bindings = bindings;
                 } catch (e) {
                     console.log(e, e.stack);
@@ -63,7 +63,7 @@
 
             this.$watch('model', (model) => {
                 try {
-                    var bindings = this.$runtime.evaluateParams(this, this.widget.props, model.params)
+                    let bindings = this.$runtime.evaluateParams(this, this.widget.props, model.params)
                     this.bindings = bindings;
                 } catch (e) {
                     console.log(e, e.stack);
@@ -400,7 +400,9 @@
             });
         },
         beforeDestroy() {
-            this.sortable.sortable('destroy')
+            if (this.sortable) {
+                this.sortable.sortable('destroy')
+            }
             this.sortable = null
         },
         methods: {
