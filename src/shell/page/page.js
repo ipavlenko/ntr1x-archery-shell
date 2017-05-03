@@ -108,15 +108,12 @@
 
                 if (this.$parent && this.$parent.$page && this.id) {
 
-                    console.log('c1')
                     let registry = this.$parent.$page.refs[this.id];
                     if (!registry) {
-                        console.log('c2')
                         let array = []
                         registry = this.$parent.$page.refs[this.id] = (() => array)
                     }
                     registry().push(this.$page)
-                    console.log(registry())
                 }
             },
 

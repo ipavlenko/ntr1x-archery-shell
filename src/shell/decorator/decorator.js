@@ -263,7 +263,8 @@
                 offset: 'position',
 
                 containerSelector: '.wg.wg-sortable-container.wg-sortable-editable',
-                itemSelector: '.wg.wg-sortable-item.wg-sortable-editable',
+                dragSelector: '.wg.wg-sortable-item.wg-sortable-draggable:not(.wg-sortable-stub)',
+                dropSelector: '.wg.wg-sortable-item.wg-sortable-draggable',
                 excludeSelector: '.ge.ge-overlay, .dropdown-menu',
 
                 verticalClass: 'wg-sortable-vertical',
@@ -277,10 +278,18 @@
                 `,
                 onDragStart: function(context, event, _super) {
 
+                    // console.log($(event.target).closest('.wg.wg-default-stub').length > 0);
+                    // if ($(event.target).closest('.wg.wg-default-stub').length > 0) {
+                    //     return;
+                    // }
+
                     _super(context, event);
 
                     let stack = $(context.$container).closest('.ge.ge-widget').get(0).__vue__;
                     let vue = context.$originalItem.find('.ge.ge-widget:first').get(0).__vue__;
+
+                    // console.log(vue.widget.name == 'default-util/default-util-group/default-stub')
+                    // if ()
 
                     dragged = {
                         stack: stack,

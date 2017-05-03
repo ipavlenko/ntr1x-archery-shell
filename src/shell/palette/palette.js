@@ -28,6 +28,7 @@
                 group: 'widgets',
                 containerSelector: '.wg-sortable-container',
                 itemSelector: '.wg-sortable-item',
+                dropSelector: '.wg-sortable-item',
                 drop: false,
             });
         },

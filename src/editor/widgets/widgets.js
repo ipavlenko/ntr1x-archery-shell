@@ -17,7 +17,8 @@
                 offset: 'position',
 
                 containerSelector: 'tbody',
-                itemSelector: 'tr',
+                dragSelector: 'tr',
+                dropSelector: 'tr',
                 excludeSelector: '.btn',
 
                 placeholder: `
