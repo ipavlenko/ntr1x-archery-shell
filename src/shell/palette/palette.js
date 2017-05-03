@@ -27,7 +27,7 @@
             this.sortable = $(this.$el).sortable({
                 group: 'widgets',
                 containerSelector: '.wg-sortable-container',
-                itemSelector: '.wg-sortable-item',
+                dragSelector: '.wg-sortable-item',
                 dropSelector: '.wg-sortable-item',
                 drop: false,
             });
