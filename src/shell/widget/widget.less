@@ -40,7 +40,7 @@
             display: inline-block;
             position: absolute;
             // top: -24px;
-            bottom: 100%;
+            // bottom: 100%;
             left: -2px;
             padding: 4px;
             background: #50FF50;
@@ -58,6 +58,10 @@
                 font-size: 12px;
                 padding: 2px 4px;
                 margin: 0px 2px 0px 0px;
+
+                &.ge.ge-drag-handle {
+                    cursor: crosshair;
+                }
             }
         }
 
@@ -66,7 +70,7 @@
             display: inline-block;
             position: absolute;
             // top: -24px;
-            bottom: 100%;
+            // bottom: 100%;
             right: -2px;
             padding: 4px;
             text-align: right;
@@ -85,6 +89,19 @@
                 font-size: 12px;
                 padding: 2px 4px;
                 margin: 0px 0px 0px 2px;
+
+                &.ge.ge-drag-handle {
+                    cursor: move; /* fallback if grab cursor is unsupported */
+
+                    cursor: -webkit-grab;
+                    cursor: -moz-grab;
+                    cursor: grab;
+                    &:active {
+                        cursor: -webkit-grabbing;
+                        cursor: -moz-grabbing;
+                        cursor: grabbing;
+                    }
+                }
             }
         }
     }

@@ -19,6 +19,10 @@
                         <input class="form-control" type="text" id="storages-variables-dialog-name" required="true" v-model="current.name" />
                     </div>
                     <div class="form-group">
+                        <label for="storages-variables-dialog-title">Title</label>
+                        <input class="form-control" type="text" id="storages-variables-dialog-title" v-model="current.title" />
+                    </div>
+                    <div class="form-group">
                         <label for="storages-variables-dialog-value">Value</label>
                         <div class="input-group">
                             <input class="form-control" type="text" id="storages-variables-dialog-value" v-model="current.value" />
@@ -27,6 +31,15 @@
                                     <button type="button" class="btn btn-default" @click="open">...</button>
                                 </bindings>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group" v-if="current.type == 'multiple' || current.type == 'object'">
+                        <label for="storages-dialog-params">Variables</label>
+                        <div>
+                            <storages-variables
+                                :owner="current"
+                                property="variables"
+                            ></storages-variables>
                         </div>
                     </div>
                 </div>

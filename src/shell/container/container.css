@@ -14,7 +14,7 @@
   left: 15px;
   bottom: 15px;
   right: 15px;
-  overflow: auto;
+  overflow: hidden;
 }
 .ge.ge-container .ge.ge-container-scrollable .ge.ge-container-viewport {
   position: absolute;

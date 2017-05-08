@@ -24,6 +24,9 @@ body {
   background: rgba(200, 200, 200, 0.2);
   border-radius: 20px;
 }
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
 [data-vue-body] {
   position: absolute;
   top: 0px;

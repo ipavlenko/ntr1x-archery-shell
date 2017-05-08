@@ -29,7 +29,6 @@
 .ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-left {
   display: inline-block;
   position: absolute;
-  bottom: 100%;
   left: -2px;
   padding: 4px;
   background: #50FF50;
@@ -43,10 +42,12 @@
   padding: 2px 4px;
   margin: 0px 2px 0px 0px;
 }
+.ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-left > a.ge.ge-drag-handle {
+  cursor: crosshair;
+}
 .ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-right {
   display: inline-block;
   position: absolute;
-  bottom: 100%;
   right: -2px;
   padding: 4px;
   text-align: right;
@@ -60,6 +61,18 @@
   font-size: 12px;
   padding: 2px 4px;
   margin: 0px 0px 0px 2px;
+}
+.ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-right > a.ge.ge-drag-handle {
+  cursor: move;
+  /* fallback if grab cursor is unsupported */
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+}
+.ge.ge-widget .ge.ge-overlay > .ge.ge-overlay-right > a.ge.ge-drag-handle:active {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
 }
 .ge.ge-widget:hover > .ge.ge-overlay {
   display: block;

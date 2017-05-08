@@ -265,7 +265,7 @@
                 containerSelector: '.wg.wg-sortable-container.wg-sortable-editable',
                 dragSelector: '.wg.wg-sortable-item.wg-sortable-draggable:not(.wg-sortable-stub)',
                 dropSelector: '.wg.wg-sortable-item.wg-sortable-draggable',
-                excludeSelector: '.ge.ge-overlay, .dropdown-menu',
+                excludeSelector: '.ge.ge-drag-exclude, .dropdown-menu',
 
                 verticalClass: 'wg-sortable-vertical',
                 horizontalClass: 'wg-sortable-horizontal',

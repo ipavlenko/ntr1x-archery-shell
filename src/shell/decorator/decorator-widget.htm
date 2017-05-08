@@ -12,9 +12,9 @@
         </div>
         <div class="ge ge-overlay" v-if="$route && $route.meta.private && editable">
             <div class="ge ge-overlay-right">
-                <a href="#" @click.stop.prevent="showSettings()" class="label label-primary">Edit</a>
-                <a href="#" @click.stop.prevent="removeWidget()" class="label label-danger">Del</a>
-                <a href="#" @click.stop.prevent="showContext()" class="label label-success">Context</a>
+                <a href="#" @click.stop.prevent="showSettings()" class="label label-primary ge ge-drag-exclude">Edit</a>
+                <a href="#" @click.stop.prevent="removeWidget()" class="label label-danger ge ge-drag-exclude">Del</a>
+                <a class="label label-success ge ge-drag-handle">Drag</a>
             </div>
         </div>
     </div>
